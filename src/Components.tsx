@@ -234,18 +234,6 @@ export const BottomNav = () => {
     <nav className="md:hidden fixed bottom-0 left-0 w-full h-20 bg-background/80 backdrop-blur-2xl flex justify-around items-center px-4 pb-safe z-50 border-t border-outline-variant/10">
       {navItems.map((item) => {
         const isActive = location.pathname === item.path;
-        if (item.primary) {
-          return (
-            <Link
-              key={item.label}
-              to={item.path}
-              className="flex flex-col items-center justify-center bg-primary text-on-primary rounded-full w-14 h-14 mb-6 shadow-lg scale-110 active:scale-95 transition-transform"
-            >
-              <item.icon size={24} />
-              <span className="font-headline text-[8px] font-bold tracking-widest uppercase mt-0.5">{item.label}</span>
-            </Link>
-          );
-        }
         return (
           <Link
             key={item.label}
@@ -458,7 +446,7 @@ export const Dashboard = () => {
     <div className="flex-1 px-4 sm:px-6 md:px-12 py-8 sm:py-12 max-w-7xl mx-auto w-full min-w-0 pb-4 md:pb-0">
       <header className="mb-10 sm:mb-16">
         <h2 className="text-4xl sm:text-5xl font-headline font-extrabold text-primary tracking-tight leading-tight mb-4 break-words">Reference <span className="text-tertiary italic font-body font-medium">Hub</span></h2>
-        <p className="text-lg text-on-surface-variant max-w-2xl font-body leading-relaxed">Everything you need to master the ukulele, organized for quick access. No lessons, just pure knowledge.</p>
+        <p className="text-lg text-on-surface-variant max-w-2xl font-body leading-relaxed">Everything you need to master the ukulele, organized for quick access</p>
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
