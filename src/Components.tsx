@@ -262,6 +262,49 @@ export const BottomNav = () => {
   );
 };
 
+export const LessonFooter = ({ 
+  backPath, 
+  backLabel, 
+  nextPath, 
+  nextLabel, 
+  nextIcon: NextIcon = ArrowLeft 
+}: { 
+  backPath: string, 
+  backLabel: string, 
+  nextPath?: string, 
+  nextLabel?: string, 
+  nextIcon?: any 
+}) => (
+  <footer className="mt-20 flex flex-col md:flex-row justify-between items-center gap-8 py-12 border-t-2 border-surface-container-highest">
+    <Link 
+      to={backPath} 
+      className="flex items-center gap-4 group hover:bg-surface-container-low px-6 py-3 rounded-2xl transition-all"
+    >
+      <div className="w-12 h-12 rounded-full border-2 border-outline-variant/30 flex items-center justify-center group-hover:border-primary transition-colors">
+        <ArrowLeft size={20} className="text-outline group-hover:text-primary transition-colors" />
+      </div>
+      <div>
+        <p className="font-label text-[10px] text-outline uppercase tracking-widest font-bold group-hover:text-primary/70 transition-colors">
+          Previous
+        </p>
+        <p className="font-headline font-bold text-primary text-sm">
+          {backLabel}
+        </p>
+      </div>
+    </Link>
+
+    {nextPath && nextLabel && (
+      <Link 
+        to={nextPath} 
+        className="w-full md:w-auto px-12 py-5 bg-gradient-to-br from-primary to-primary-container text-on-primary rounded-full font-headline font-extrabold text-lg shadow-xl hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-3 group"
+      >
+        {nextLabel}
+        <NextIcon size={24} className="group-hover:translate-x-1 transition-transform" />
+      </Link>
+    )}
+  </footer>
+);
+
 // --- Views ---
 
 export const Onboarding = () => (
@@ -464,6 +507,13 @@ export const Strumming = () => {
           </div>
         </div>
       </div>
+      <LessonFooter 
+        backPath="/lessons/chord"
+        backLabel="Chords & Fingers"
+        nextPath="/dashboard"
+        nextLabel="Back to Reference Hub"
+        nextIcon={LayoutDashboard}
+      />
     </div>
   );
 };
@@ -816,30 +866,13 @@ export const Anatomy = () => {
         </div>
       </div>
 
-      <div className="flex flex-col md:flex-row justify-between items-center py-12 border-t-2 border-surface-container-highest gap-8">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-full border-2 border-tertiary flex items-center justify-center">
-            <Info size={20} className="text-tertiary" />
-          </div>
-          <div>
-            <p className="font-headline font-bold text-primary text-sm">
-              Anatomy Guide
-            </p>
-            <p className="font-label text-[10px] text-outline uppercase tracking-widest font-bold">
-              Reference Page
-            </p>
-          </div>
-        </div>
-        <div className="flex gap-4 w-full md:w-auto">
-          <Link 
-            to="/lessons/chord" 
-            className="flex-1 md:flex-none px-12 py-5 bg-gradient-to-br from-primary to-primary-container text-on-primary rounded-full font-headline font-extrabold text-lg shadow-xl hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-3"
-          >
-            Explore Chords & Fingers
-            <Hand size={24} />
-          </Link>
-        </div>
-      </div>
+      <LessonFooter 
+        backPath="/dashboard"
+        backLabel="Reference Hub"
+        nextPath="/lessons/chord"
+        nextLabel="Explore Chords & Fingers"
+        nextIcon={Hand}
+      />
     </div>
   );
 };
@@ -1059,6 +1092,17 @@ export const ChordsAndFingers = () => {
                     <div className="text-xs text-outline">Listen for the clean ring</div>
                   </div>
                 </div>
+                <button 
+                  onClick={() => {
+                    const currentIndex = chordsList.findIndex(c => c.name === currentChord);
+                    const nextIndex = (currentIndex + 1) % chordsList.length;
+                    setCurrentChord(chordsList[nextIndex].name);
+                  }}
+                  className="w-full px-6 py-3 rounded-xl font-label text-xs font-bold border border-outline-variant/30 text-outline hover:bg-surface-container transition-all flex items-center justify-center gap-2 hover:border-primary hover:text-primary"
+                >
+                  <Music size={14} />
+                  Switch to Next Chord
+                </button>
               </div>
             </div>
           </div>
@@ -1108,22 +1152,13 @@ export const ChordsAndFingers = () => {
         </div>
       </div>
 
-      <div className="mt-20 flex flex-col md:flex-row justify-between items-center gap-6 pt-12 border-t border-outline-variant/20">
-        <Link to="/dashboard" className="font-label font-bold text-outline hover:text-primary transition-colors flex items-center gap-2 px-6 py-3 rounded-full hover:bg-surface-container">
-          <LayoutDashboard size={20} />
-          Back to Hub
-        </Link>
-        <button 
-          onClick={() => {
-            const currentIndex = chordsList.findIndex(c => c.name === currentChord);
-            const nextIndex = (currentIndex + 1) % chordsList.length;
-            setCurrentChord(chordsList[nextIndex].name);
-          }}
-          className="w-full md:w-auto px-10 py-3 rounded-full font-label font-bold border border-outline text-outline hover:bg-surface-container transition-all"
-        >
-          Next Chord
-        </button>
-      </div>
+      <LessonFooter 
+        backPath="/lessons/anatomy"
+        backLabel="Anatomy Guide"
+        nextPath="/lessons/strumming"
+        nextLabel="Master Strumming Patterns"
+        nextIcon={Music}
+      />
     </div>
   );
 };
