@@ -226,7 +226,7 @@ export const BottomNav = () => {
   const navItems = [
     { icon: Home, label: 'Home', path: '/dashboard' },
     { icon: Ruler, label: 'Anatomy', path: '/lessons/anatomy' },
-    { icon: Hand, label: 'Chords', path: '/lessons/chord', primary: true },
+    { icon: Hand, label: 'Chords', path: '/lessons/chord' },
     { icon: Music, label: 'Strum', path: '/lessons/strumming' },
   ];
 
