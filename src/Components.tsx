@@ -911,6 +911,17 @@ export const ChordsAndFingers = () => {
 
   const selectedChordData = chordsList.find(c => c.name === currentChord) || chordsList[0];
 
+  /** Open strings per chord, left → right as labeled G, C, E, A */
+  const chordOpenStrings: Record<string, boolean[]> = {
+    C: [true, true, true, false],
+    G: [true, false, false, false],
+    F: [false, true, false, true],
+    Am: [false, true, true, true],
+    Dm: [false, false, false, true],
+    G7: [true, false, false, false],
+  };
+  const openForChord = chordOpenStrings[currentChord] ?? [false, false, false, false];
+
   return (
     <div className="pt-24 pb-32 px-4 md:px-8 max-w-7xl mx-auto">
       <LessonHeader 
@@ -945,23 +956,28 @@ export const ChordsAndFingers = () => {
             </div>
           </section>
 
+
           <section className="bg-surface-container-low p-8 rounded-[32px] border border-outline-variant/30 editorial-shadow">
-            <h3 className="font-headline text-2xl font-bold mb-6 flex items-center gap-3 text-secondary">
-              <UserCircle size={24} />
-              Finger Numbers
+            <h3 className="font-headline text-2xl font-bold mb-6 flex items-center gap-3 text-tertiary">
+              <CircleDot size={24} />
+              Reading chord diagrams
             </h3>
-            <div className="grid grid-cols-2 gap-4">
-              {[
-                { n: '1', name: 'Index' },
-                { n: '2', name: 'Middle' },
-                { n: '3', name: 'Ring' },
-                { n: '4', name: 'Pinky' },
-              ].map((f) => (
-                <div key={f.n} className="flex flex-col items-center p-4 bg-surface-container rounded-2xl">
-                  <span className="text-3xl font-headline font-black text-secondary mb-1">{f.n}</span>
-                  <span className="text-xs font-label uppercase tracking-widest text-outline font-bold">{f.name}</span>
-                </div>
-              ))}
+            <div className="space-y-4 text-sm font-body text-on-surface-variant leading-relaxed">
+              <p>
+                The numbers on the chord diagrams represent which finger to use when pressing the strings:
+              </p>
+              <ul className="list-disc pl-5 space-y-1.5 text-on-surface-variant">
+                <li><span className="font-semibold text-on-surface">1</span> = Index finger</li>
+                <li><span className="font-semibold text-on-surface">2</span> = Middle finger</li>
+                <li><span className="font-semibold text-on-surface">3</span> = Ring finger</li>
+                <li><span className="font-semibold text-on-surface">4</span> = Pinky finger (not shown here, but used in other chords)</li>
+              </ul>
+              <p>
+                So for example, in the <span className="font-semibold text-primary">G</span> chord, you&apos;d place your index finger (1) and middle finger (2) on the second fret, then your ring finger (3) on the third fret.
+              </p>
+              <p>
+                The circles at the top (without numbers) mean that string is played open — no finger needed, just strum it freely.
+              </p>
             </div>
           </section>
         </div>
@@ -991,80 +1007,104 @@ export const ChordsAndFingers = () => {
             </div>
             <div className="flex flex-col md:flex-row items-center justify-between gap-12 relative z-10">
               <div className="w-full max-w-[320px] aspect-[3/4] bg-surface-container-low rounded-2xl p-8 flex flex-col justify-between shadow-sm border border-outline-variant/10">
-                <div className="flex justify-between px-4">
-                  {['G', 'C', 'E', 'A'].map(s => <span key={s} className="font-label text-xs text-outline font-bold">{s}</span>)}
+                <div className="flex px-4">
+                  {['G', 'C', 'E', 'A'].map((s) => (
+                    <div key={s} className="flex-1 flex justify-center min-w-0">
+                      <span className="font-label text-xs text-outline font-bold">{s}</span>
+                    </div>
+                  ))}
                 </div>
-                <div className="relative flex-1 mt-4 mx-4 flex justify-between border-t-4 border-primary/20">
-                  <div className="absolute inset-0 flex justify-between px-[1px]">
-                    {[1, 2, 3, 4].map(i => <div key={i} className="w-[1px] h-full bg-outline/40" />)}
+                <div className="flex justify-between px-4 mt-3 mb-1 min-h-[28px] items-center">
+                  {openForChord.map((isOpen, i) => (
+                    <div key={i} className="flex-1 flex justify-center">
+                      {isOpen ? (
+                        <span
+                          className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 border-primary/70 bg-transparent shadow-sm"
+                          title="Open string"
+                          aria-label="Open string — strum without fretting"
+                        />
+                      ) : (
+                        <span className="block h-7 w-7 shrink-0" />
+                      )}
+                    </div>
+                  ))}
+                </div>
+                <div className="relative flex-1 mt-1 mx-4 border-t-4 border-primary/20">
+                  {/* Vertical string lines — centered in 4 equal columns (matches labels & open-string row) */}
+                  <div className="absolute inset-0 grid grid-cols-4 pointer-events-none">
+                    {[0, 1, 2, 3].map((i) => (
+                      <div key={i} className="flex justify-center h-full">
+                        <div className="w-px h-full bg-outline/40" />
+                      </div>
+                    ))}
                   </div>
-                  <div className="absolute inset-0 flex flex-col justify-between">
-                    {[1, 2, 3, 4, 5].map(i => <div key={i} className="h-[1px] w-full bg-outline/20" />)}
+                  <div className="absolute inset-0 flex flex-col justify-between pointer-events-none">
+                    {[1, 2, 3, 4, 5].map((i) => <div key={i} className="h-px w-full bg-outline/20" />)}
                   </div>
 
-                  {/* Finger positions for current chord */}
+                  {/* Finger dots: left→right G,C,E,A at 12.5%, 37.5%, 62.5%, 87.5%; frets 1–4 vertical bands */}
                   {currentChord === 'C' && (
                     <motion.div
                       animate={{ scale: isPlaying ? [1, 1.2, 1] : 1 }}
-                      className="absolute bottom-[12.5%] right-[-14px] w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg transform -translate-y-1/2 cursor-pointer z-20"
+                      className="absolute left-[87.5%] top-[62.5%] -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg cursor-pointer z-20"
                       onClick={handlePlay}
                     >3</motion.div>
                   )}
                   {currentChord === 'G' && (
                     <>
-                      <div className="absolute top-[37.5%] left-[25%] -translate-x-1/2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">1</div>
-                      <div className="absolute top-[37.5%] right-[-14px] w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">2</div>
-                      <div className="absolute top-[62.5%] left-[75%] -translate-x-1/2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">3</div>
+                      <div className="absolute left-[37.5%] top-[37.5%] -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">1</div>
+                      <div className="absolute left-[87.5%] top-[37.5%] -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">2</div>
+                      <div className="absolute left-[62.5%] top-[62.5%] -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">3</div>
                     </>
                   )}
                   {currentChord === 'F' && (
                     <>
-                      <div className="absolute top-[12.5%] left-[75%] -translate-x-1/2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">1</div>
-                      <div className="absolute top-[37.5%] left-[-14px] w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">2</div>
+                      <div className="absolute left-[62.5%] top-[12.5%] -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">1</div>
+                      <div className="absolute left-[12.5%] top-[37.5%] -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">2</div>
                     </>
                   )}
                   {currentChord === 'Am' && (
-                    <div className="absolute top-[37.5%] left-[-14px] w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">2</div>
+                    <div className="absolute left-[12.5%] top-[37.5%] -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">2</div>
                   )}
                   {currentChord === 'Dm' && (
                     <>
-                      <div className="absolute top-[37.5%] left-[-14px] w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">2</div>
-                      <div className="absolute top-[37.5%] left-[25%] -translate-x-1/2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">3</div>
-                      <div className="absolute top-[12.5%] left-[75%] -translate-x-1/2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">1</div>
+                      <div className="absolute left-[62.5%] top-[12.5%] -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">1</div>
+                      <div className="absolute left-[37.5%] top-[37.5%] -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">2</div>
+                      <div className="absolute left-[12.5%] top-[37.5%] -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">3</div>
                     </>
                   )}
                   {currentChord === 'G7' && (
                     <>
-                      <div className="absolute top-[12.5%] left-[75%] -translate-x-1/2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">1</div>
-                      <div className="absolute top-[37.5%] left-[25%] -translate-x-1/2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">2</div>
-                      <div className="absolute top-[37.5%] right-[-14px] w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">3</div>
+                      <div className="absolute left-[62.5%] top-[12.5%] -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">1</div>
+                      <div className="absolute left-[37.5%] top-[37.5%] -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">2</div>
+                      <div className="absolute left-[87.5%] top-[37.5%] -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">3</div>
                     </>
                   )}
                   {currentChord === 'D' && (
                     <>
-                      <div className="absolute top-[37.5%] left-[-14px] w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">1</div>
-                      <div className="absolute top-[37.5%] left-[25%] -translate-x-1/2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">2</div>
-                      <div className="absolute top-[37.5%] left-[75%] -translate-x-1/2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">3</div>
+                      <div className="absolute left-[12.5%] top-[37.5%] -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">1</div>
+                      <div className="absolute left-[37.5%] top-[37.5%] -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">2</div>
+                      <div className="absolute left-[62.5%] top-[37.5%] -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">3</div>
                     </>
                   )}
                   {currentChord === 'Em' && (
                     <>
-                      <div className="absolute top-[37.5%] right-[-14px] w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">1</div>
-                      <div className="absolute top-[62.5%] left-[75%] -translate-x-1/2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">2</div>
-                      <div className="absolute top-[87.5%] left-[25%] -translate-x-1/2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">3</div>
+                      <div className="absolute left-[87.5%] top-[37.5%] -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">1</div>
+                      <div className="absolute left-[62.5%] top-[62.5%] -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">2</div>
+                      <div className="absolute left-[37.5%] top-[87.5%] -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">3</div>
                     </>
                   )}
                   {currentChord === 'A' && (
                     <>
-                      <div className="absolute top-[12.5%] left-[25%] -translate-x-1/2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">1</div>
-                      <div className="absolute top-[37.5%] left-[-14px] w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">2</div>
+                      <div className="absolute left-[37.5%] top-[12.5%] -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">1</div>
+                      <div className="absolute left-[12.5%] top-[37.5%] -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">2</div>
                     </>
                   )}
                   {currentChord === 'E7' && (
                     <>
-                      <div className="absolute top-[12.5%] left-[-14px] w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">1</div>
-                      <div className="absolute top-[37.5%] left-[25%] -translate-x-1/2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">2</div>
-                      <div className="absolute top-[37.5%] right-[-14px] w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">3</div>
+                      <div className="absolute left-[12.5%] top-[12.5%] -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">1</div>
+                      <div className="absolute left-[37.5%] top-[37.5%] -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">2</div>
+                      <div className="absolute left-[87.5%] top-[37.5%] -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg z-20">3</div>
                     </>
                   )}
                 </div>
