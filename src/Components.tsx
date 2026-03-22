@@ -12,13 +12,12 @@ import {
   Info,
   Play,
   Music,
-  Search,
   Hand,
   Hash,
   CircleDot
 } from 'lucide-react';
 import { cn } from './lib/utils';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion } from 'motion/react';
 
 // --- Context & State ---
 
@@ -576,7 +575,7 @@ export const Strumming = () => {
   );
 };
 
-const UkuleleSVG = ({ isZoomed = false, selectedId = null, onClick, className }: { isZoomed?: boolean, selectedId?: string | null, onClick?: () => void, className?: string }) => {
+const UkuleleSVG = ({ selectedId = null, onClick, className }: { selectedId?: string | null, onClick?: () => void, className?: string }) => {
   const id = React.useId().replace(/:/g, '');
   const woodId = `wood-${id}`;
   const grainId = `grain-${id}`;
@@ -587,15 +586,14 @@ const UkuleleSVG = ({ isZoomed = false, selectedId = null, onClick, className }:
       viewBox="0 0 200 600"
       onClick={onClick}
       className={cn(
-        "z-10",
-        !isZoomed ? "h-full w-auto drop-shadow-[0_25px_50px_rgba(0,0,0,0.15)]" : "w-full h-full",
+        "z-10 h-full w-auto drop-shadow-[0_25px_50px_rgba(0,0,0,0.15)]",
         onClick && "cursor-pointer",
         className
       )}
-      animate={!isZoomed ? {
+      animate={{
         rotate: selectedId ? 0.5 : 0,
         scale: selectedId ? 1.01 : 1
-      } : {}}
+      }}
     >
       <defs>
         <linearGradient id={woodId} x1="0%" y1="0%" x2="100%" y2="0%">
@@ -797,15 +795,17 @@ export const Anatomy = () => {
   const { completeLesson, completedLessons } = useApp();
 
   const parts = [
-    { id: 'headstock', title: 'Headstock', desc: 'The top piece where strings are anchored and tuned.', side: 'left', top: '8.3%', left: '50%', zoomX: 100, zoomY: 50, scale: 1.3 },
-    { id: 'nut', title: 'Nut', desc: 'The grooved strip that supports the strings at the headstock.', side: 'left', top: '16.6%', left: '50%', zoomX: 100, zoomY: 100, scale: 1.3 },
-    { id: 'frets', title: 'Frets', desc: 'Metal strips along the neck that define different notes.', side: 'left', top: '34%', left: '50%', zoomX: 100, zoomY: 205, scale: 1.3 },
-    { id: 'strings', title: 'Strings', desc: 'Typically nylon, tuned to G-C-E-A for a standard ukulele.', side: 'left', top: '50%', left: '50%', zoomX: 100, zoomY: 300, scale: 1.3 },
-    { id: 'pegs', title: 'Tuning Pegs', desc: 'Geared mechanisms used to adjust string tension and pitch.', side: 'right', top: '9.1%', left: '50%', zoomX: 100, zoomY: 55, scale: 1.3 },
-    { id: 'neck', title: 'Neck & Fretboard', desc: 'The long part of the instrument where you press your fingers.', side: 'right', top: '37.5%', left: '50%', zoomX: 100, zoomY: 225, scale: 1.3 },
-    { id: 'body', title: 'Body', desc: 'The hollow chamber that amplifies the vibrating strings.', side: 'right', top: '77.5%', left: '50%', zoomX: 100, zoomY: 465, scale: 1.3 },
-    { id: 'bridge', title: 'Bridge', desc: 'Transfers string vibration to the top of the body\'s wood.', side: 'right', top: '85%', left: '50%', zoomX: 100, zoomY: 510, scale: 1.3 },
+    { id: 'headstock', title: 'Headstock', desc: 'The top piece where strings are anchored and tuned.', side: 'left' as const },
+    { id: 'nut', title: 'Nut', desc: 'The grooved strip that supports the strings at the headstock.', side: 'left' as const },
+    { id: 'frets', title: 'Frets', desc: 'Metal strips along the neck that define different notes.', side: 'left' as const },
+    { id: 'strings', title: 'Strings', desc: 'Typically nylon, tuned to G-C-E-A for a standard ukulele.', side: 'left' as const },
+    { id: 'pegs', title: 'Tuning Pegs', desc: 'Geared mechanisms used to adjust string tension and pitch.', side: 'right' as const },
+    { id: 'neck', title: 'Neck & Fretboard', desc: 'The long part of the instrument where you press your fingers.', side: 'right' as const },
+    { id: 'body', title: 'Body', desc: 'The hollow chamber that amplifies the vibrating strings.', side: 'right' as const },
+    { id: 'bridge', title: 'Bridge', desc: 'Transfers string vibration to the top of the body\'s wood.', side: 'right' as const },
   ];
+  const partsLeft = parts.filter((p) => p.side === 'left');
+  const partsRight = parts.filter((p) => p.side === 'right');
 
   const handleComplete = () => {
     completeLesson('anatomy');
@@ -822,10 +822,10 @@ export const Anatomy = () => {
         accentColor="text-tertiary"
       />
 
-      <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-24">
-        {/* Left Column: All 8 Parts */}
-        <div className="lg:col-span-3 flex flex-col gap-6 text-right order-2 lg:order-1">
-          {parts.map((item) => (
+      <section className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(260px,340px)_minmax(0,1fr)] gap-10 lg:gap-12 items-start lg:items-center mb-24">
+        {/* Left column: 4 parts */}
+        <div className="flex flex-col gap-6 text-right order-2 lg:order-1">
+          {partsLeft.map((item) => (
             <div
               key={item.id}
               onClick={() => setSelectedPart(prev => prev === item.id ? null : item.id)}
@@ -847,85 +847,36 @@ export const Anatomy = () => {
           ))}
         </div>
 
-        {/* Center Column: Ukulele SVG */}
-        <div className="lg:col-span-4 relative order-1 lg:order-2 flex justify-center min-h-[600px] w-full max-w-[320px] mx-auto pt-12">
+        {/* Center: ukulele diagram */}
+        <div className="relative order-1 lg:order-2 flex justify-center min-h-[560px] w-full max-w-[320px] mx-auto pt-8 lg:pt-12 lg:justify-self-center">
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent rounded-full blur-3xl -z-10 scale-75" />
           <UkuleleSVG selectedId={selectedPart} onClick={() => setSelectedPart(null)} />
         </div>
 
-        {/* Right Column: Magnified Preview */}
-        <div className="lg:col-span-5 flex flex-col items-center justify-center order-3 min-h-[500px] bg-surface-container-low rounded-[40px] p-12 border border-outline-variant/30 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-tertiary/5 rounded-full blur-3xl -mr-32 -mt-32" />
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -ml-32 -mb-32" />
-
-          <AnimatePresence mode="wait">
-            {selectedPart ? (
-              <motion.div
-                key={selectedPart}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                className="flex flex-col items-center text-center w-full z-10"
-              >
-                <div className="relative mb-12">
-                  <div className="absolute inset-0 bg-tertiary/20 rounded-full blur-2xl scale-110" />
-                  <div className="w-64 h-64 rounded-full border-8 border-surface bg-surface shadow-[0_20px_50px_rgba(0,0,0,0.15)] overflow-hidden relative">
-                    <div
-                      className="absolute"
-                      style={{
-                        width: `${200 * (parts.find(p => p.id === selectedPart)?.scale || 4) * 1.5}px`,
-                        height: `${600 * (parts.find(p => p.id === selectedPart)?.scale || 4) * 1.5}px`,
-                        top: `-${((parts.find(p => p.id === selectedPart)?.zoomY || 0) * (parts.find(p => p.id === selectedPart)?.scale || 4) * 1.5) - 128}px`,
-                        left: `-${((parts.find(p => p.id === selectedPart)?.zoomX || 0) * (parts.find(p => p.id === selectedPart)?.scale || 4) * 1.5) - 128}px`,
-                      }}
-                    >
-                      <UkuleleSVG isZoomed selectedId={selectedPart} />
-                    </div>
-                    {/* Glass Effect */}
-                    <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-white/20 pointer-events-none shadow-[inset_0_0_60px_rgba(0,0,0,0.1)]" />
-                  </div>
-                </div>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
-                >
-                  <h3 className="text-3xl font-headline font-extrabold text-primary mb-4">{parts.find(p => p.id === selectedPart)?.title}</h3>
-                  <p className="text-lg text-on-surface-variant font-body leading-relaxed max-w-sm">
-                    {parts.find(p => p.id === selectedPart)?.desc}
-                  </p>
-                </motion.div>
-              </motion.div>
-            ) : (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="flex flex-col items-center text-center text-outline/40"
-              >
-                <div className="w-32 h-32 rounded-full border-4 border-dashed border-outline/20 flex items-center justify-center mb-6">
-                  <Search className="w-12 h-12" />
-                </div>
-                <p className="font-headline font-bold text-xl uppercase tracking-widest">Select a part</p>
-                <p className="text-sm font-body mt-2">to see a magnified view</p>
-              </motion.div>
-            )}
-          </AnimatePresence>
+        {/* Right column: 4 parts */}
+        <div className="flex flex-col gap-6 text-left order-3">
+          {partsRight.map((item) => (
+            <div
+              key={item.id}
+              onClick={() => setSelectedPart(prev => prev === item.id ? null : item.id)}
+              className={cn(
+                "group cursor-pointer transition-all duration-300",
+                selectedPart === item.id ? "scale-105" : "hover:translate-x-1"
+              )}
+            >
+              <h4 className={cn(
+                "font-headline font-bold text-lg transition-colors",
+                selectedPart === item.id ? "text-tertiary" : "text-primary group-hover:text-tertiary"
+              )}>{item.title}</h4>
+              <p className="text-sm font-body text-outline mt-1 opacity-80 leading-snug">{item.desc}</p>
+              <div className={cn(
+                "h-0.5 mr-auto mt-3 transition-all duration-500",
+                selectedPart === item.id ? "w-full bg-tertiary" : "w-8 bg-surface-container-highest group-hover:w-full group-hover:bg-tertiary"
+              )} />
+            </div>
+          ))}
         </div>
       </section>
-
-      <div className="bg-surface-container p-8 md:p-12 rounded-3xl relative overflow-hidden mb-24">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-secondary-container/20 rounded-full -mr-20 -mt-20 blur-3xl" />
-        <div className="relative z-10 flex flex-col md:flex-row md:items-center gap-8">
-          <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center shrink-0 text-on-primary">
-            <Info size={32} />
-          </div>
-          <div>
-            <h3 className="font-headline font-extrabold text-2xl text-on-surface mb-2">Pro Tip: Resonance Matters</h3>
-            <p className="font-body text-lg text-on-surface-variant leading-relaxed">Most entry-level ukuleles are made of laminate wood, but professional instruments use solid Koa or Mahogany. This choice of wood—the "tonewood"—defines whether your uke sounds bright or warm.</p>
-          </div>
-        </div>
-      </div>
 
       <LessonFooter
         backPath="/dashboard"
@@ -1140,15 +1091,6 @@ export const ChordsAndFingers = () => {
                   <PlayCircle size={24} className={cn(isPlaying && "animate-spin")} />
                   {isPlaying ? 'Playing...' : 'Play Sample'}
                 </button>
-                <div className="flex items-center gap-4 p-4 bg-surface-container-low rounded-2xl border border-outline-variant/10">
-                  <div className="w-10 h-10 rounded-full bg-tertiary-fixed text-tertiary flex items-center justify-center">
-                    <PlayCircle size={20} />
-                  </div>
-                  <div>
-                    <div className="text-sm font-bold text-on-surface">Practice Mode</div>
-                    <div className="text-xs text-outline">Listen for the clean ring</div>
-                  </div>
-                </div>
                 <button
                   onClick={() => {
                     const currentIndex = chordsList.findIndex(c => c.name === currentChord);
