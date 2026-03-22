@@ -23,6 +23,9 @@
   --color-surface-container-highest: #e6e2df;
   --color-outline: #847469;
   --color-outline-variant: #d7c3b6;
+  /* Used for A-string badge in String Names (matches diagram string accent) */
+  --color-error: #b3261e;
+  --color-on-error: #ffffff;
 }
 
 @layer base {

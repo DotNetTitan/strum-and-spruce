@@ -934,9 +934,9 @@ export const ChordsAndFingers = () => {
         stacked={true}
       />
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-24">
-        <div className="lg:col-span-4 space-y-8">
-          <section className="bg-surface-container-low p-8 rounded-[32px] border border-outline-variant/30 editorial-shadow">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-12 gap-y-8 mb-20">
+        <div className="lg:col-span-4 flex flex-col gap-8 min-h-0 lg:h-full">
+          <section className="bg-surface-container-low p-8 rounded-[32px] border border-outline-variant/30 editorial-shadow shrink-0">
             <h3 className="font-headline text-2xl font-bold mb-6 flex items-center gap-3 text-primary">
               <Hash size={24} />
               String Names
@@ -956,34 +956,29 @@ export const ChordsAndFingers = () => {
             </div>
           </section>
 
-
-          <section className="bg-surface-container-low p-8 rounded-[32px] border border-outline-variant/30 editorial-shadow">
-            <h3 className="font-headline text-2xl font-bold mb-6 flex items-center gap-3 text-tertiary">
-              <CircleDot size={24} />
-              Reading chord diagrams
+          <section className="bg-surface-container-low p-8 rounded-[32px] border border-outline-variant/30 editorial-shadow flex-1 flex flex-col min-h-[240px]">
+            <h3 className="font-headline text-2xl font-bold mb-4 flex items-center gap-3 text-secondary shrink-0">
+              <UserCircle size={24} />
+              Finger numbers
             </h3>
-            <div className="space-y-4 text-sm font-body text-on-surface-variant leading-relaxed">
-              <p>
-                The numbers on the chord diagrams represent which finger to use when pressing the strings:
-              </p>
-              <ul className="list-disc pl-5 space-y-1.5 text-on-surface-variant">
-                <li><span className="font-semibold text-on-surface">1</span> = Index finger</li>
-                <li><span className="font-semibold text-on-surface">2</span> = Middle finger</li>
-                <li><span className="font-semibold text-on-surface">3</span> = Ring finger</li>
-                <li><span className="font-semibold text-on-surface">4</span> = Pinky finger (not shown here, but used in other chords)</li>
-              </ul>
-              <p>
-                So for example, in the <span className="font-semibold text-primary">G</span> chord, you&apos;d place your index finger (1) and middle finger (2) on the second fret, then your ring finger (3) on the third fret.
-              </p>
-              <p>
-                The circles at the top (without numbers) mean that string is played open — no finger needed, just strum it freely.
-              </p>
+            <div className="grid grid-cols-2 gap-3 sm:gap-4 flex-1 content-center">
+              {[
+                { n: '1', name: 'Index' },
+                { n: '2', name: 'Middle' },
+                { n: '3', name: 'Ring' },
+                { n: '4', name: 'Pinky' },
+              ].map((f) => (
+                <div key={f.n} className="flex flex-col items-center justify-center p-4 bg-surface-container rounded-2xl border border-outline-variant/10">
+                  <span className="text-3xl font-headline font-black text-secondary mb-1">{f.n}</span>
+                  <span className="text-xs font-label uppercase tracking-widest text-outline font-bold">{f.name}</span>
+                </div>
+              ))}
             </div>
           </section>
         </div>
 
-        <div className="lg:col-span-8">
-          <div className="flex flex-wrap gap-3 mb-8">
+        <div className="lg:col-span-8 space-y-8">
+          <div className="flex flex-wrap gap-3">
             {chordsList.map((chord) => (
               <button
                 key={chord.name}
@@ -999,22 +994,22 @@ export const ChordsAndFingers = () => {
               </button>
             ))}
           </div>
-          <div className="bg-surface-container rounded-3xl p-8 md:p-12 relative overflow-hidden group editorial-shadow">
+          <div className="bg-surface-container rounded-3xl p-6 md:p-8 relative overflow-hidden group editorial-shadow">
             <div className="absolute -top-24 -right-24 w-64 h-64 bg-secondary-container opacity-20 rounded-full blur-3xl transition-transform group-hover:scale-110 duration-700" />
-            <div className="mb-10">
+            <div className="mb-4 md:mb-6">
               <h2 className="text-4xl font-headline font-bold text-primary mb-2 line-clamp-1">{selectedChordData.label}</h2>
               <p className="text-on-surface-variant font-body line-clamp-1 opacity-80">{selectedChordData.desc}</p>
             </div>
-            <div className="flex flex-col md:flex-row items-center justify-between gap-12 relative z-10">
-              <div className="w-full max-w-[320px] aspect-[3/4] bg-surface-container-low rounded-2xl p-8 flex flex-col justify-between shadow-sm border border-outline-variant/10">
-                <div className="flex px-4">
+            <div className="flex flex-col md:flex-row md:flex-nowrap items-stretch md:items-start gap-6 md:gap-8 relative z-10">
+              <div className="w-full max-w-[300px] sm:max-w-[320px] bg-surface-container-low rounded-2xl p-4 flex flex-col gap-2 shadow-sm border border-outline-variant/10 mx-auto md:mx-0 shrink-0">
+                <div className="flex px-3">
                   {['G', 'C', 'E', 'A'].map((s) => (
                     <div key={s} className="flex-1 flex justify-center min-w-0">
                       <span className="font-label text-xs text-outline font-bold">{s}</span>
                     </div>
                   ))}
                 </div>
-                <div className="flex justify-between px-4 mt-3 mb-1 min-h-[28px] items-center">
+                <div className="flex px-3 mt-1 min-h-[28px] items-center">
                   {openForChord.map((isOpen, i) => (
                     <div key={i} className="flex-1 flex justify-center">
                       {isOpen ? (
@@ -1029,7 +1024,7 @@ export const ChordsAndFingers = () => {
                     </div>
                   ))}
                 </div>
-                <div className="relative flex-1 mt-1 mx-4 border-t-4 border-primary/20">
+                <div className="relative w-full aspect-[5/6] mt-1 mx-3 border-t-4 border-primary/20 shrink-0">
                   {/* Vertical string lines — centered in 4 equal columns (matches labels & open-string row) */}
                   <div className="absolute inset-0 grid grid-cols-4 pointer-events-none">
                     {[0, 1, 2, 3].map((i) => (
@@ -1108,12 +1103,12 @@ export const ChordsAndFingers = () => {
                     </>
                   )}
                 </div>
-                <div className="text-center pt-6">
+                <div className="text-center pt-1">
                   <span className="font-headline font-extrabold text-3xl text-primary">{currentChord}</span>
                 </div>
               </div>
 
-              <div className="flex flex-col gap-6 w-full md:w-auto">
+              <div className="flex flex-col gap-5 w-full md:w-auto md:min-w-[200px] md:pt-1 md:shrink-0">
                 <div className="space-y-2">
                   <span className="font-label text-xs uppercase tracking-widest text-outline block font-bold">Tuning</span>
                   <div className="flex gap-2">
@@ -1146,6 +1141,34 @@ export const ChordsAndFingers = () => {
             </div>
           </div>
         </div>
+
+        <section className="lg:col-span-12 bg-surface-container-low p-8 rounded-[32px] border border-outline-variant/30 editorial-shadow">
+          <h3 className="font-headline text-2xl font-bold mb-6 flex items-center gap-3 text-tertiary">
+            <CircleDot size={24} />
+            Reading chord diagrams
+          </h3>
+          <div className="space-y-4 text-sm font-body text-on-surface-variant leading-relaxed md:columns-2 md:gap-10">
+            <div className="break-inside-avoid space-y-4">
+              <p>
+                The numbers on the chord diagrams represent which finger to use when pressing the strings:
+              </p>
+              <ul className="list-disc pl-5 space-y-1.5 text-on-surface-variant">
+                <li><span className="font-semibold text-on-surface">1</span> = Index finger</li>
+                <li><span className="font-semibold text-on-surface">2</span> = Middle finger</li>
+                <li><span className="font-semibold text-on-surface">3</span> = Ring finger</li>
+                <li><span className="font-semibold text-on-surface">4</span> = Pinky finger (not shown here, but used in other chords)</li>
+              </ul>
+            </div>
+            <div className="break-inside-avoid space-y-4">
+              <p>
+                So for example, in the <span className="font-semibold text-primary">G</span> chord, you&apos;d place your index finger (1) and middle finger (2) on the second fret, then your ring finger (3) on the third fret.
+              </p>
+              <p>
+                The circles at the top (without numbers) mean that string is played open — no finger needed, just strum it freely.
+              </p>
+            </div>
+          </div>
+        </section>
       </div>
 
       <LessonFooter
