@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback, createContext, useContext } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { 
-  LayoutDashboard, 
-  Ruler, 
+import {
+  LayoutDashboard,
+  Ruler,
   UserCircle,
   Home,
   PlayCircle,
@@ -32,7 +32,7 @@ const AppContext = createContext<AppState | undefined>(undefined);
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
-    <AppContext.Provider value={{ progress: 0, completedLessons: [], completeLesson: () => {} }}>
+    <AppContext.Provider value={{ progress: 0, completedLessons: [], completeLesson: () => { } }}>
       {children}
     </AppContext.Provider>
   );
@@ -50,9 +50,9 @@ export const useUkuleleAudio = () => {
   const playChord = useCallback((chordName: string) => {
     const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
     if (!AudioContextClass) return;
-    
+
     const ctx = new AudioContextClass();
-    
+
     // Frequencies for G4, C4, E4, A4 (Standard Tuning)
     const tuning = {
       G: 392.00,
@@ -79,22 +79,22 @@ export const useUkuleleAudio = () => {
     const baseFreqs = [tuning.G, tuning.C, tuning.E, tuning.A];
 
     const now = ctx.currentTime;
-    
+
     fingerings.forEach((fret, i) => {
       const freq = baseFreqs[i] * Math.pow(2, fret / 12);
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
-      
+
       // Ukulele-like pluck sound
       osc.type = 'triangle';
       osc.frequency.setValueAtTime(freq, now);
-      
+
       gain.gain.setValueAtTime(0.3, now + (i * 0.05)); // Strum effect
       gain.gain.exponentialRampToValueAtTime(0.001, now + 1.5);
-      
+
       osc.connect(gain);
       gain.connect(ctx.destination);
-      
+
       osc.start(now + (i * 0.05));
       osc.stop(now + 1.5);
     });
@@ -103,7 +103,7 @@ export const useUkuleleAudio = () => {
   const playStrum = useCallback((chordName: string, pattern: string) => {
     const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
     if (!AudioContextClass) return;
-    
+
     const ctx = new AudioContextClass();
     const tuning = { G: 392.00, C: 261.63, E: 329.63, A: 440.00 };
     const chords: Record<string, number[]> = {
@@ -183,7 +183,7 @@ export const TopBar = ({ showBack = false }: { showBack?: boolean }) => (
 
 export const Sidebar = () => {
   const location = useLocation();
-  
+
   const navItems = [
     { icon: LayoutDashboard, label: 'Reference Hub', path: '/dashboard' },
     { icon: Ruler, label: 'Anatomy Guide', path: '/lessons/anatomy' },
@@ -203,8 +203,8 @@ export const Sidebar = () => {
                 to={item.path}
                 className={cn(
                   "flex items-center gap-3 px-4 py-3 rounded-r-full transition-all duration-300 group",
-                  isActive 
-                    ? "bg-secondary-container text-on-secondary-container font-bold shadow-sm" 
+                  isActive
+                    ? "bg-secondary-container text-on-secondary-container font-bold shadow-sm"
                     : "text-outline hover:bg-surface-container-low"
                 )}
               >
@@ -234,7 +234,7 @@ export const BottomNav = () => {
         const isActive = location.pathname === item.path;
         if (item.primary) {
           return (
-            <Link 
+            <Link
               key={item.label}
               to={item.path}
               className="flex flex-col items-center justify-center bg-primary text-on-primary rounded-full w-14 h-14 mb-6 shadow-lg scale-110 active:scale-95 transition-transform"
@@ -245,7 +245,7 @@ export const BottomNav = () => {
           );
         }
         return (
-          <Link 
+          <Link
             key={item.label}
             to={item.path}
             className={cn(
@@ -262,22 +262,45 @@ export const BottomNav = () => {
   );
 };
 
-export const LessonFooter = ({ 
-  backPath, 
-  backLabel, 
-  nextPath, 
-  nextLabel, 
-  nextIcon: NextIcon = ArrowLeft 
-}: { 
-  backPath: string, 
-  backLabel: string, 
-  nextPath?: string, 
-  nextLabel?: string, 
-  nextIcon?: any 
+export const ModuleTag = ({
+  label,
+  variant = 'basics'
+}: {
+  label: string,
+  variant?: 'basics' | 'technique' | 'rhythm'
+}) => {
+  const themes = {
+    basics: 'bg-tertiary-fixed text-on-tertiary-fixed-variant',
+    technique: 'bg-tertiary-fixed text-on-tertiary-fixed-variant',
+    rhythm: 'bg-tertiary-fixed text-on-tertiary-fixed-variant'
+  };
+
+  return (
+    <span className={cn(
+      "inline-block px-3 py-1 rounded-full font-label text-[10px] font-bold tracking-[0.1em] uppercase mb-4",
+      themes[variant]
+    )}>
+      {label}
+    </span>
+  );
+};
+
+export const LessonFooter = ({
+  backPath,
+  backLabel,
+  nextPath,
+  nextLabel,
+  nextIcon: NextIcon = ArrowLeft
+}: {
+  backPath: string,
+  backLabel: string,
+  nextPath?: string,
+  nextLabel?: string,
+  nextIcon?: any
 }) => (
   <footer className="mt-20 flex flex-col md:flex-row justify-between items-center gap-8 py-12 border-t-2 border-surface-container-highest">
-    <Link 
-      to={backPath} 
+    <Link
+      to={backPath}
       className="flex items-center gap-4 group hover:bg-surface-container-low px-6 py-3 rounded-2xl transition-all"
     >
       <div className="w-12 h-12 rounded-full border-2 border-outline-variant/30 flex items-center justify-center group-hover:border-primary transition-colors">
@@ -294,8 +317,8 @@ export const LessonFooter = ({
     </Link>
 
     {nextPath && nextLabel && (
-      <Link 
-        to={nextPath} 
+      <Link
+        to={nextPath}
         className="w-full md:w-auto px-12 py-5 bg-gradient-to-br from-primary to-primary-container text-on-primary rounded-full font-headline font-extrabold text-lg shadow-xl hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-3 group"
       >
         {nextLabel}
@@ -311,9 +334,9 @@ export const Onboarding = () => (
   <div className="min-h-screen flex flex-col md:flex-row items-stretch overflow-hidden bg-background">
     <section className="relative w-full md:w-1/2 lg:w-3/5 min-h-[400px] md:min-h-screen bg-surface-container overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent z-10" />
-      <img 
-        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFW0yqqXjs_Fm0uFQ8ZSIhA_4eGihWuPYmFR2t3-1MIJhoZVVpXyqArk557MMly_xKXQ1sARmdg5lF9JGKzdBh_TzhcCuySbxkER0NVUw637lnwcdg70MpIBaZeIKi5z9kTmLPT-Ww9bKsnoB4Tsw9OlfqKFjslxsPsbtS-AjAeZFi7d8oTkxQE89ZqlOY8RfLVOfTIqFt0uI-9sroNrv79AVX0WRA6yuO4iYa-oez7APwRMZfLTZcssObsLQ7O5dRJJG_g8Tk9kQ" 
-        alt="Ukulele Craftsmanship" 
+      <img
+        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFW0yqqXjs_Fm0uFQ8ZSIhA_4eGihWuPYmFR2t3-1MIJhoZVVpXyqArk557MMly_xKXQ1sARmdg5lF9JGKzdBh_TzhcCuySbxkER0NVUw637lnwcdg70MpIBaZeIKi5z9kTmLPT-Ww9bKsnoB4Tsw9OlfqKFjslxsPsbtS-AjAeZFi7d8oTkxQE89ZqlOY8RfLVOfTIqFt0uI-9sroNrv79AVX0WRA6yuO4iYa-oez7APwRMZfLTZcssObsLQ7O5dRJJG_g8Tk9kQ"
+        alt="Ukulele Craftsmanship"
         className="absolute inset-0 w-full h-full object-cover grayscale-[10%] sepia-[5%] contrast-[1.05]"
         referrerPolicy="no-referrer"
       />
@@ -356,8 +379,8 @@ export const Onboarding = () => (
       </div>
 
       <footer className="flex flex-col sm:flex-row items-center gap-6">
-        <Link 
-          to="/dashboard" 
+        <Link
+          to="/dashboard"
           className="w-full sm:w-auto px-10 py-4 bg-gradient-to-br from-primary to-primary-container text-on-primary font-headline font-bold rounded-full editorial-shadow hover:opacity-90 active:scale-95 transition-all duration-200 text-lg text-center"
         >
           Explore Reference
@@ -407,7 +430,7 @@ export const Dashboard = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
         {guides.map((guide) => (
-          <Link 
+          <Link
             key={guide.id}
             to={guide.path}
             className="group bg-surface-container-low p-8 rounded-[40px] border border-outline-variant/30 hover:border-tertiary/50 transition-all duration-500 hover:shadow-2xl hover:translate-y-[-8px] relative overflow-hidden"
@@ -449,15 +472,15 @@ export const Strumming = () => {
   return (
     <div className="pt-24 pb-32 px-4 md:px-8 max-w-7xl mx-auto">
       <header className="mb-12">
-        <span className="inline-block px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full font-label text-[10px] font-bold tracking-[0.1em] uppercase mb-4">Module 02: Rhythm</span>
-        <h2 className="text-5xl md:text-6xl font-headline font-extrabold text-primary tracking-tight leading-tight mb-4">Strumming <br/><span className="text-secondary italic font-body font-medium">Patterns</span></h2>
+        <ModuleTag label="Module 03: Rhythm" variant="rhythm" />
+        <h2 className="text-5xl md:text-6xl font-headline font-extrabold text-primary tracking-tight leading-tight mb-4">Strumming <br /><span className="text-secondary italic font-body font-medium">Patterns</span></h2>
         <p className="text-lg md:text-xl text-on-surface-variant max-w-2xl font-body leading-relaxed">Rhythm is the heartbeat of the ukulele. Master these patterns to bring your chords to life.</p>
       </header>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
         <div className="lg:col-span-8 space-y-6">
           {patterns.map((p) => (
-            <div 
+            <div
               key={p.id}
               onClick={() => setActivePattern(p.id)}
               className={cn(
@@ -471,7 +494,7 @@ export const Strumming = () => {
                   <p className="font-body text-on-surface-variant">{p.desc}</p>
                 </div>
                 {activePattern === p.id && (
-                  <button 
+                  <button
                     onClick={(e) => { e.stopPropagation(); handlePlay(); }}
                     disabled={isPlaying}
                     className="w-12 h-12 bg-primary text-on-primary rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform"
@@ -507,7 +530,7 @@ export const Strumming = () => {
           </div>
         </div>
       </div>
-      <LessonFooter 
+      <LessonFooter
         backPath="/lessons/chord"
         backLabel="Chords & Fingers"
         nextPath="/dashboard"
@@ -525,8 +548,8 @@ const UkuleleSVG = ({ isZoomed = false, selectedId = null, onClick, className }:
   const glowId = `glow-${id}`;
 
   return (
-    <motion.svg 
-      viewBox="0 0 200 600" 
+    <motion.svg
+      viewBox="0 0 200 600"
       onClick={onClick}
       className={cn(
         "z-10",
@@ -534,7 +557,7 @@ const UkuleleSVG = ({ isZoomed = false, selectedId = null, onClick, className }:
         onClick && "cursor-pointer",
         className
       )}
-      animate={!isZoomed ? { 
+      animate={!isZoomed ? {
         rotate: selectedId ? 0.5 : 0,
         scale: selectedId ? 1.01 : 1
       } : {}}
@@ -551,85 +574,85 @@ const UkuleleSVG = ({ isZoomed = false, selectedId = null, onClick, className }:
           <path d="M0 80 Q 25 70, 50 80 T 100 80" fill="none" stroke="rgba(0,0,0,0.08)" strokeWidth="0.8" />
         </pattern>
         <filter id={glowId}>
-          <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+          <feGaussianBlur stdDeviation="3" result="coloredBlur" />
           <feMerge>
-            <feMergeNode in="coloredBlur"/>
-            <feMergeNode in="SourceGraphic"/>
+            <feMergeNode in="coloredBlur" />
+            <feMergeNode in="SourceGraphic" />
           </feMerge>
         </filter>
       </defs>
 
       {/* Body - Lower Bout */}
-      <motion.path 
-        d="M100,380 C50,380 20,420 20,490 C20,560 50,600 100,600 C150,600 180,560 180,490 C180,420 150,380 100,380 Z" 
+      <motion.path
+        d="M100,380 C50,380 20,420 20,490 C20,560 50,600 100,600 C150,600 180,560 180,490 C180,420 150,380 100,380 Z"
         fill={`url(#${woodId})`}
-        stroke="#5D4037" 
+        stroke="#5D4037"
         strokeWidth="2"
         initial={{ fill: '#8B4513', stroke: '#5D4037', strokeWidth: 2 }}
-        animate={{ 
+        animate={{
           fill: selectedId === 'body' ? '#A0522D' : '#8B4513',
           stroke: selectedId === 'body' ? '#FF9800' : '#5D4037',
           strokeWidth: selectedId === 'body' ? 3 : 2
         }}
       />
       <path d="M100,380 C50,380 20,420 20,490 C20,560 50,600 100,600 C150,600 180,560 180,490 C180,420 150,380 100,380 Z" fill={`url(#${grainId})`} pointerEvents="none" />
-      
+
       {/* Body - Upper Bout */}
-      <motion.path 
-        d="M100,300 C65,300 40,330 40,370 C40,410 65,430 100,430 C135,430 160,410 160,370 C160,330 135,300 100,300 Z" 
+      <motion.path
+        d="M100,300 C65,300 40,330 40,370 C40,410 65,430 100,430 C135,430 160,410 160,370 C160,330 135,300 100,300 Z"
         fill={`url(#${woodId})`}
-        stroke="#5D4037" 
+        stroke="#5D4037"
         strokeWidth="2"
         initial={{ fill: '#8B4513', stroke: '#5D4037', strokeWidth: 2 }}
-        animate={{ 
+        animate={{
           fill: selectedId === 'body' ? '#A0522D' : '#8B4513',
           stroke: selectedId === 'body' ? '#FF9800' : '#5D4037',
           strokeWidth: selectedId === 'body' ? 3 : 2
         }}
       />
       <path d="M100,300 C65,300 40,330 40,370 C40,410 65,430 100,430 C135,430 160,410 160,370 C160,330 135,300 100,300 Z" fill={`url(#${grainId})`} pointerEvents="none" />
-      
+
       {/* Soundhole */}
       <circle cx="100" cy="400" r="28" fill="#3E2723" stroke="#212121" strokeWidth="1" />
       <circle cx="100" cy="400" r="32" fill="none" stroke="#D2B48C" strokeWidth="1" opacity="0.5" />
-      
+
       {/* Bridge */}
-      <motion.rect 
-        x="65" y="500" width="70" height="18" rx="3" 
-        fill="#212121" 
+      <motion.rect
+        x="65" y="500" width="70" height="18" rx="3"
+        fill="#212121"
         stroke="transparent"
         strokeWidth={0}
         initial={{ stroke: 'transparent', strokeWidth: 0, filter: 'none' }}
-        animate={{ 
+        animate={{
           stroke: selectedId === 'bridge' ? '#FF9800' : 'transparent',
           strokeWidth: selectedId === 'bridge' ? 2 : 0,
           filter: selectedId === 'bridge' ? `url(#${glowId})` : 'none'
         }}
       />
       <rect x="70" y="504" width="60" height="4" rx="1" fill="#5D4037" />
-      
+
       {/* Neck */}
-      <motion.rect 
-        x="82" y="120" width="36" height="180" 
-        fill="#5D4037" 
+      <motion.rect
+        x="82" y="120" width="36" height="180"
+        fill="#5D4037"
         stroke="transparent"
         strokeWidth={0}
         initial={{ fill: '#5D4037', stroke: 'transparent', strokeWidth: 0 }}
-        animate={{ 
+        animate={{
           fill: selectedId === 'neck' ? '#6D4C41' : '#5D4037',
           stroke: selectedId === 'neck' ? '#FF9800' : 'transparent',
           strokeWidth: selectedId === 'neck' ? 2 : 0
         }}
       />
-      
+
       {/* Frets */}
       {[140, 165, 190, 215, 240, 265, 290].map((y, i) => (
         <React.Fragment key={i}>
-          <motion.line 
-            x1="82" y1={y} x2="118" y2={y} 
-            stroke="#BDBDBD" strokeWidth="1.5" 
+          <motion.line
+            x1="82" y1={y} x2="118" y2={y}
+            stroke="#BDBDBD" strokeWidth="1.5"
             initial={{ stroke: '#BDBDBD', strokeWidth: 1.5 }}
-            animate={{ 
+            animate={{
               stroke: selectedId === 'frets' ? '#FF9800' : '#BDBDBD',
               strokeWidth: selectedId === 'frets' ? 2.5 : 1.5
             }}
@@ -640,70 +663,70 @@ const UkuleleSVG = ({ isZoomed = false, selectedId = null, onClick, className }:
           )}
         </React.Fragment>
       ))}
-      
+
       {/* Nut */}
-      <motion.rect 
-        x="80" y="120" width="40" height="8" rx="1" 
-        fill="#F5F5F5" 
+      <motion.rect
+        x="80" y="120" width="40" height="8" rx="1"
+        fill="#F5F5F5"
         initial={{ fill: '#F5F5F5', filter: 'none' }}
-        animate={{ 
+        animate={{
           fill: selectedId === 'nut' ? '#FF9800' : '#F5F5F5',
           filter: selectedId === 'nut' ? `url(#${glowId})` : 'none'
         }}
       />
-      
+
       {/* Headstock */}
-      <motion.path 
-        d="M82,120 L118,120 L135,100 L135,30 C135,10 120,0 100,0 C80,0 65,10 65,30 L65,100 L82,120 Z" 
-        fill="#5D4037" 
-        stroke="#3E2723" 
+      <motion.path
+        d="M82,120 L118,120 L135,100 L135,30 C135,10 120,0 100,0 C80,0 65,10 65,30 L65,100 L82,120 Z"
+        fill="#5D4037"
+        stroke="#3E2723"
         strokeWidth="2"
         initial={{ fill: '#5D4037', stroke: '#3E2723', strokeWidth: 2 }}
-        animate={{ 
+        animate={{
           fill: selectedId === 'headstock' ? '#6D4C41' : '#5D4037',
           stroke: selectedId === 'headstock' ? '#FF9800' : '#3E2723',
           strokeWidth: selectedId === 'headstock' ? 3 : 2
         }}
       />
-      
+
       {/* Tuning Pegs */}
       {[35, 75].map(y => (
         <React.Fragment key={y}>
           {/* Left Pegs */}
           <g>
-            <motion.circle 
-              cx="50" cy={y} r="8" fill="#EEEEEE" stroke="#9E9E9E" strokeWidth="1" 
+            <motion.circle
+              cx="50" cy={y} r="8" fill="#EEEEEE" stroke="#9E9E9E" strokeWidth="1"
               initial={{ fill: '#EEEEEE', stroke: '#9E9E9E' }}
-              animate={{ 
+              animate={{
                 fill: selectedId === 'pegs' ? '#FF9800' : '#EEEEEE',
                 stroke: selectedId === 'pegs' ? '#E65100' : '#9E9E9E'
               }}
             />
-            <motion.rect 
-              x="48" y={y-2} width="4" height="4" rx="1" fill="#757575"
+            <motion.rect
+              x="48" y={y - 2} width="4" height="4" rx="1" fill="#757575"
               initial={{ opacity: 0.6 }}
               animate={{ opacity: selectedId === 'pegs' ? 1 : 0.6 }}
             />
           </g>
           {/* Right Pegs */}
           <g>
-            <motion.circle 
-              cx="150" cy={y} r="8" fill="#EEEEEE" stroke="#9E9E9E" strokeWidth="1" 
+            <motion.circle
+              cx="150" cy={y} r="8" fill="#EEEEEE" stroke="#9E9E9E" strokeWidth="1"
               initial={{ fill: '#EEEEEE', stroke: '#9E9E9E' }}
-              animate={{ 
+              animate={{
                 fill: selectedId === 'pegs' ? '#FF9800' : '#EEEEEE',
                 stroke: selectedId === 'pegs' ? '#E65100' : '#9E9E9E'
               }}
             />
-            <motion.rect 
-              x="148" y={y-2} width="4" height="4" rx="1" fill="#757575"
+            <motion.rect
+              x="148" y={y - 2} width="4" height="4" rx="1" fill="#757575"
               initial={{ opacity: 0.6 }}
               animate={{ opacity: selectedId === 'pegs' ? 1 : 0.6 }}
             />
           </g>
         </React.Fragment>
       ))}
-      
+
       {/* Strings */}
       {[88, 96, 104, 112].map((x, i) => (
         <React.Fragment key={i}>
@@ -717,12 +740,12 @@ const UkuleleSVG = ({ isZoomed = false, selectedId = null, onClick, className }:
             animate={{ opacity: selectedId === 'headstock' || selectedId === 'pegs' || selectedId === 'strings' ? 0.8 : 0.4 }}
           />
           {/* Main string */}
-          <motion.line 
-            x1={x} y1="30" x2={x} y2="505" 
-            stroke="#FFFFFF" 
-            strokeWidth={i === 1 || i === 2 ? "1.5" : "1"} 
+          <motion.line
+            x1={x} y1="30" x2={x} y2="505"
+            stroke="#FFFFFF"
+            strokeWidth={i === 1 || i === 2 ? "1.5" : "1"}
             initial={{ opacity: 0.9 }}
-            animate={{ 
+            animate={{
               stroke: selectedId === 'strings' ? '#FF9800' : '#FFFFFF',
               strokeWidth: selectedId === 'strings' ? (i === 1 || i === 2 ? 2.5 : 2) : (i === 1 || i === 2 ? 1.5 : 1),
               opacity: selectedId === 'strings' ? 1 : 0.9
@@ -756,8 +779,8 @@ export const Anatomy = () => {
   return (
     <div className="flex-1 px-4 md:px-12 py-12 max-w-7xl mx-auto w-full">
       <header className="mb-16 max-w-2xl">
-        <span className="inline-block px-3 py-1 bg-tertiary-fixed text-on-tertiary-fixed-variant rounded-full font-label text-[10px] font-bold tracking-[0.1em] uppercase mb-4">Module 01: The Basics</span>
-        <h2 className="text-5xl md:text-6xl font-headline font-extrabold text-primary tracking-tight leading-tight mb-4">Instrument <br/><span className="text-tertiary italic font-body font-medium">Anatomy</span></h2>
+        <ModuleTag label="Module 01: The Basics" variant="basics" />
+        <h2 className="text-5xl md:text-6xl font-headline font-extrabold text-primary tracking-tight leading-tight mb-4">Instrument <br /><span className="text-tertiary italic font-body font-medium">Anatomy</span></h2>
         <p className="text-lg md:text-xl text-on-surface-variant font-body leading-relaxed">Before we strum our first chord, let's understand the resonance of each part. Click the labels below to explore how wood and string create the ukulele's signature warmth.</p>
       </header>
 
@@ -765,8 +788,8 @@ export const Anatomy = () => {
         {/* Left Column: All 8 Parts */}
         <div className="lg:col-span-3 flex flex-col gap-6 text-right order-2 lg:order-1">
           {parts.map((item) => (
-            <div 
-              key={item.id} 
+            <div
+              key={item.id}
               onClick={() => setSelectedPart(prev => prev === item.id ? null : item.id)}
               className={cn(
                 "group cursor-pointer transition-all duration-300",
@@ -796,10 +819,10 @@ export const Anatomy = () => {
         <div className="lg:col-span-5 flex flex-col items-center justify-center order-3 min-h-[500px] bg-surface-container-low rounded-[40px] p-12 border border-outline-variant/30 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 bg-tertiary/5 rounded-full blur-3xl -mr-32 -mt-32" />
           <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -ml-32 -mb-32" />
-          
+
           <AnimatePresence mode="wait">
             {selectedPart ? (
-              <motion.div 
+              <motion.div
                 key={selectedPart}
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -809,7 +832,7 @@ export const Anatomy = () => {
                 <div className="relative mb-12">
                   <div className="absolute inset-0 bg-tertiary/20 rounded-full blur-2xl scale-110" />
                   <div className="w-64 h-64 rounded-full border-8 border-surface bg-surface shadow-[0_20px_50px_rgba(0,0,0,0.15)] overflow-hidden relative">
-                    <div 
+                    <div
                       className="absolute"
                       style={{
                         width: `${200 * (parts.find(p => p.id === selectedPart)?.scale || 4) * 1.5}px`,
@@ -837,7 +860,7 @@ export const Anatomy = () => {
                 </motion.div>
               </motion.div>
             ) : (
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 className="flex flex-col items-center text-center text-outline/40"
@@ -866,7 +889,7 @@ export const Anatomy = () => {
         </div>
       </div>
 
-      <LessonFooter 
+      <LessonFooter
         backPath="/dashboard"
         backLabel="Reference Hub"
         nextPath="/lessons/chord"
@@ -902,11 +925,7 @@ export const ChordsAndFingers = () => {
   return (
     <div className="pt-24 pb-32 px-4 md:px-8 max-w-7xl mx-auto">
       <div className="mb-12">
-        <nav className="flex items-center gap-2 mb-4 text-sm font-label uppercase tracking-widest text-outline font-bold">
-          <span>Fundamentals</span>
-          <span className="text-xs">›</span>
-          <span className="text-primary">Chords & Fingers</span>
-        </nav>
+        <ModuleTag label="Module 02: Technique" variant="technique" />
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
             <h1 className="font-headline text-5xl md:text-7xl font-extrabold text-on-surface tracking-tight leading-none mb-6">
@@ -970,8 +989,8 @@ export const ChordsAndFingers = () => {
                 onClick={() => setCurrentChord(chord.name)}
                 className={cn(
                   "px-6 py-3 rounded-2xl font-headline font-bold text-sm transition-all border-2",
-                  currentChord === chord.name 
-                    ? "border-primary bg-primary/5 text-primary scale-105 shadow-md" 
+                  currentChord === chord.name
+                    ? "border-primary bg-primary/5 text-primary scale-105 shadow-md"
                     : "border-transparent bg-surface-container-highest text-outline hover:border-outline-variant"
                 )}
               >
@@ -993,10 +1012,10 @@ export const ChordsAndFingers = () => {
                   <div className="absolute inset-0 flex flex-col justify-between">
                     {[1, 2, 3, 4, 5].map(i => <div key={i} className="h-[1px] w-full bg-outline/20" />)}
                   </div>
-                  
+
                   {/* Finger positions for current chord */}
                   {currentChord === 'C' && (
-                    <motion.div 
+                    <motion.div
                       animate={{ scale: isPlaying ? [1, 1.2, 1] : 1 }}
                       className="absolute bottom-[12.5%] right-[-14px] w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-on-primary font-headline font-bold shadow-lg transform -translate-y-1/2 cursor-pointer z-20"
                       onClick={handlePlay}
@@ -1072,7 +1091,7 @@ export const ChordsAndFingers = () => {
                     <div className="px-3 py-1 bg-surface-container-highest rounded-full text-sm font-bold text-primary">G-C-E-A</div>
                   </div>
                 </div>
-                <button 
+                <button
                   onClick={handlePlay}
                   disabled={isPlaying}
                   className={cn(
@@ -1092,7 +1111,7 @@ export const ChordsAndFingers = () => {
                     <div className="text-xs text-outline">Listen for the clean ring</div>
                   </div>
                 </div>
-                <button 
+                <button
                   onClick={() => {
                     const currentIndex = chordsList.findIndex(c => c.name === currentChord);
                     const nextIndex = (currentIndex + 1) % chordsList.length;
@@ -1152,7 +1171,7 @@ export const ChordsAndFingers = () => {
         </div>
       </div>
 
-      <LessonFooter 
+      <LessonFooter
         backPath="/lessons/anatomy"
         backLabel="Anatomy Guide"
         nextPath="/lessons/strumming"
