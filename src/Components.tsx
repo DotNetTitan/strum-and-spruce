@@ -705,10 +705,10 @@ export const Anatomy = () => {
 
   return (
     <div className="flex-1 px-4 md:px-12 py-12 max-w-7xl mx-auto w-full">
-      <header className="mb-80">
+      <header className="mb-16 max-w-2xl">
         <span className="inline-block px-3 py-1 bg-tertiary-fixed text-on-tertiary-fixed-variant rounded-full font-label text-[10px] font-bold tracking-[0.1em] uppercase mb-4">Module 01: The Basics</span>
         <h2 className="text-5xl md:text-6xl font-headline font-extrabold text-primary tracking-tight leading-tight mb-4">Instrument <br/><span className="text-tertiary italic font-body font-medium">Anatomy</span></h2>
-        <p className="text-lg md:text-xl text-on-surface-variant max-w-2xl font-body leading-relaxed">Before we strum our first chord, let's understand the resonance of each part. Click the labels below to explore how wood and string create the ukulele's signature warmth.</p>
+        <p className="text-lg md:text-xl text-on-surface-variant font-body leading-relaxed">Before we strum our first chord, let's understand the resonance of each part. Click the labels below to explore how wood and string create the ukulele's signature warmth.</p>
       </header>
 
       <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-24">
