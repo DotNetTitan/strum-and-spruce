@@ -827,7 +827,7 @@ export const Anatomy = () => {
 
       <section className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(260px,340px)_minmax(0,1fr)] gap-10 lg:gap-12 items-start lg:items-center mb-24">
         {/* Left column: 4 parts */}
-        <div className="flex flex-col gap-6 text-right order-2 lg:order-1">
+        <div className="flex flex-col gap-6 text-right order-1 lg:order-1">
           {partsLeft.map((item) => (
             <div
               key={item.id}
@@ -851,7 +851,7 @@ export const Anatomy = () => {
         </div>
 
         {/* Center: ukulele diagram */}
-        <div className="relative order-1 lg:order-2 flex justify-center min-h-[min(420px,72vh)] sm:min-h-[480px] lg:min-h-[560px] w-full max-w-[320px] mx-auto pt-8 lg:pt-12 lg:justify-self-center">
+        <div className="relative order-2 lg:order-2 flex justify-center min-h-[min(420px,72vh)] sm:min-h-[480px] lg:min-h-[560px] w-full max-w-[320px] mx-auto pt-8 lg:pt-12 lg:justify-self-center">
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent rounded-full blur-3xl -z-10 scale-75" />
           <UkuleleSVG selectedId={selectedPart} onClick={() => setSelectedPart(null)} />
         </div>
