@@ -285,6 +285,37 @@ export const ModuleTag = ({
   );
 };
 
+export const LessonHeader = ({ 
+  moduleLabel, 
+  moduleVariant = 'basics', 
+  title, 
+  subtitle, 
+  description,
+  accentColor = 'text-tertiary',
+  stacked = true
+}: { 
+  moduleLabel: string, 
+  moduleVariant?: 'basics' | 'technique' | 'rhythm', 
+  title: string, 
+  subtitle: string, 
+  description: string,
+  accentColor?: string,
+  stacked?: boolean
+}) => (
+  <header className="mb-16 max-w-2xl">
+    <ModuleTag label={moduleLabel} variant={moduleVariant} />
+    <h1 className="text-5xl md:text-7xl font-headline font-extrabold text-primary tracking-tight leading-[1.1] mb-6">
+      {title} {stacked && <br />}
+      <span className={cn("italic font-body font-medium", accentColor)}>
+        {subtitle}
+      </span>
+    </h1>
+    <p className="text-lg md:text-xl text-on-surface-variant font-body leading-relaxed">
+      {description}
+    </p>
+  </header>
+);
+
 export const LessonFooter = ({
   backPath,
   backLabel,
@@ -471,11 +502,15 @@ export const Strumming = () => {
 
   return (
     <div className="pt-24 pb-32 px-4 md:px-8 max-w-7xl mx-auto">
-      <header className="mb-12">
-        <ModuleTag label="Module 03: Rhythm" variant="rhythm" />
-        <h2 className="text-5xl md:text-6xl font-headline font-extrabold text-primary tracking-tight leading-tight mb-4">Strumming <br /><span className="text-secondary italic font-body font-medium">Patterns</span></h2>
-        <p className="text-lg md:text-xl text-on-surface-variant max-w-2xl font-body leading-relaxed">Rhythm is the heartbeat of the ukulele. Master these patterns to bring your chords to life.</p>
-      </header>
+      <LessonHeader 
+        moduleLabel="Module 03: Rhythm"
+        moduleVariant="rhythm"
+        title="Strumming"
+        subtitle="Patterns"
+        description="Rhythm is the heartbeat of the ukulele. Master these patterns to bring your chords to life."
+        accentColor="text-tertiary"
+        stacked={true}
+      />
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
         <div className="lg:col-span-8 space-y-6">
@@ -778,11 +813,14 @@ export const Anatomy = () => {
 
   return (
     <div className="flex-1 px-4 md:px-12 py-12 max-w-7xl mx-auto w-full">
-      <header className="mb-16 max-w-2xl">
-        <ModuleTag label="Module 01: The Basics" variant="basics" />
-        <h2 className="text-5xl md:text-6xl font-headline font-extrabold text-primary tracking-tight leading-tight mb-4">Instrument <br /><span className="text-tertiary italic font-body font-medium">Anatomy</span></h2>
-        <p className="text-lg md:text-xl text-on-surface-variant font-body leading-relaxed">Before we strum our first chord, let's understand the resonance of each part. Click the labels below to explore how wood and string create the ukulele's signature warmth.</p>
-      </header>
+      <LessonHeader 
+        moduleLabel="Module 01: The Basics"
+        moduleVariant="basics"
+        title="Instrument"
+        subtitle="Anatomy"
+        description="Before we strum our first chord, let's understand the resonance of each part. Click the labels below to explore how wood and string create the ukulele's signature warmth."
+        accentColor="text-tertiary"
+      />
 
       <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-24">
         {/* Left Column: All 8 Parts */}
@@ -924,19 +962,15 @@ export const ChordsAndFingers = () => {
 
   return (
     <div className="pt-24 pb-32 px-4 md:px-8 max-w-7xl mx-auto">
-      <div className="mb-12">
-        <ModuleTag label="Module 02: Technique" variant="technique" />
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-          <div>
-            <h1 className="font-headline text-5xl md:text-7xl font-extrabold text-on-surface tracking-tight leading-none mb-6">
-              {selectedChordData.label} <span className="text-outline font-normal italic">The Foundation</span>
-            </h1>
-            <p className="text-xl md:text-2xl text-on-surface-variant max-w-2xl leading-relaxed">
-              {selectedChordData.desc} Mastering {currentChord} is a key step in your journey.
-            </p>
-          </div>
-        </div>
-      </div>
+      <LessonHeader 
+        moduleLabel="Module 02: Technique"
+        moduleVariant="technique"
+        title="Chord"
+        subtitle="Technique"
+        description="Master the fundamental finger placements and transitions that form the backbone of every great ukulele performance."
+        accentColor="text-tertiary"
+        stacked={true}
+      />
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-24">
         <div className="lg:col-span-4 space-y-8">
@@ -1000,6 +1034,10 @@ export const ChordsAndFingers = () => {
           </div>
           <div className="bg-surface-container rounded-3xl p-8 md:p-12 relative overflow-hidden group editorial-shadow">
             <div className="absolute -top-24 -right-24 w-64 h-64 bg-secondary-container opacity-20 rounded-full blur-3xl transition-transform group-hover:scale-110 duration-700" />
+            <div className="mb-10">
+              <h2 className="text-4xl font-headline font-bold text-primary mb-2 line-clamp-1">{selectedChordData.label}</h2>
+              <p className="text-on-surface-variant font-body line-clamp-1 opacity-80">{selectedChordData.desc}</p>
+            </div>
             <div className="flex flex-col md:flex-row items-center justify-between gap-12 relative z-10">
               <div className="w-full max-w-[320px] aspect-[3/4] bg-surface-container-low rounded-2xl p-8 flex flex-col justify-between shadow-sm border border-outline-variant/10">
                 <div className="flex justify-between px-4">
@@ -1125,49 +1163,6 @@ export const ChordsAndFingers = () => {
               </div>
             </div>
           </div>
-        </div>
-
-        <div className="lg:col-span-5 space-y-8">
-          <section>
-            <h3 className="font-headline text-2xl font-bold mb-6 flex items-center gap-3">
-              <span className="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center text-sm font-black">1</span>
-              Step-by-Step
-            </h3>
-            <div className="space-y-4">
-              {currentChord === 'C' ? [
-                'Relax your left hand and curve your fingers over the fretboard.',
-                'Place your <strong class="text-primary font-bold">third (ring) finger</strong> on the <strong class="text-primary font-bold">3rd fret</strong> of the <strong class="text-primary font-bold">A string</strong> (the one closest to the floor).',
-                'Apply firm pressure with the tip of your finger. Keep the other strings open.',
-              ].map((step, i) => (
-                <div key={i} className="flex gap-4 items-start group">
-                  <div className="w-1 h-full min-h-[40px] bg-outline-variant rounded-full group-hover:bg-primary transition-colors" />
-                  <p className="text-lg leading-relaxed" dangerouslySetInnerHTML={{ __html: step }} />
-                </div>
-              )) : (
-                <div className="flex gap-4 items-start group">
-                  <div className="w-1 h-full min-h-[40px] bg-outline-variant rounded-full group-hover:bg-primary transition-colors" />
-                  <p className="text-lg leading-relaxed">Follow the diagram to place your fingers. Ensure each string rings clearly without buzzing.</p>
-                </div>
-              )}
-            </div>
-          </section>
-
-          <section className="bg-surface-container-low p-6 rounded-2xl border-l-4 border-tertiary editorial-shadow">
-            <h3 className="font-headline text-xl font-bold mb-4 flex items-center gap-2 text-tertiary">
-              <Info size={20} />
-              Common Pitfalls
-            </h3>
-            <ul className="space-y-3 text-on-surface-variant italic">
-              <li className="flex gap-2 items-start">
-                <span className="text-sm mt-1">✕</span>
-                <span>"Dead" strings: Ensure your finger isn't touching adjacent strings.</span>
-              </li>
-              <li className="flex gap-2 items-start">
-                <span className="text-sm mt-1">✕</span>
-                <span>Buzzing: Move your finger closer to the fret wire, but not on top of it.</span>
-              </li>
-            </ul>
-          </section>
         </div>
       </div>
 
