@@ -162,15 +162,18 @@ export const GrainOverlay = () => (
 );
 
 export const TopBar = ({ showBack = false }: { showBack?: boolean }) => (
-  <header className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-xl border-b border-outline-variant/10 editorial-shadow">
-    <div className="flex justify-between items-center px-6 h-16 w-full max-w-screen-2xl mx-auto">
-      <div className="flex items-center gap-4">
+  <header className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-xl border-b border-outline-variant/10 editorial-shadow pt-[env(safe-area-inset-top,0px)]">
+    <div className="flex justify-between items-center gap-2 px-4 sm:px-6 h-16 w-full max-w-screen-2xl mx-auto min-w-0">
+      <div className="flex items-center gap-2 sm:gap-4 min-w-0 flex-1">
         {showBack && (
-          <Link to="/dashboard" className="p-2 hover:bg-surface-container rounded-full transition-colors text-primary">
-            <ArrowLeft size={24} />
+          <Link to="/dashboard" className="p-2 shrink-0 hover:bg-surface-container rounded-full transition-colors text-primary" aria-label="Back to hub">
+            <ArrowLeft size={22} />
           </Link>
         )}
-        <Link to="/" className="font-headline font-black tracking-tight text-2xl text-primary">
+        <Link
+          to="/"
+          className="font-headline font-black tracking-tight text-lg sm:text-2xl text-primary truncate"
+        >
           Strum & Spruce
         </Link>
       </div>
@@ -191,7 +194,7 @@ export const Sidebar = () => {
   ];
 
   return (
-    <aside className="hidden md:flex flex-col h-[calc(100vh-4rem)] sticky top-16 w-64 bg-background border-r border-outline-variant/10 overflow-y-auto no-scrollbar">
+    <aside className="hidden md:flex flex-col h-[calc(100vh-4rem-env(safe-area-inset-top,0px))] sticky top-[calc(4rem+env(safe-area-inset-top,0px))] w-64 shrink-0 bg-background border-r border-outline-variant/10 overflow-y-auto no-scrollbar">
       <div className="p-6">
         <nav className="space-y-1">
           {navItems.map((item) => {
@@ -301,15 +304,15 @@ export const LessonHeader = ({
   accentColor?: string,
   stacked?: boolean
 }) => (
-  <header className="mb-16 max-w-2xl">
+  <header className="mb-10 sm:mb-14 md:mb-16 max-w-2xl w-full min-w-0">
     <ModuleTag label={moduleLabel} variant={moduleVariant} />
-    <h1 className="text-5xl md:text-7xl font-headline font-extrabold text-primary tracking-tight leading-[1.1] mb-6">
+    <h1 className="text-4xl sm:text-5xl md:text-7xl font-headline font-extrabold text-primary tracking-tight leading-[1.1] mb-4 sm:mb-6 break-words">
       {title} {stacked && <br />}
       <span className={cn("italic font-body font-medium", accentColor)}>
         {subtitle}
       </span>
     </h1>
-    <p className="text-lg md:text-xl text-on-surface-variant font-body leading-relaxed">
+    <p className="text-base sm:text-lg md:text-xl text-on-surface-variant font-body leading-relaxed">
       {description}
     </p>
   </header>
@@ -328,10 +331,10 @@ export const LessonFooter = ({
   nextLabel?: string,
   nextIcon?: any
 }) => (
-  <footer className="mt-20 flex flex-col md:flex-row justify-between items-center gap-8 py-12 border-t-2 border-surface-container-highest">
+  <footer className="mt-12 sm:mt-20 flex flex-col md:flex-row justify-between items-stretch md:items-center gap-6 md:gap-8 py-8 sm:py-12 border-t-2 border-surface-container-highest w-full min-w-0">
     <Link
       to={backPath}
-      className="flex items-center gap-4 group hover:bg-surface-container-low px-6 py-3 rounded-2xl transition-all"
+      className="flex items-center gap-4 group hover:bg-surface-container-low px-4 sm:px-6 py-3 rounded-2xl transition-all min-w-0"
     >
       <div className="w-12 h-12 rounded-full border-2 border-outline-variant/30 flex items-center justify-center group-hover:border-primary transition-colors">
         <ArrowLeft size={20} className="text-outline group-hover:text-primary transition-colors" />
@@ -349,10 +352,10 @@ export const LessonFooter = ({
     {nextPath && nextLabel && (
       <Link
         to={nextPath}
-        className="w-full md:w-auto px-12 py-5 bg-gradient-to-br from-primary to-primary-container text-on-primary rounded-full font-headline font-extrabold text-lg shadow-xl hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-3 group"
+        className="w-full md:w-auto px-6 sm:px-10 md:px-12 py-4 sm:py-5 bg-gradient-to-br from-primary to-primary-container text-on-primary rounded-full font-headline font-extrabold text-base sm:text-lg text-center shadow-xl hover:scale-[1.02] sm:hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 sm:gap-3 group shrink-0"
       >
-        {nextLabel}
-        <NextIcon size={24} className="group-hover:translate-x-1 transition-transform" />
+        <span className="leading-snug">{nextLabel}</span>
+        <NextIcon size={22} className="shrink-0 sm:w-6 sm:h-6 group-hover:translate-x-1 transition-transform" />
       </Link>
     )}
   </footer>
@@ -452,9 +455,9 @@ export const Dashboard = () => {
   ];
 
   return (
-    <div className="flex-1 px-6 md:px-12 py-12 max-w-7xl mx-auto w-full">
-      <header className="mb-16">
-        <h2 className="text-5xl font-headline font-extrabold text-primary tracking-tight leading-tight mb-4">Reference <span className="text-tertiary italic font-body font-medium">Hub</span></h2>
+    <div className="flex-1 px-4 sm:px-6 md:px-12 py-8 sm:py-12 max-w-7xl mx-auto w-full min-w-0 pb-4 md:pb-0">
+      <header className="mb-10 sm:mb-16">
+        <h2 className="text-4xl sm:text-5xl font-headline font-extrabold text-primary tracking-tight leading-tight mb-4 break-words">Reference <span className="text-tertiary italic font-body font-medium">Hub</span></h2>
         <p className="text-lg text-on-surface-variant max-w-2xl font-body leading-relaxed">Everything you need to master the ukulele, organized for quick access. No lessons, just pure knowledge.</p>
       </header>
 
@@ -500,7 +503,7 @@ export const Strumming = () => {
   };
 
   return (
-    <div className="pt-24 pb-32 px-4 md:px-8 max-w-7xl mx-auto">
+    <div className="pt-20 sm:pt-24 pb-6 md:pb-24 px-4 md:px-8 max-w-7xl mx-auto w-full min-w-0">
       <LessonHeader 
         moduleLabel="Module 03: Rhythm"
         moduleVariant="rhythm"
@@ -511,41 +514,41 @@ export const Strumming = () => {
         stacked={true}
       />
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-        <div className="lg:col-span-8 space-y-6">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+        <div className="lg:col-span-8 space-y-4 sm:space-y-6">
           {patterns.map((p) => (
             <div
               key={p.id}
               onClick={() => setActivePattern(p.id)}
               className={cn(
-                "p-8 rounded-3xl border-2 transition-all cursor-pointer group",
+                "p-5 sm:p-8 rounded-3xl border-2 transition-all cursor-pointer group",
                 activePattern === p.id ? "border-primary bg-primary/5 shadow-lg" : "border-outline-variant/20 bg-surface-container-low hover:border-outline-variant"
               )}
             >
-              <div className="flex justify-between items-start mb-4">
-                <div>
-                  <h3 className="font-headline text-2xl font-bold mb-2">{p.name}</h3>
-                  <p className="font-body text-on-surface-variant">{p.desc}</p>
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4 mb-4">
+                <div className="min-w-0">
+                  <h3 className="font-headline text-xl sm:text-2xl font-bold mb-2">{p.name}</h3>
+                  <p className="font-body text-sm sm:text-base text-on-surface-variant">{p.desc}</p>
                 </div>
                 {activePattern === p.id && (
                   <button
                     onClick={(e) => { e.stopPropagation(); handlePlay(); }}
                     disabled={isPlaying}
-                    className="w-12 h-12 bg-primary text-on-primary rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform"
+                    className="w-12 h-12 shrink-0 self-start sm:self-auto bg-primary text-on-primary rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform"
                   >
                     <Play size={20} fill="currentColor" />
                   </button>
                 )}
               </div>
-              <div className="bg-background/50 p-4 rounded-xl border border-outline-variant/10">
-                <p className="font-mono text-xl tracking-[0.5em] text-primary font-bold">{p.rhythm}</p>
+              <div className="bg-background/50 p-3 sm:p-4 rounded-xl border border-outline-variant/10 overflow-x-auto">
+                <p className="font-mono text-sm sm:text-lg md:text-xl tracking-[0.35em] sm:tracking-[0.5em] text-primary font-bold whitespace-nowrap">{p.rhythm}</p>
               </div>
             </div>
           ))}
         </div>
 
         <div className="lg:col-span-4">
-          <div className="bg-surface-container p-8 rounded-3xl sticky top-24">
+          <div className="bg-surface-container p-6 sm:p-8 rounded-3xl lg:sticky lg:top-24">
             <h4 className="font-headline text-xl font-bold mb-6">Pro Tips</h4>
             <div className="space-y-6">
               <div className="flex gap-4">
@@ -812,7 +815,7 @@ export const Anatomy = () => {
   };
 
   return (
-    <div className="flex-1 px-4 md:px-12 py-12 max-w-7xl mx-auto w-full">
+    <div className="flex-1 px-4 md:px-12 py-8 sm:py-12 max-w-7xl mx-auto w-full min-w-0 pb-4 md:pb-0">
       <LessonHeader 
         moduleLabel="Module 01: The Basics"
         moduleVariant="basics"
@@ -848,7 +851,7 @@ export const Anatomy = () => {
         </div>
 
         {/* Center: ukulele diagram */}
-        <div className="relative order-1 lg:order-2 flex justify-center min-h-[560px] w-full max-w-[320px] mx-auto pt-8 lg:pt-12 lg:justify-self-center">
+        <div className="relative order-1 lg:order-2 flex justify-center min-h-[min(420px,72vh)] sm:min-h-[480px] lg:min-h-[560px] w-full max-w-[320px] mx-auto pt-8 lg:pt-12 lg:justify-self-center">
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent rounded-full blur-3xl -z-10 scale-75" />
           <UkuleleSVG selectedId={selectedPart} onClick={() => setSelectedPart(null)} />
         </div>
@@ -923,7 +926,7 @@ export const ChordsAndFingers = () => {
   const openForChord = chordOpenStrings[currentChord] ?? [false, false, false, false];
 
   return (
-    <div className="pt-24 pb-32 px-4 md:px-8 max-w-7xl mx-auto">
+    <div className="pt-20 sm:pt-24 pb-6 md:pb-24 px-4 md:px-8 max-w-7xl mx-auto w-full min-w-0">
       <LessonHeader 
         moduleLabel="Module 02: Technique"
         moduleVariant="technique"
@@ -934,11 +937,11 @@ export const ChordsAndFingers = () => {
         stacked={true}
       />
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-12 gap-y-8 mb-20">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-6 sm:gap-x-12 gap-y-8 mb-12 sm:mb-20">
         <div className="lg:col-span-4 flex flex-col gap-8 min-h-0 lg:h-full">
-          <section className="bg-surface-container-low p-8 rounded-[32px] border border-outline-variant/30 editorial-shadow shrink-0">
-            <h3 className="font-headline text-2xl font-bold mb-6 flex items-center gap-3 text-primary">
-              <Hash size={24} />
+          <section className="bg-surface-container-low p-5 sm:p-8 rounded-[32px] border border-outline-variant/30 editorial-shadow shrink-0">
+            <h3 className="font-headline text-xl sm:text-2xl font-bold mb-4 sm:mb-6 flex items-center gap-2 sm:gap-3 text-primary">
+              <Hash size={22} className="shrink-0 sm:w-6 sm:h-6" />
               String Names
             </h3>
             <div className="space-y-4">
@@ -956,9 +959,9 @@ export const ChordsAndFingers = () => {
             </div>
           </section>
 
-          <section className="bg-surface-container-low p-8 rounded-[32px] border border-outline-variant/30 editorial-shadow flex-1 flex flex-col min-h-[240px]">
-            <h3 className="font-headline text-2xl font-bold mb-4 flex items-center gap-3 text-secondary shrink-0">
-              <UserCircle size={24} />
+          <section className="bg-surface-container-low p-5 sm:p-8 rounded-[32px] border border-outline-variant/30 editorial-shadow flex-1 flex flex-col min-h-0 sm:min-h-[240px]">
+            <h3 className="font-headline text-xl sm:text-2xl font-bold mb-3 sm:mb-4 flex items-center gap-2 sm:gap-3 text-secondary shrink-0">
+              <UserCircle size={22} className="shrink-0 sm:w-6 sm:h-6" />
               Finger numbers
             </h3>
             <div className="grid grid-cols-2 gap-3 sm:gap-4 flex-1 content-center">
@@ -996,9 +999,9 @@ export const ChordsAndFingers = () => {
           </div>
           <div className="bg-surface-container rounded-3xl p-6 md:p-8 relative overflow-hidden group editorial-shadow">
             <div className="absolute -top-24 -right-24 w-64 h-64 bg-secondary-container opacity-20 rounded-full blur-3xl transition-transform group-hover:scale-110 duration-700" />
-            <div className="mb-4 md:mb-6">
-              <h2 className="text-4xl font-headline font-bold text-primary mb-2 line-clamp-1">{selectedChordData.label}</h2>
-              <p className="text-on-surface-variant font-body line-clamp-1 opacity-80">{selectedChordData.desc}</p>
+            <div className="mb-4 sm:mb-6 md:mb-6">
+              <h2 className="text-3xl sm:text-4xl font-headline font-bold text-primary mb-2 line-clamp-2 sm:line-clamp-1">{selectedChordData.label}</h2>
+              <p className="text-sm sm:text-base text-on-surface-variant font-body line-clamp-2 sm:line-clamp-1 opacity-80">{selectedChordData.desc}</p>
             </div>
             <div className="flex flex-col md:flex-row md:flex-nowrap items-stretch md:items-start gap-6 md:gap-8 relative z-10">
               <div className="w-full max-w-[300px] sm:max-w-[320px] bg-surface-container-low rounded-2xl p-4 flex flex-col gap-2 shadow-sm border border-outline-variant/10 mx-auto md:mx-0 shrink-0">
@@ -1142,12 +1145,12 @@ export const ChordsAndFingers = () => {
           </div>
         </div>
 
-        <section className="lg:col-span-12 bg-surface-container-low p-8 rounded-[32px] border border-outline-variant/30 editorial-shadow">
-          <h3 className="font-headline text-2xl font-bold mb-6 flex items-center gap-3 text-tertiary">
-            <CircleDot size={24} />
+        <section className="lg:col-span-12 bg-surface-container-low p-5 sm:p-8 rounded-[32px] border border-outline-variant/30 editorial-shadow">
+          <h3 className="font-headline text-xl sm:text-2xl font-bold mb-4 sm:mb-6 flex flex-wrap items-center gap-2 sm:gap-3 text-tertiary">
+            <CircleDot size={22} className="shrink-0 sm:w-6 sm:h-6" />
             Reading chord diagrams
           </h3>
-          <div className="space-y-4 text-sm font-body text-on-surface-variant leading-relaxed md:columns-2 md:gap-10">
+          <div className="space-y-4 text-sm font-body text-on-surface-variant leading-relaxed break-words md:columns-2 md:gap-10">
             <div className="break-inside-avoid space-y-4">
               <p>
                 The numbers on the chord diagrams represent which finger to use when pressing the strings:

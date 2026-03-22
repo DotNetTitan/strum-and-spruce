@@ -23,10 +23,20 @@ function AppContent() {
     <div className="relative min-h-screen flex flex-col">
       {!isOnboarding && <TopBar showBack={location.pathname.includes('/lessons/')} />}
       
-      <div className={isOnboarding ? "flex-1" : "flex flex-1 pt-16"}>
+      <div
+        className={cn(
+          isOnboarding ? "flex-1" : "flex flex-1 min-h-0 min-w-0 pt-[calc(4rem+env(safe-area-inset-top,0px))]"
+        )}
+      >
         {!isOnboarding && <Sidebar />}
         
-        <main className={cn("relative flex-1", !isOnboarding && "overflow-x-hidden")}>
+        <main
+          className={cn(
+            "relative flex-1 min-w-0",
+            !isOnboarding &&
+              "overflow-x-hidden pb-[max(6.5rem,calc(5rem+env(safe-area-inset-bottom,0px)))] md:pb-0"
+          )}
+        >
           <AnimatePresence mode="wait">
             <motion.div
               key={location.pathname}
