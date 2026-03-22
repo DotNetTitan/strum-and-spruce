@@ -15,6 +15,19 @@ import {
   AppProvider
 } from './Components';
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  React.useEffect(() => {
+    const mainElement = document.querySelector('main');
+    if (mainElement) {
+      mainElement.scrollTop = 0;
+    }
+  }, [pathname]);
+
+  return null;
+}
+
 function AppContent() {
   const location = useLocation();
   const isOnboarding = location.pathname === '/';
@@ -37,6 +50,7 @@ function AppContent() {
               "overflow-x-hidden pb-[max(6.5rem,calc(5rem+env(safe-area-inset-bottom,0px)))] md:pb-0"
           )}
         >
+          <ScrollToTop />
           <AnimatePresence mode="wait">
             <motion.div
               key={location.pathname}
