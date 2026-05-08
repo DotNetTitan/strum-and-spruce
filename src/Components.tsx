@@ -524,15 +524,6 @@ export const Strumming = () => {
                   <h3 className="font-headline text-xl sm:text-2xl font-bold mb-2">{p.name}</h3>
                   <p className="font-body text-sm sm:text-base text-on-surface-variant">{p.desc}</p>
                 </div>
-                {activePattern === p.id && (
-                  <button
-                    onClick={(e) => { e.stopPropagation(); handlePlay(); }}
-                    disabled={isPlaying}
-                    className="w-12 h-12 shrink-0 self-start sm:self-auto bg-primary text-on-primary rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform"
-                  >
-                    <Play size={20} fill="currentColor" />
-                  </button>
-                )}
               </div>
               <div className="bg-background/50 p-3 sm:p-4 rounded-xl border border-outline-variant/10 overflow-x-auto">
                 <p className="font-mono text-sm sm:text-lg md:text-xl tracking-[0.35em] sm:tracking-[0.5em] text-primary font-bold whitespace-nowrap">{p.rhythm}</p>
@@ -1112,17 +1103,6 @@ export const ChordsAndFingers = () => {
                     <div className="px-3 py-1 bg-surface-container-highest rounded-full text-sm font-bold text-primary">G-C-E-A</div>
                   </div>
                 </div>
-                <button
-                  onClick={handlePlay}
-                  disabled={isPlaying}
-                  className={cn(
-                    "bg-gradient-to-br from-primary to-primary-container text-on-primary px-8 py-4 rounded-full font-headline font-bold flex items-center justify-center gap-3 shadow-lg hover:shadow-xl transition-all active:scale-95",
-                    isPlaying && "opacity-50 cursor-not-allowed"
-                  )}
-                >
-                  <PlayCircle size={24} className={cn(isPlaying && "animate-spin")} />
-                  {isPlaying ? 'Playing...' : 'Play Sample'}
-                </button>
                 <button
                   onClick={() => {
                     const currentIndex = chordsList.findIndex(c => c.name === currentChord);
