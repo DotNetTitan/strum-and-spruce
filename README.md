@@ -1,20 +1,44 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Strum & Spruce
 
-# Run and deploy your AI Studio app
+A premium ukulele reference hub featuring interactive anatomy guides, a chord library with finger placement diagrams, and strumming pattern lessons — all with synthesized audio playback.
 
-This contains everything you need to run your app locally.
+## Features
 
-View your app in AI Studio: https://ai.studio/apps/9a9caabb-3b51-4fb2-99ff-1302740f333d
+**Interactive Anatomy**
+- Clickable SVG ukulele diagram with 8 labeled parts (headstock, nut, frets, strings, tuning pegs, neck, body, bridge)
+- Parts highlight with animations on selection
+- Detailed descriptions for each component
+
+**Chord Library**
+- 6 selectable chords: C, G, F, Am, Dm, G7
+- Finger placement diagrams for all chords
+- Real-time audio synthesis using Web Audio API
+- String names and finger numbering reference
+
+**Strumming Patterns**
+- Straight Down and Island Bounce patterns
+- Audio playback with realistic strum timing
+- Pro tips for proper technique
+
+**Audio Synthesis**
+- Web Audio API-powered ukulele sounds
+- Triangle wave oscillators for authentic tone
+- Sequential strum timing for realistic play
+
+## Tech Stack
+
+React, TypeScript, Tailwind CSS, Motion, Web Audio API, Vite
 
 ## Run Locally
 
-**Prerequisites:**  Node.js
+```bash
+npm install
+npm run dev
+```
 
+## Build
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+```bash
+npm run build
+npm run preview
+```
