@@ -1013,7 +1013,7 @@ export const ChordsAndFingers = () => {
                         <span
                           className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 border-primary/70 bg-transparent shadow-sm"
                           title="Open string"
-                          aria-label="Open string — strum without fretting"
+                          aria-label="Open string - strum without fretting"
                         />
                       ) : (
                         <span className="block h-7 w-7 shrink-0" />
@@ -1161,7 +1161,7 @@ export const ChordsAndFingers = () => {
                 So for example, in the <span className="font-semibold text-primary">G</span> chord, you&apos;d place your index finger (1) and middle finger (2) on the second fret, then your ring finger (3) on the third fret.
               </p>
               <p>
-                The circles at the top (without numbers) mean that string is played open — no finger needed, just strum it freely.
+                The circles at the top (without numbers) mean that string is played open, no finger needed, just strum it freely.
               </p>
             </div>
           </div>
