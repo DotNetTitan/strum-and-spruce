@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
+import { Heart } from 'lucide-react';
 import logoUrl from '/logo.png?url';
 
 interface TopBarProps {
@@ -26,6 +27,16 @@ export const TopBar = ({ showBack = false }: TopBarProps) => (
         </Link>
       </div>
       <div className="flex items-center gap-2">
+        <a
+          href="https://ko-fi.com/strumandspruce"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-secondary-container text-on-secondary-container hover:bg-secondary-container/80 transition-colors text-sm font-medium"
+          aria-label="Support on Ko-fi"
+        >
+          <Heart size={16} className="fill-current" />
+          <span className="hidden sm:inline">Support</span>
+        </a>
       </div>
     </div>
   </header>
