@@ -892,6 +892,9 @@ export const ChordsAndFingers = () => {
     { name: 'Am', label: 'A Minor', desc: 'Adds a touch of melancholy and depth to your playing.' },
     { name: 'Dm', label: 'D Minor', desc: 'A soulful chord that creates a beautiful contrast.' },
     { name: 'G7', label: 'G7 Dominant', desc: 'The perfect tension-builder for transitions.' },
+    { name: 'Em', label: 'E Minor', desc: 'A melancholic chord with a warm, open sound.' },
+    { name: 'D', label: 'D Major', desc: 'A bright, upbeat chord that lifts any progression.' },
+    { name: 'A', label: 'A Major', desc: 'A versatile chord that adds depth and resonance.' },
   ];
 
   const handlePlay = () => {
@@ -910,6 +913,9 @@ export const ChordsAndFingers = () => {
     Am: [false, true, true, true],
     Dm: [false, false, false, true],
     G7: [true, false, false, false],
+    Em: [true, true, true, true],
+    D: [false, false, true, false],
+    A: [false, true, false, false],
   };
   const openForChord = chordOpenStrings[currentChord] ?? [false, false, false, false];
 
