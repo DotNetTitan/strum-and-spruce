@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback, createContext, useContext } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import logoUrl from '/logo.png?url';
 import {
   LayoutDashboard,
   Ruler,
@@ -178,9 +179,12 @@ export const TopBar = ({ showBack = false }: { showBack?: boolean }) => (
         )}
         <Link
           to="/"
-          className="font-headline font-black tracking-tight text-lg sm:text-2xl text-primary truncate"
+          className="flex items-center gap-2"
         >
-          Strum & Spruce
+          <img src={logoUrl} alt="Strum & Spruce" className="h-20 w-20 sm:h-12 sm:w-12 md:h-16 md:w-16 lg:h-20 lg:w-20" />
+          <span className="font-headline font-black tracking-tight text-lg sm:text-2xl text-primary truncate">
+            Strum & Spruce
+          </span>
         </Link>
       </div>
       <div className="flex items-center gap-2">

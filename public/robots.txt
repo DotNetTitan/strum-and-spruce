@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://strum-and-spruce.vercel.app/sitemap.xml
