@@ -86,7 +86,7 @@ export const UkuleleSVG = ({ selectedId = null, onClick, className }: UkuleleSVG
         strokeWidth={0}
         initial={{ stroke: 'transparent', strokeWidth: 0, filter: 'none' }}
         animate={{
-          stroke: selectedId === 'bridge' ? '#FF9800' : 'transparent',
+          stroke: selectedId === 'bridge' ? '#FF9800' : 'rgba(0,0,0,0)',
           strokeWidth: selectedId === 'bridge' ? 2 : 0,
           filter: selectedId === 'bridge' ? `url(#${glowId})` : 'none'
         }}
@@ -101,7 +101,7 @@ export const UkuleleSVG = ({ selectedId = null, onClick, className }: UkuleleSVG
         initial={{ fill: '#5D4037', stroke: 'transparent', strokeWidth: 0 }}
         animate={{
           fill: selectedId === 'neck' ? '#6D4C41' : '#5D4037',
-          stroke: selectedId === 'neck' ? '#FF9800' : 'transparent',
+          stroke: selectedId === 'neck' ? '#FF9800' : 'rgba(0,0,0,0)',
           strokeWidth: selectedId === 'neck' ? 2 : 0
         }}
       />
