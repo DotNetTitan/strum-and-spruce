@@ -410,7 +410,7 @@ export const Onboarding = () => (
           to="/dashboard"
           className="w-full sm:w-auto px-10 py-4 bg-gradient-to-br from-primary to-primary-container text-on-primary font-headline font-bold rounded-full editorial-shadow hover:opacity-90 active:scale-95 transition-all duration-200 text-lg text-center"
         >
-          Explore Reference
+          Continue to Hub
         </Link>
       </footer>
     </section>
