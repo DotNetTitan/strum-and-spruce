@@ -147,6 +147,12 @@ export const useUkuleleAudio = () => {
       playStroke(now + 1.0, false);
       playStroke(now + 1.2, true);
       playStroke(now + 1.4, false);
+    } else if (pattern === 'down') {
+      // D - D - D - D (4 down strokes)
+      playStroke(now, true);
+      playStroke(now + 0.4, true);
+      playStroke(now + 0.8, true);
+      playStroke(now + 1.2, true);
     } else {
       playStroke(now, true);
     }
