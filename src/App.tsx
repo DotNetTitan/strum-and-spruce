@@ -7,14 +7,16 @@ import {
   GrainOverlay, 
   TopBar, 
   Sidebar, 
-  BottomNav, 
+  BottomNav
+} from './components/ui';
+import { 
   Onboarding, 
   Dashboard, 
   Anatomy, 
   ChordsAndFingers,
-  Strumming,
-  AppProvider
-} from './Components';
+  Strumming
+} from './pages';
+import { AppProvider } from './context/AppContext';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
