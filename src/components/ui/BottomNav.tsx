@@ -1,10 +1,11 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Ruler, Hand, Music } from 'lucide-react';
+import { Home, Ruler, Hand, Music, Sparkles } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
 const NAV_ITEMS = [
   { icon: Home, label: 'Home', path: '/dashboard' },
   { icon: Ruler, label: 'Anatomy', path: '/lessons/anatomy' },
+  { icon: Sparkles, label: 'Tech', path: '/lessons/technique' },
   { icon: Hand, label: 'Chords', path: '/lessons/chord' },
   { icon: Music, label: 'Strum', path: '/lessons/strumming' },
 ];
@@ -21,7 +22,7 @@ export const BottomNav = () => {
             key={item.label}
             to={item.path}
             className={cn(
-              "flex flex-col items-center justify-center w-14 h-14 transition-transform active:scale-90",
+              "flex flex-1 flex-col items-center justify-center h-14 transition-transform active:scale-90",
               isActive ? "text-primary" : "text-outline"
             )}
           >

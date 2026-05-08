@@ -13,6 +13,7 @@ import {
   Onboarding, 
   Dashboard, 
   Anatomy, 
+  Technique,
   ChordsAndFingers,
   Strumming
 } from './pages';
@@ -68,6 +69,7 @@ function AppContent() {
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/lessons" element={<Dashboard />} />
                 <Route path="/lessons/anatomy" element={<Anatomy />} />
+                <Route path="/lessons/technique" element={<Technique />} />
                 <Route path="/lessons/chord" element={<ChordsAndFingers />} />
                 <Route path="/lessons/strumming" element={<Strumming />} />
                 <Route path="*" element={<Dashboard />} />

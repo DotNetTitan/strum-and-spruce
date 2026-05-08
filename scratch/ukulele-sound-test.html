@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ukulele Sound – Karplus-Strong</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #f5f1eb;
+      --card:    #ffffff;
+      --border:  #e0d6c8;
+      --text:    #2c1f14;
+      --muted:   #7a6a58;
+      --primary: #7a5c2e;
+      --radius:  16px;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 2rem 1rem 4rem;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin-bottom: 0.4rem;
+      color: var(--primary);
+    }
+
+    .subtitle {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .card p {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, transform 0.1s;
+    }
+
+    button:hover { background: #ede6da; border-color: var(--primary); }
+    button:active { transform: scale(0.95); }
+    button.chord { min-width: 3rem; }
+    button.string-btn { font-size: 0.75rem; padding: 0.4rem 0.8rem; background: #f0ebe2; }
+
+    .status {
+      font-size: 0.75rem;
+      color: var(--muted);
+      min-height: 1.2rem;
+      margin-top: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Karplus-Strong Ukulele</h1>
+<p class="subtitle">Pure Web Audio API. No dependencies. Tuning: G - C - E - A</p>
+
+<div class="card">
+  <p>Fills a Hann-windowed noise burst into a circular buffer, then averages it through a feedback loop. Zero libraries.</p>
+
+  <div class="section-label">Chords</div>
+  <div class="btn-group">
+    <button class="chord" onclick="ksChord('C')">C</button>
+    <button class="chord" onclick="ksChord('G')">G</button>
+    <button class="chord" onclick="ksChord('F')">F</button>
+    <button class="chord" onclick="ksChord('Am')">Am</button>
+    <button class="chord" onclick="ksChord('Dm')">Dm</button>
+  </div>
+
+  <div class="section-label">Individual strings</div>
+  <div class="btn-group">
+    <button class="string-btn" onclick="ksString(392.00)">G string</button>
+    <button class="string-btn" onclick="ksString(261.63)">C string</button>
+    <button class="string-btn" onclick="ksString(329.63)">E string</button>
+    <button class="string-btn" onclick="ksString(440.00)">A string</button>
+  </div>
+
+  <div class="status" id="status">Click any button to start</div>
+</div>
+
+<script>
+const CHORD_FREQS = {
+  C:  [392.00, 261.63, 329.63, 523.25],
+  G:  [392.00, 293.66, 392.00, 493.88],
+  F:  [440.00, 261.63, 349.23, 440.00],
+  Am: [440.00, 261.63, 329.63, 440.00],
+  Dm: [440.00, 293.66, 349.23, 440.00],
+};
+
+let ctx = null;
+
+function getCtx() {
+  if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
+  if (ctx.state === 'suspended') ctx.resume();
+  return ctx;
+}
+
+function generateKSBuffer(ctx, freq, duration = 2.5, decay = 0.4985) {
+  const sr = ctx.sampleRate;
+  const N = Math.max(2, Math.round(sr / freq));
+  const numSamples = Math.round(sr * duration);
+
+  const ring = new Float32Array(N);
+  for (let i = 0; i < N; i++) {
+    const w = 0.5 * (1 - Math.cos((2 * Math.PI * i) / N));
+    ring[i] = (Math.random() * 2 - 1) * w;
+  }
+
+  const output = new Float32Array(numSamples);
+  for (let i = 0; i < numSamples; i++) {
+    const idx = i % N;
+    output[i] = ring[idx];
+    ring[idx] = (ring[idx] + ring[(idx + 1) % N]) * decay;
+  }
+
+  const buf = ctx.createBuffer(1, numSamples, sr);
+  buf.getChannelData(0).set(output);
+  return buf;
+}
+
+function playFreq(freq, startTime, gainVal = 0.65) {
+  const c = getCtx();
+  const src = c.createBufferSource();
+  src.buffer = generateKSBuffer(c, freq);
+
+  const filter = c.createBiquadFilter();
+  filter.type = 'lowpass';
+  filter.frequency.value = 3500;
+
+  const gain = c.createGain();
+  gain.gain.value = gainVal;
+
+  src.connect(filter);
+  filter.connect(gain);
+  gain.connect(c.destination);
+  src.start(startTime);
+}
+
+function ksString(freq) {
+  const c = getCtx();
+  playFreq(freq, c.currentTime);
+  document.getElementById('status').textContent = `Playing ${freq.toFixed(2)} Hz`;
+}
+
+function ksChord(name) {
+  const c = getCtx();
+  CHORD_FREQS[name].forEach((freq, i) => playFreq(freq, c.currentTime + i * 0.028));
+  document.getElementById('status').textContent = `Playing ${name} chord`;
+}
+</script>
+
+</body>
+</html>

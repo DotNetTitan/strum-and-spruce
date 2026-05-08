@@ -1,13 +1,13 @@
 {
   "name": "Strum & Spruce",
   "short_name": "Strum & Spruce",
-  "description": "Learn guitar the right way",
+  "description": "A beginner ukulele reference hub covering anatomy, technique, chords, and strumming patterns.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#ffffff",
-  "theme_color": "#22c55e",
+  "theme_color": "#703e0e",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",

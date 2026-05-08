@@ -4,11 +4,13 @@ import { cn } from '../../lib/utils';
 
 interface UkuleleSVGProps {
   selectedId?: string | null;
+  /** Index (0–3) of the string currently vibrating after being plucked. */
+  vibratingString?: number | null;
   onClick?: () => void;
   className?: string;
 }
 
-export const UkuleleSVG = ({ selectedId = null, onClick, className }: UkuleleSVGProps) => {
+export const UkuleleSVG = ({ selectedId = null, vibratingString = null, onClick, className }: UkuleleSVGProps) => {
   const id = React.useId().replace(/:/g, '');
   const woodId = `wood-${id}`;
   const grainId = `grain-${id}`;
@@ -181,29 +183,57 @@ export const UkuleleSVG = ({ selectedId = null, onClick, className }: UkuleleSVG
         </React.Fragment>
       ))}
 
-      {[88, 96, 104, 112].map((x, i) => (
-        <React.Fragment key={i}>
-          <motion.line
-            x1={x} y1="30"
-            x2={i < 2 ? 50 : 150} y2={i === 0 || i === 3 ? 35 : 75}
-            stroke="#BDBDBD"
-            strokeWidth="0.3"
-            initial={{ opacity: 0.4 }}
-            animate={{ opacity: selectedId === 'headstock' || selectedId === 'pegs' || selectedId === 'strings' ? 0.8 : 0.4 }}
-          />
-          <motion.line
-            x1={x} y1="30" x2={x} y2="505"
-            stroke="#FFFFFF"
-            strokeWidth={i === 1 || i === 2 ? "1.5" : "1"}
-            initial={{ opacity: 0.9 }}
-            animate={{
-              stroke: selectedId === 'strings' ? '#FF9800' : '#FFFFFF',
-              strokeWidth: selectedId === 'strings' ? (i === 1 || i === 2 ? 2.5 : 2) : (i === 1 || i === 2 ? 1.5 : 1),
-              opacity: selectedId === 'strings' ? 1 : 0.9
-            }}
-          />
-        </React.Fragment>
-      ))}
+      {[88, 96, 104, 112].map((x, i) => {
+        const isVibrating = vibratingString === i;
+        const isHighlighted = selectedId === 'strings';
+        // Quadratic bezier straight line: control point at same x = visually identical to a line
+        const straightPath = `M ${x} 30 Q ${x} 267 ${x} 505`;
+        // Amplitudes matched to pitch: C (lowest) wobbles most, A (highest) least
+        const amp = [3.0, 3.8, 3.2, 2.5][i];
+        const vibrateKeyframes = [
+          straightPath,
+          `M ${x} 30 Q ${x + amp} 267 ${x} 505`,
+          `M ${x} 30 Q ${x - amp} 267 ${x} 505`,
+          `M ${x} 30 Q ${x + amp * 0.6} 267 ${x} 505`,
+          `M ${x} 30 Q ${x - amp * 0.6} 267 ${x} 505`,
+          `M ${x} 30 Q ${x + amp * 0.25} 267 ${x} 505`,
+          `M ${x} 30 Q ${x - amp * 0.25} 267 ${x} 505`,
+          straightPath,
+        ];
+        const baseStrokeWidth = i === 1 || i === 2 ? 1.5 : 1;
+        return (
+          <React.Fragment key={i}>
+            <motion.line
+              x1={x} y1="30"
+              x2={i < 2 ? 50 : 150} y2={i === 0 || i === 3 ? 35 : 75}
+              stroke="#BDBDBD"
+              strokeWidth="0.3"
+              initial={{ opacity: 0.4 }}
+              animate={{ opacity: isHighlighted || isVibrating ? 0.8 : 0.4 }}
+            />
+            <motion.path
+              d={straightPath}
+              fill="none"
+              stroke={isVibrating ? '#FDD835' : isHighlighted ? '#FF9800' : '#FFFFFF'}
+              strokeWidth={isVibrating ? baseStrokeWidth + 1 : isHighlighted ? baseStrokeWidth + 1 : baseStrokeWidth}
+              strokeLinecap="round"
+              initial={{ d: straightPath, opacity: 0.9 }}
+              animate={isVibrating ? {
+                d: vibrateKeyframes,
+                stroke: '#FDD835',
+                strokeWidth: baseStrokeWidth + 1,
+                opacity: 1,
+              } : {
+                d: straightPath,
+                stroke: isHighlighted ? '#FF9800' : '#FFFFFF',
+                strokeWidth: isHighlighted ? baseStrokeWidth + 1 : baseStrokeWidth,
+                opacity: isHighlighted ? 1 : 0.9,
+              }}
+              transition={isVibrating ? { d: { duration: 0.45, ease: 'easeOut' }, default: { duration: 0.1 } } : { duration: 0.2 }}
+            />
+          </React.Fragment>
+        );
+      })}
     </motion.svg>
   );
 };

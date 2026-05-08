@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Ruler, Hand, Music, Play } from 'lucide-react';
+import { Ruler, Hand, Music, Play, Sparkles } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 const GUIDES = [
@@ -10,16 +10,25 @@ const GUIDES = [
     icon: Ruler,
     path: '/lessons/anatomy',
     color: 'bg-primary/10 text-primary',
-    tag: 'Basics'
+    tag: 'Module 01'
+  },
+  {
+    id: 'technique',
+    title: 'Technique & troubleshooting',
+    desc: 'Fix buzzes, posture, and strumming mechanics.',
+    icon: Sparkles,
+    path: '/lessons/technique',
+    color: 'bg-tertiary/10 text-tertiary',
+    tag: 'Module 02'
   },
   {
     id: 'chord',
     title: 'Chords & Fingers',
-    desc: 'Master finger placement and basic chords.',
+    desc: 'Master finger placement and chord shapes.',
     icon: Hand,
     path: '/lessons/chord',
     color: 'bg-tertiary/10 text-tertiary',
-    tag: 'Technique'
+    tag: 'Module 03'
   },
   {
     id: 'strumming',
@@ -28,7 +37,7 @@ const GUIDES = [
     icon: Music,
     path: '/lessons/strumming',
     color: 'bg-secondary/10 text-secondary',
-    tag: 'Rhythm'
+    tag: 'Module 04'
   }
 ];
 
@@ -37,10 +46,14 @@ export const Dashboard = () => {
     <div className="flex-1 px-4 sm:px-6 md:px-12 py-8 sm:py-12 max-w-7xl mx-auto w-full min-w-0 pb-4 md:pb-0">
       <header className="mb-10 sm:mb-16">
         <h2 className="text-4xl sm:text-5xl font-headline font-extrabold text-primary tracking-tight leading-tight mb-4 break-words">Reference <span className="text-tertiary italic font-body font-medium">Hub</span></h2>
-        <p className="text-lg text-on-surface-variant max-w-2xl font-body leading-relaxed">Everything you need to master the ukulele, organized for quick access</p>
+        <p className="text-lg text-on-surface-variant max-w-2xl font-body leading-relaxed mb-4">Everything you need to master the ukulele, organized for quick access</p>
+        <p className="inline-flex items-center gap-2 rounded-full border border-outline-variant/30 bg-surface-container-low px-4 py-2 font-body text-sm text-on-surface-variant">
+          <span className="font-semibold text-primary">New here?</span>
+          Follow the modules in order, starting with Instrument Anatomy.
+        </p>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-8 mb-24">
         {GUIDES.map((guide) => (
           <Link
             key={guide.id}
