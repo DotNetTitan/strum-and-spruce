@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
+import { Analytics } from '@vercel/analytics/react';
 import { cn } from './lib/utils';
 import { 
   GrainOverlay, 
@@ -86,6 +87,7 @@ export default function App() {
       <Router>
         <AppContent />
       </Router>
+      <Analytics />
     </AppProvider>
   );
 }
