@@ -100,7 +100,7 @@ export const ChordsAndFingers = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="flex flex-wrap gap-3">
+                  <div className="flex flex-col gap-3">
                     <button
                       type="button"
                       onClick={() => playChord(currentChord)}
@@ -113,7 +113,7 @@ export const ChordsAndFingers = () => {
                       type="button"
                       disabled={nextChordDisabled}
                       onClick={nextChord}
-                      className="flex items-center justify-center gap-2 rounded-xl border border-outline-variant/30 px-6 py-3 text-center font-label text-xs font-bold text-outline transition-all hover:border-primary hover:bg-surface-container hover:text-primary whitespace-normal disabled:pointer-events-none disabled:opacity-40"
+                      className="flex items-center justify-center gap-2 rounded-xl border border-outline-variant/30 px-6 py-3 text-center font-label text-xs font-bold text-outline transition-all hover:border-primary hover:bg-surface-container hover:text-primary whitespace-nowrap disabled:pointer-events-none disabled:opacity-40"
                     >
                       <Music size={14} className="shrink-0" />
                       Switch to next chord
