@@ -44,11 +44,11 @@ export const Strumming = () => {
     });
   };
 
-  const handlePlay = useCallback((pattern: StrummingPattern) => {
+  const handlePlay = useCallback((pattern: StrummingPattern, bpm: number) => {
     if (playingId === pattern.id) return;
     setPlayingId(pattern.id);
-    playStrum(PLAY_CHORD, pattern.notation);
-    const duration = estimateStrumDurationMs(pattern.notation);
+    playStrum(PLAY_CHORD, pattern.notation, bpm);
+    const duration = estimateStrumDurationMs(pattern.notation, bpm) + 500;
     setTimeout(() => setPlayingId(null), duration);
   }, [playingId, playStrum]);
 
@@ -116,7 +116,7 @@ export const Strumming = () => {
                           pattern={p}
                           isActive={activePattern === p.id}
                           onSelect={() => setActivePattern(p.id)}
-                          onPlay={() => handlePlay(p)}
+                          onPlay={(bpm) => handlePlay(p, bpm)}
                           isPlaying={playingId === p.id}
                         />
                       </Fragment>
