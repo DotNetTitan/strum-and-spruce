@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Ruler, Hand, Music } from 'lucide-react';
+import { Home, Ruler, Hand, Music, Library } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
 const NAV_ITEMS = [
@@ -7,6 +7,7 @@ const NAV_ITEMS = [
   { icon: Ruler, label: 'Anatomy', path: '/lessons/anatomy' },
   { icon: Hand, label: 'Chords', path: '/lessons/chord' },
   { icon: Music, label: 'Strum', path: '/lessons/strumming' },
+  { icon: Library, label: 'Songs', path: '/lessons/songs' },
 ];
 
 export const BottomNav = () => {

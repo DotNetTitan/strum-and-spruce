@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Ruler, Hand, Music, Play } from 'lucide-react';
+import { Ruler, Hand, Music, Library, Play } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 const GUIDES = [
@@ -29,6 +29,15 @@ const GUIDES = [
     path: '/lessons/strumming',
     color: 'bg-secondary/10 text-secondary',
     tag: 'Module 03'
+  },
+  {
+    id: 'songs',
+    title: 'Song Library',
+    desc: 'Real songs, real chords. Practice what you\'ve learned.',
+    icon: Library,
+    path: '/lessons/songs',
+    color: 'bg-tertiary/10 text-tertiary',
+    tag: 'Module 04'
   }
 ];
 

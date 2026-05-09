@@ -1,5 +1,5 @@
 import { Fragment, useCallback, useState } from 'react';
-import { ChevronDown, LayoutDashboard } from 'lucide-react';
+import { ChevronDown, Library } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { LessonHeader } from '../components/ui/LessonHeader';
 import { LessonFooter } from '../components/ui/LessonFooter';
@@ -135,9 +135,9 @@ export const Strumming = () => {
       <LessonFooter
         backPath="/lessons/chord"
         backLabel="Chords & Fingers"
-        nextPath="/dashboard"
-        nextLabel="Back to Reference Hub"
-        nextIcon={LayoutDashboard}
+        nextPath="/lessons/songs"
+        nextLabel="Song Library"
+        nextIcon={Library}
       />
     </div>
   );

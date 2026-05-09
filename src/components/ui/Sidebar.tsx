@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Ruler, Hand, Music } from 'lucide-react';
+import { LayoutDashboard, Ruler, Hand, Music, Library } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
 const NAV_ITEMS = [
@@ -7,6 +7,7 @@ const NAV_ITEMS = [
   { icon: Ruler, label: 'Anatomy Guide', path: '/lessons/anatomy' },
   { icon: Hand, label: 'Chords & Fingers', path: '/lessons/chord' },
   { icon: Music, label: 'Strumming Patterns', path: '/lessons/strumming' },
+  { icon: Library, label: 'Song Library', path: '/lessons/songs' },
 ];
 
 export const Sidebar = () => {

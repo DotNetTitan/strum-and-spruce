@@ -14,7 +14,9 @@ import {
   Dashboard, 
   Anatomy, 
   ChordsAndFingers,
-  Strumming
+  Strumming,
+  SongLibrary,
+  SongDetail
 } from './pages';
 import { AppProvider } from './context/AppContext';
 
@@ -70,6 +72,8 @@ function AppContent() {
                 <Route path="/lessons/anatomy" element={<Anatomy />} />
                 <Route path="/lessons/chord" element={<ChordsAndFingers />} />
                 <Route path="/lessons/strumming" element={<Strumming />} />
+                <Route path="/lessons/songs" element={<SongLibrary />} />
+                <Route path="/lessons/songs/:id" element={<SongDetail />} />
                 <Route path="*" element={<Dashboard />} />
               </Routes>
             </motion.div>
