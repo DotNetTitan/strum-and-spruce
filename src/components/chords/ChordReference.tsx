@@ -193,10 +193,10 @@ export const ChordInfo = ({ variant = 'default', className }: ChordInfoProps) =>
       </div>
       <div className="break-inside-avoid space-y-3">
         <p>
-          When a diagram shows fingers placed higher up the neck, the <span className="font-semibold text-on-surface">fret number on the left rail</span> tells you exactly where to position your hand. A "3" means your index finger starts at fret 3, not fret 1.
+          Each diagram maps directly onto your ukulele's fretboard. Strings run left to right (G–C–E–A), frets top to bottom. The thick line at the top is the <span className="font-semibold text-on-surface">nut</span>; <span className="font-semibold text-on-surface">numbers on the left</span> tell you which fret row you're on.
         </p>
         <p>
-          The four columns in the diagram represent the four strings, labelled <span className="font-semibold text-on-surface">G – C – E – A</span> from left to right, matching standard ukulele tuning.
+          When dots appear higher on the neck, the <span className="font-semibold text-on-surface">left rail number</span> anchors your position. That's your starting fret, not fret 1.
         </p>
       </div>
     </div>
