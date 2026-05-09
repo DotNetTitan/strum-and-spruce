@@ -42,7 +42,7 @@ export const ChordsAndFingers = () => {
   return (
     <div className="pt-20 sm:pt-24 pb-6 md:pb-24 px-4 md:px-8 max-w-7xl mx-auto w-full min-w-0">
       <LessonHeader
-        moduleLabel="Module 03: Chords"
+        moduleLabel="Module 02: Chords"
         moduleVariant="technique"
         title="Chords"
         subtitle="and fingers"
