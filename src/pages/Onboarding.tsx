@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Ruler, Hand, Music, Sparkles } from 'lucide-react';
 import { cn } from '../lib/utils';
+import logoUrl from '/logo.png?url';
 
 export const Onboarding = () => (
   <div className="min-h-screen flex flex-col md:flex-row items-stretch overflow-hidden bg-background">
@@ -11,15 +12,17 @@ export const Onboarding = () => (
         alt="Ukulele Craftsmanship"
         className="absolute inset-0 w-full h-full object-cover grayscale-[10%] sepia-[5%] contrast-[1.05]"
       />
-      <div className="absolute top-8 left-8 z-20 md:hidden bg-background/80 backdrop-blur-md px-4 py-2 rounded-full border border-outline-variant/20">
+      <div className="absolute top-8 left-8 z-20 md:hidden bg-background/80 backdrop-blur-md px-4 py-2 rounded-full border border-outline-variant/20 flex items-center gap-2">
+        <img src={logoUrl} alt="Strum & Spruce" className="h-16 w-16" />
         <span className="font-headline font-black text-primary tracking-tight">Strum & Spruce</span>
       </div>
       <div className="absolute -bottom-12 -right-12 w-64 h-64 bg-background rounded-full blur-3xl opacity-50 z-20" />
     </section>
 
     <section className="flex-1 flex flex-col justify-center px-6 py-12 md:px-16 lg:px-24 bg-background relative z-30">
-      <div className="hidden md:block mb-12">
-        <span className="font-headline font-black text-3xl text-primary tracking-tighter">Strum & Spruce</span>
+      <div className="hidden md:flex items-center gap-3 mb-12">
+        <img src={logoUrl} alt="Strum & Spruce" className="h-30 w-30" />
+        <span className="font-headline font-black text-5xl text-primary tracking-tighter">Strum & Spruce</span>
       </div>
 
       <header className="mb-10 max-w-lg">
