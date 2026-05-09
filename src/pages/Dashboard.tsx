@@ -37,7 +37,7 @@ export const Dashboard = () => {
     <div className="flex-1 px-4 sm:px-6 md:px-12 py-8 sm:py-12 max-w-7xl mx-auto w-full min-w-0 pb-4 md:pb-0">
       <header className="mb-10 sm:mb-16">
         <h2 className="text-4xl sm:text-5xl font-headline font-extrabold text-primary tracking-tight leading-tight mb-4 break-words">Reference <span className="text-tertiary italic font-body font-medium">Hub</span></h2>
-        <p className="text-lg text-on-surface-variant max-w-2xl font-body leading-relaxed mb-4">Everything you need to master the ukulele, organized for quick access</p>
+        <p className="text-lg text-on-surface-variant max-w-2xl font-body leading-relaxed mb-4">Your quick reference guide for ukulele basics, organized for quick access</p>
         <p className="inline-flex items-center gap-2 rounded-full border border-outline-variant/30 bg-surface-container-low px-4 py-2 font-body text-sm text-on-surface-variant">
           <span className="font-semibold text-primary">New here?</span>
           Follow the modules in order, starting with Instrument Anatomy.
