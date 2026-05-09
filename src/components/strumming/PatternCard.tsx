@@ -113,7 +113,7 @@ export const PatternCard = ({ pattern, isActive, onSelect, onPlay, isPlaying }: 
             disabled={isPlaying}
             className="h-1 w-full cursor-pointer appearance-none rounded-full bg-outline-variant/30 accent-primary disabled:cursor-not-allowed disabled:opacity-50"
           />
-          <div className="mt-1 flex justify-between font-body text-xs text-on-surface-variant">
+          <div className="mt-1 pb-3 flex justify-between font-body text-xs text-on-surface-variant">
             <span>Slow</span>
             <span>Medium</span>
             <span>Fast</span>
