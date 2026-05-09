@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Music, Volume2 } from 'lucide-react';
+import { Music, Volume2, Ruler } from 'lucide-react';
 import { LessonHeader } from '../components/ui/LessonHeader';
 import { LessonFooter } from '../components/ui/LessonFooter';
 import {
@@ -133,8 +133,8 @@ export const ChordsAndFingers = () => {
       </div>
 
       <LessonFooter
-        backPath="/lessons/technique"
-        backLabel="Technique"
+        backPath="/lessons/anatomy"
+        backLabel="Anatomy Guide"
         nextPath="/lessons/strumming"
         nextLabel="Master Strumming Patterns"
         nextIcon={Music}

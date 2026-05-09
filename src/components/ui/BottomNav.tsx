@@ -1,11 +1,10 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Ruler, Hand, Music, Sparkles } from 'lucide-react';
+import { Home, Ruler, Hand, Music } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
 const NAV_ITEMS = [
   { icon: Home, label: 'Home', path: '/dashboard' },
   { icon: Ruler, label: 'Anatomy', path: '/lessons/anatomy' },
-  { icon: Sparkles, label: 'Tech', path: '/lessons/technique' },
   { icon: Hand, label: 'Chords', path: '/lessons/chord' },
   { icon: Music, label: 'Strum', path: '/lessons/strumming' },
 ];

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Ruler, Hand, Music, Sparkles } from 'lucide-react';
+import { Ruler, Hand, Music } from 'lucide-react';
 import { cn } from '../lib/utils';
 import logoUrl from '/logo.png?url';
 
@@ -37,7 +37,6 @@ export const Onboarding = () => (
       <div className="space-y-8 mb-12 max-w-xl">
         {[
           { icon: Ruler, title: 'Instrument Anatomy', desc: 'Understand every part of your ukulele, from the headstock to the bridge.', color: 'bg-secondary-container text-on-secondary-container' },
-          { icon: Sparkles, title: 'Technique & troubleshooting', desc: 'Fix common friction points: posture, buzzing frets, and strumming mechanics.', color: 'bg-tertiary-fixed text-on-tertiary-fixed-variant' },
           { icon: Hand, title: 'Chord Library', desc: 'Access a comprehensive visual guide for essential chords and finger placements.', color: 'bg-tertiary-fixed text-on-tertiary-fixed-variant' },
           { icon: Music, title: 'Strumming Patterns', desc: 'Master the rhythmic foundations that bring your music to life.', color: 'bg-primary-container text-on-primary' },
         ].map((step, i) => (

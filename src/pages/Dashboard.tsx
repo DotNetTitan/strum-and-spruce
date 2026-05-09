@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Ruler, Hand, Music, Play, Sparkles } from 'lucide-react';
+import { Ruler, Hand, Music, Play } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 const GUIDES = [
@@ -13,22 +13,13 @@ const GUIDES = [
     tag: 'Module 01'
   },
   {
-    id: 'technique',
-    title: 'Technique & troubleshooting',
-    desc: 'Fix buzzes, posture, and strumming mechanics.',
-    icon: Sparkles,
-    path: '/lessons/technique',
-    color: 'bg-tertiary/10 text-tertiary',
-    tag: 'Module 02'
-  },
-  {
     id: 'chord',
     title: 'Chords & Fingers',
     desc: 'Master finger placement and chord shapes.',
     icon: Hand,
     path: '/lessons/chord',
     color: 'bg-tertiary/10 text-tertiary',
-    tag: 'Module 03'
+    tag: 'Module 02'
   },
   {
     id: 'strumming',
@@ -37,7 +28,7 @@ const GUIDES = [
     icon: Music,
     path: '/lessons/strumming',
     color: 'bg-secondary/10 text-secondary',
-    tag: 'Module 04'
+    tag: 'Module 03'
   }
 ];
 

@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { Sparkles } from 'lucide-react';
+import { Hand } from 'lucide-react';
 import { LessonHeader } from '../components/ui/LessonHeader';
 import { LessonFooter } from '../components/ui/LessonFooter';
 import { UkuleleSVG } from '../components/anatomy/UkuleleSVG';
@@ -137,9 +137,9 @@ export const Anatomy = () => {
       <LessonFooter
         backPath="/dashboard"
         backLabel="Reference Hub"
-        nextPath="/lessons/technique"
-        nextLabel="Technique & troubleshooting"
-        nextIcon={Sparkles}
+        nextPath="/lessons/chord"
+        nextLabel="Chords & Fingers"
+        nextIcon={Hand}
       />
     </div>
   );
