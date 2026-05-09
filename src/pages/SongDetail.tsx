@@ -105,8 +105,13 @@ export const SongDetail = () => {
             title="Ukulele tutorial"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
+allowFullScreen
           />
+          <div className="mt-4 px-4 py-3 bg-surface-container-low rounded-xl border border-outline-variant/20">
+            <p className="text-xs text-on-surface-variant font-body text-center leading-relaxed">
+              Tutorial videos sourced from <span className="font-semibold text-primary">YouTube</span>. All content belongs to respective creators.
+            </p>
+          </div>
         </section>
       ) : viewMode === 'chordsheet' && song.chordSheet ? (
         <section className="mb-10 sm:mb-12">
