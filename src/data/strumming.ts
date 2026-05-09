@@ -113,14 +113,23 @@ export const STRUMMING_PATTERNS: StrummingPattern[] = [
     desc: 'Dense subdivision before resolving, builds timing inside each beat group.',
     tips: ['Practice one beat group at a time before chaining the bar.', 'Accent only the first downstroke until the inner pulses feel even.'],
   },
-  {
+{
     id: 'pop-straight-eighths',
     category: 'pop',
     name: 'Straight eighth motor',
     difficulty: 'Pop',
     notation: 'DUDU DUDU',
-    desc: 'Continuous down-up eighths across two bars, “motor” strumming for uptempo songs.',
+    desc: 'Continuous down-up eighths across two bars, "motor" strumming for uptempo songs.',
     tips: ['Keep motion tiny; metronome on eighth notes.', 'Relax the grip so the pick or nail returns evenly.'],
+  },
+  {
+    id: 'pop-waltz',
+    category: 'pop',
+    name: 'Classic waltz',
+    difficulty: 'Pop',
+    notation: 'D D U D D U',
+    desc: 'Three-beat feel for traditional waltzes and folk ballads, one downstroke per beat.',
+    tips: ['Count "one two three" out loud to lock the 3/4 pulse.', 'Accent the first downstroke of each beat group.'],
   },
   {
     id: 'advanced-swing-subdivisions',
