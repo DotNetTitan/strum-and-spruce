@@ -1,5 +1,6 @@
 import { Fragment, useCallback, useState } from 'react';
-import { LayoutDashboard } from 'lucide-react';
+import { ChevronDown, LayoutDashboard } from 'lucide-react';
+import { cn } from '../lib/utils';
 import { LessonHeader } from '../components/ui/LessonHeader';
 import { LessonFooter } from '../components/ui/LessonFooter';
 import { PatternCard, ProTips } from '../components/strumming';
@@ -20,6 +21,7 @@ const PLAY_CHORD = 'C';
 export const Strumming = () => {
   const [activePattern, setActivePattern] = useState(STRUMMING_PATTERNS[0]?.id ?? '');
   const [playingId, setPlayingId] = useState<string | null>(null);
+  const [expandedCategories, setExpandedCategories] = useState<Set<StrummingCategoryId>>(new Set());
   const { playStrum } = useUkuleleAudio();
 
   const patternsByCategory = STRUMMING_CATEGORY_ORDER.reduce<Record<StrummingCategoryId, StrummingPattern[]>>(
@@ -29,6 +31,18 @@ export const Strumming = () => {
     },
     { beginner: [], island: [], pop: [], advanced: [] }
   );
+
+  const toggleCategory = (category: StrummingCategoryId) => {
+    setExpandedCategories((prev) => {
+      const next = new Set(prev);
+      if (next.has(category)) {
+        next.delete(category);
+      } else {
+        next.add(category);
+      }
+      return next;
+    });
+  };
 
   const handlePlay = useCallback((pattern: StrummingPattern) => {
     if (playingId === pattern.id) return;
@@ -70,31 +84,48 @@ export const Strumming = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
         <div className="lg:col-span-8 space-y-10 sm:space-y-12">
-          {STRUMMING_CATEGORY_ORDER.map((category) => (
-            <section key={category} className="space-y-4 sm:space-y-6">
-              <div className="border-b border-outline-variant/20 pb-3">
-                <h2 className="font-headline text-2xl sm:text-3xl font-bold text-primary">
-                  {STRUMMING_CATEGORY_LABELS[category]}
-                </h2>
-                <p className="mt-1 font-body text-sm text-on-surface-variant">
-                  {STRUMMING_CATEGORY_SUBTITLES[category]}
-                </p>
-              </div>
-              <div className="space-y-4 sm:space-y-6">
-                {patternsByCategory[category].map((p) => (
-                  <Fragment key={p.id}>
-                    <PatternCard
-                      pattern={p}
-                      isActive={activePattern === p.id}
-                      onSelect={() => setActivePattern(p.id)}
-                      onPlay={() => handlePlay(p)}
-                      isPlaying={playingId === p.id}
-                    />
-                  </Fragment>
-                ))}
-              </div>
-            </section>
-          ))}
+          {STRUMMING_CATEGORY_ORDER.map((category) => {
+            const isExpanded = expandedCategories.has(category);
+            return (
+              <section key={category} className="space-y-4 sm:space-y-6">
+                <button
+                  onClick={() => toggleCategory(category)}
+                  className="w-full flex items-center justify-between border-b border-outline-variant/20 pb-3 hover:opacity-80 transition-opacity"
+                >
+                  <div className="text-left">
+                    <h2 className="font-headline text-2xl sm:text-3xl font-bold text-primary">
+                      {STRUMMING_CATEGORY_LABELS[category]}
+                    </h2>
+                    <p className="mt-1 font-body text-sm text-on-surface-variant">
+                      {STRUMMING_CATEGORY_SUBTITLES[category]}
+                    </p>
+                  </div>
+                  <ChevronDown
+                    size={24}
+                    className={cn(
+                      'shrink-0 text-primary transition-transform duration-200',
+                      isExpanded && 'rotate-180'
+                    )}
+                  />
+                </button>
+                {isExpanded && (
+                  <div className="space-y-4 sm:space-y-6">
+                    {patternsByCategory[category].map((p) => (
+                      <Fragment key={p.id}>
+                        <PatternCard
+                          pattern={p}
+                          isActive={activePattern === p.id}
+                          onSelect={() => setActivePattern(p.id)}
+                          onPlay={() => handlePlay(p)}
+                          isPlaying={playingId === p.id}
+                        />
+                      </Fragment>
+                    ))}
+                  </div>
+                )}
+              </section>
+            );
+          })}
         </div>
 
         <div className="lg:col-span-4">
