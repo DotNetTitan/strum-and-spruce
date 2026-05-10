@@ -38,9 +38,9 @@ export const SongDetail = () => {
     <div className="flex-1 px-4 sm:px-6 md:px-12 py-8 sm:py-12 max-w-5xl mx-auto w-full min-w-0 pb-4 md:pb-0">
       <Link
         to="/lessons/songs"
-        className="inline-flex items-center gap-2 text-outline hover:text-primary transition-colors font-headline text-sm mb-8 group"
+        className="inline-flex items-center gap-2 px-4 py-2 bg-surface-container-low rounded-full text-primary font-medium font-headline text-sm mb-8 group hover:bg-surface-container transition-colors"
       >
-        <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
+        <ArrowLeft size={18} className="text-primary group-hover:-translate-x-1 transition-transform" />
         Back to Song Library
       </Link>
 
