@@ -44,16 +44,16 @@ export const UkuleleChordDiagram = ({ chord, className }: UkuleleChordDiagramPro
         className
       )}
     >
-      <div className="flex px-3">
+      <div className="grid grid-cols-4 px-3">
         {labels.map((s) => (
-          <div key={s} className="flex min-w-0 flex-1 justify-center">
+          <div key={s} className="flex justify-center">
             <span className="font-label text-xs font-bold text-outline">{s}</span>
           </div>
         ))}
       </div>
-      <div className="mt-1 flex min-h-[28px] items-center px-3">
+      <div className="mt-1 grid grid-cols-4 px-3">
         {frets.map((fret, i) => (
-          <div key={i} className="flex flex-1 justify-center">
+          <div key={i} className="flex justify-center">
             {fret === -1 ? (
               <span
                 className="flex h-7 w-7 shrink-0 items-center justify-center font-headline text-lg font-bold leading-none text-outline"
@@ -75,7 +75,7 @@ export const UkuleleChordDiagram = ({ chord, className }: UkuleleChordDiagramPro
         ))}
       </div>
 
-      <div className="relative mt-1 w-full shrink-0 pl-7 pr-3 sm:pl-8">
+      <div className="relative mt-1 w-full shrink-0 px-3">
         <div className="relative aspect-[5/6] w-full border-t-4 border-primary/20">
           {fretLabels.map((n, i) => (
             <span
