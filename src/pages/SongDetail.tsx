@@ -109,7 +109,7 @@ allowFullScreen
           />
           <div className="mt-4 px-4 py-3 bg-surface-container-low rounded-xl border border-outline-variant/20">
             <p className="text-xs text-on-surface-variant font-body text-center leading-relaxed">
-              Tutorial videos sourced from <span className="font-semibold text-primary">YouTube</span>. All content belongs to respective creators.
+              Tutorial videos are sourced from <span className="font-semibold text-primary">YouTube</span>. All content belongs to respective creators.
             </p>
           </div>
         </section>
