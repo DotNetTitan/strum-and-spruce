@@ -26,7 +26,7 @@ export const TopBar = ({ showBack = false }: TopBarProps) => {
             className="flex items-center gap-2"
           >
             <img src={logoUrl} alt="Strum & Spruce" className="h-20 w-20 sm:h-12 sm:w-12 md:h-16 md:w-16 lg:h-20 lg:w-20" />
-            <span className="font-headline font-black tracking-tight text-lg sm:text-2xl text-primary truncate">
+            <span className="hidden sm:inline font-headline font-black tracking-tight text-lg sm:text-2xl text-primary truncate">
               Strum & Spruce
             </span>
           </Link>
@@ -42,8 +42,8 @@ export const TopBar = ({ showBack = false }: TopBarProps) => {
             aria-label={isLeftHanded ? 'Switch to right-handed mode' : 'Switch to left-handed mode'}
             aria-pressed={isLeftHanded}
           >
-            <Hand size={16} />
-            <span className="hidden sm:inline">Left-handed</span>
+            <Hand size={16} style={{ transform: 'scaleX(-1)' }} />
+            <span>Left-handed</span>
           </button>
           <a
             href="https://ko-fi.com/strumandspruce"
