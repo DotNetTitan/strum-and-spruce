@@ -4,7 +4,17 @@ import { LessonHeader } from '../components/ui/LessonHeader';
 import { LessonFooter } from '../components/ui/LessonFooter';
 import { UkuleleSVG } from '../components/anatomy/UkuleleSVG';
 import { useUkuleleAudio } from '../hooks/useUkuleleAudio';
+import { ProTips } from '../components/strumming/ProTips';
 import { cn } from '../lib/utils';
+
+const ANATOMY_TIPS = [
+  { text: "Always tune before playing - even a slightly out-of-tune ukulele will make you think you're playing wrong when you're not" },
+  { text: "Use a clip-on tuner or a free tuner app; tuning by ear as a beginner is unreliable" },
+  { text: "New strings go out of tune constantly for the first week - that's normal, keep retuning" },
+  { text: "Nylon strings (standard on ukulele) feel very different from guitar strings - don't press too hard" },
+  { text: "Hold the body against your chest with your strumming arm, not just your fretting hand - beginners often let it droop" },
+  { text: "The ukulele should feel comfortable, not tense - if your hand hurts, stop and readjust" },
+];
 
 /** Open-string frequencies (G4, C4, E4, A4) mapped to SVG string index 0–3. */
 const OPEN_STRINGS = [
@@ -132,6 +142,10 @@ export const Anatomy = () => {
             </div>
           ))}
         </div>
+      </section>
+
+      <section className="mt-16 max-w-sm mx-auto lg:max-w-none lg:mt-24">
+        <ProTips tips={ANATOMY_TIPS} />
       </section>
 
       <LessonFooter
