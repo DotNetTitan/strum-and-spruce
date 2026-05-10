@@ -5,7 +5,7 @@ import { cn } from '../../lib/utils';
 const NAV_ITEMS = [
   { icon: Home, label: 'Home', path: '/reference-hub' },
   { icon: Ruler, label: 'Anatomy', path: '/lessons/anatomy' },
-  { icon: Hand, label: 'Chords', path: '/lessons/chord' },
+  { icon: Hand, label: 'Chords', path: '/lessons/chords' },
   { icon: Music, label: 'Strum', path: '/lessons/strumming' },
   { icon: Library, label: 'Songs', path: '/lessons/songs' },
 ];

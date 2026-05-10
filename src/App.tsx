@@ -70,7 +70,7 @@ function AppContent() {
                 <Route path="/reference-hub" element={<Dashboard />} />
                 <Route path="/lessons" element={<Dashboard />} />
                 <Route path="/lessons/anatomy" element={<Anatomy />} />
-                <Route path="/lessons/chord" element={<ChordsAndFingers />} />
+                <Route path="/lessons/chords" element={<ChordsAndFingers />} />
                 <Route path="/lessons/strumming" element={<Strumming />} />
                 <Route path="/lessons/songs" element={<SongLibrary />} />
                 <Route path="/lessons/songs/:id" element={<SongDetail />} />

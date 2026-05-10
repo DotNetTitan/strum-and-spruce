@@ -17,7 +17,7 @@ const GUIDES = [
     title: 'Chords & Fingers',
     desc: 'Master finger placement and chord shapes.',
     icon: Hand,
-    path: '/lessons/chord',
+    path: '/lessons/chords',
     color: 'bg-tertiary/10 text-tertiary',
     tag: 'Module 02'
   },

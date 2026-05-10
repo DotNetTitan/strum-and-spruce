@@ -133,7 +133,7 @@ export const Strumming = () => {
         </div>
       </div>
       <LessonFooter
-        backPath="/lessons/chord"
+        backPath="/lessons/chords"
         backLabel="Chords & Fingers"
         nextPath="/lessons/songs"
         nextLabel="Song Library"

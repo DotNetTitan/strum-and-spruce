@@ -137,7 +137,7 @@ export const Anatomy = () => {
       <LessonFooter
         backPath="/reference-hub"
         backLabel="Reference Hub"
-        nextPath="/lessons/chord"
+        nextPath="/lessons/chords"
         nextLabel="Chords & Fingers"
         nextIcon={Hand}
       />
