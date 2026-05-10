@@ -3,7 +3,7 @@ import { LayoutDashboard, Ruler, Hand, Music, Library } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
 const NAV_ITEMS = [
-  { icon: LayoutDashboard, label: 'Reference Hub', path: '/dashboard' },
+  { icon: LayoutDashboard, label: 'Reference Hub', path: '/reference-hub' },
   { icon: Ruler, label: 'Anatomy Guide', path: '/lessons/anatomy' },
   { icon: Hand, label: 'Chords & Fingers', path: '/lessons/chord' },
   { icon: Music, label: 'Strumming Patterns', path: '/lessons/strumming' },

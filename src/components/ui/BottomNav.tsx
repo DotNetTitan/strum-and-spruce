@@ -3,7 +3,7 @@ import { Home, Ruler, Hand, Music, Library } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
 const NAV_ITEMS = [
-  { icon: Home, label: 'Home', path: '/dashboard' },
+  { icon: Home, label: 'Home', path: '/reference-hub' },
   { icon: Ruler, label: 'Anatomy', path: '/lessons/anatomy' },
   { icon: Hand, label: 'Chords', path: '/lessons/chord' },
   { icon: Music, label: 'Strum', path: '/lessons/strumming' },

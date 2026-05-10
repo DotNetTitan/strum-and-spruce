@@ -12,7 +12,7 @@ export const TopBar = ({ showBack = false }: TopBarProps) => (
     <div className="flex justify-between items-center gap-2 px-4 sm:px-6 h-16 w-full max-w-screen-2xl mx-auto min-w-0">
       <div className="flex items-center gap-2 sm:gap-4 min-w-0 flex-1">
         {showBack && (
-          <Link to="/dashboard" className="p-2 shrink-0 hover:bg-surface-container rounded-full transition-colors text-primary" aria-label="Back to hub">
+          <Link to="/reference-hub" className="p-2 shrink-0 hover:bg-surface-container rounded-full transition-colors text-primary" aria-label="Back to hub">
             <ArrowLeft size={22} />
           </Link>
         )}

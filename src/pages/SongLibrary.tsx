@@ -27,7 +27,7 @@ export const SongLibrary = () => {
       <LessonFooter
         backPath="/lessons/strumming"
         backLabel="Strumming Patterns"
-        nextPath="/dashboard"
+        nextPath="/reference-hub"
         nextLabel="Reference Hub"
         nextIcon={LayoutDashboard}
       />

@@ -55,7 +55,7 @@ export const Onboarding = () => (
 
       <footer className="flex flex-col sm:flex-row items-center gap-6">
         <Link
-          to="/dashboard"
+          to="/reference-hub"
           className="w-full sm:w-auto px-10 py-4 bg-gradient-to-br from-primary to-primary-container text-on-primary font-headline font-bold rounded-full editorial-shadow hover:opacity-90 active:scale-95 transition-all duration-200 text-lg text-center"
         >
           Continue to Hub

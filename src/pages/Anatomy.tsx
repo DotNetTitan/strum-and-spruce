@@ -135,7 +135,7 @@ export const Anatomy = () => {
       </section>
 
       <LessonFooter
-        backPath="/dashboard"
+        backPath="/reference-hub"
         backLabel="Reference Hub"
         nextPath="/lessons/chord"
         nextLabel="Chords & Fingers"
