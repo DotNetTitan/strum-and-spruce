@@ -30,7 +30,7 @@ export const Onboarding = () => (
           Your Ukulele <span className="text-primary italic font-body font-medium">Reference Hub</span>
         </h1>
         <p className="text-on-surface-variant text-lg md:text-xl font-body leading-relaxed">
-          Learn Ukulele the easy way. Explore instrument anatomy, essential chords, strumming patterns, and a song library, all in one place.
+          Learn ukulele the easy way, even if you're a complete beginner. Explore instrument anatomy, essential chords, strumming patterns, and a song library, all in one place.
         </p>
       </header>
 
