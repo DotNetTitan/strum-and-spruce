@@ -1,6 +1,7 @@
 import { Hash, UserCircle, CircleDot } from 'lucide-react';
 import { STRING_NAMES, FINGER_NUMBERS } from '../../data/chords';
 import { cn } from '../../lib/utils';
+import { useApp } from '../../context/AppContext';
 
 /** Presentation density for sidebar vs full-width reference blocks. */
 export type ReferenceCardVariant = 'default' | 'compact';
@@ -131,8 +132,12 @@ export interface ChordInfoProps {
   className?: string;
 }
 
-export const ChordInfo = ({ variant = 'default', className }: ChordInfoProps) => (
-  <section
+export const ChordInfo = ({ variant = 'default', className }: ChordInfoProps) => {
+  const { isLeftHanded } = useApp();
+  const stringOrder = isLeftHanded ? 'A–E–C–G' : 'G–C–E–A';
+
+  return (
+    <section
     className={cn(
       'flex min-h-0 w-full min-w-0 flex-col text-left',
       variant === 'compact' &&
@@ -193,7 +198,7 @@ export const ChordInfo = ({ variant = 'default', className }: ChordInfoProps) =>
       </div>
       <div className="break-inside-avoid space-y-3">
         <p>
-          Each diagram maps directly onto your ukulele's fretboard. Strings run left to right (G–C–E–A), frets top to bottom. The thick line at the top is the <span className="font-semibold text-on-surface">nut</span>; <span className="font-semibold text-on-surface">numbers on the left</span> tell you which fret row you're on.
+          Each diagram maps directly onto your ukulele's fretboard. Strings run left to right ({stringOrder}), frets top to bottom. The thick line at the top is the <span className="font-semibold text-on-surface">nut</span>; <span className="font-semibold text-on-surface">numbers on the left</span> tell you which fret row you're on.
         </p>
         <p>
           When dots appear higher on the neck, the <span className="font-semibold text-on-surface">left rail number</span> anchors your position. That's your starting fret, not fret 1.
@@ -201,4 +206,5 @@ export const ChordInfo = ({ variant = 'default', className }: ChordInfoProps) =>
       </div>
     </div>
   </section>
-);
+  );
+};

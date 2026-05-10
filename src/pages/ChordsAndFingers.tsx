@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { Music, Volume2, Ruler } from 'lucide-react';
 import { LessonHeader } from '../components/ui/LessonHeader';
 import { LessonFooter } from '../components/ui/LessonFooter';
+import { useApp } from '../context/AppContext';
 import {
   ChordLibraryPanel,
   StringNames,
@@ -22,6 +23,8 @@ export const ChordsAndFingers = () => {
   const [filterQuery, setFilterQuery] = useState('');
   const [filterCategory, setFilterCategory] = useState<ChordLibraryFilterCategory>('beginner');
   const { playChord } = useUkuleleAudio();
+  const { isLeftHanded } = useApp();
+  const tuningLabel = isLeftHanded ? 'A-E-C-G' : 'G-C-E-A';
 
   const filteredChords = useMemo(
     () => filterChordDefinitions(CHORD_DEFINITIONS, filterCategory, filterQuery),
@@ -96,7 +99,7 @@ export const ChordsAndFingers = () => {
                     </span>
                     <div className="flex gap-2">
                       <div className="rounded-full bg-surface-container-highest px-3 py-1 text-sm font-bold text-primary">
-                        G-C-E-A
+                        {tuningLabel}
                       </div>
                     </div>
                   </div>
