@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, StaticRouter } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { Analytics } from '@vercel/analytics/react';
 import { cn } from './lib/utils';
@@ -20,6 +20,15 @@ import {
 } from './pages';
 import { AppProvider } from './context/AppContext';
 
+const isServer = typeof window === 'undefined';
+
+function AppRouter({ children, location }: { children: React.ReactNode; location?: string }) {
+  if (isServer) {
+    return <StaticRouter location={location || '/'}>{children}</StaticRouter>;
+  }
+  return <Router>{children}</Router>;
+}
+
 function ScrollToTop() {
   const { pathname } = useLocation();
 
@@ -33,21 +42,21 @@ function ScrollToTop() {
   return null;
 }
 
-function AppContent() {
+function AppContent({ serverLocation }: { serverLocation?: string }) {
   const location = useLocation();
   const isOnboarding = location.pathname === '/';
 
   return (
     <div className="relative min-h-screen flex flex-col">
       {!isOnboarding && <TopBar showBack={location.pathname.includes('/lessons/')} />}
-      
+
       <div
         className={cn(
           isOnboarding ? "flex-1" : "flex flex-1 min-h-0 min-w-0 pt-[calc(4rem+env(safe-area-inset-top,0px))]"
         )}
       >
         {!isOnboarding && <Sidebar />}
-        
+
         <main
           className={cn(
             "relative flex-1 min-w-0",
@@ -80,19 +89,19 @@ function AppContent() {
           </AnimatePresence>
         </main>
       </div>
-      
+
       {!isOnboarding && <BottomNav />}
       <GrainOverlay />
     </div>
   );
 }
 
-export default function App() {
+export default function App({ serverLocation }: { serverLocation?: string }) {
   return (
     <AppProvider>
-      <Router>
-        <AppContent />
-      </Router>
+      <AppRouter location={serverLocation}>
+        <AppContent serverLocation={serverLocation} />
+      </AppRouter>
       <Analytics />
     </AppProvider>
   );

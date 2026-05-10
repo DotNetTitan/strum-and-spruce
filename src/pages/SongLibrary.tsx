@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, LayoutDashboard } from 'lucide-react';
 import { SONGS } from '../data/songs';
@@ -7,7 +8,12 @@ import { LessonFooter } from '../components/ui/LessonFooter';
 
 export const SongLibrary = () => {
   return (
-    <div className="flex-1 px-4 sm:px-6 md:px-12 py-8 sm:py-12 max-w-7xl mx-auto w-full min-w-0 pb-4 md:pb-0">
+    <>
+      <Helmet>
+        <title>Ukulele Song Library | Strum & Spruce</title>
+        <meta name="description" content="Play along with real songs using ukulele chord sheets and video tutorials." />
+      </Helmet>
+      <div className="flex-1 px-4 sm:px-6 md:px-12 py-8 sm:py-12 max-w-7xl mx-auto w-full min-w-0 pb-4 md:pb-0">
       <LessonHeader
         moduleLabel="MODULE 04: SONGS"
         moduleVariant="rhythm"
@@ -32,5 +38,6 @@ export const SongLibrary = () => {
         nextIcon={LayoutDashboard}
       />
     </div>
+    </>
   );
 };

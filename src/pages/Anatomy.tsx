@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import { useCallback, useState } from 'react';
 import { Hand } from 'lucide-react';
 import { LessonHeader } from '../components/ui/LessonHeader';
@@ -57,7 +58,12 @@ export const Anatomy = () => {
   }, [playNote]);
 
   return (
-    <div className="flex-1 px-4 md:px-12 py-8 sm:py-12 max-w-7xl mx-auto w-full min-w-0 pb-4 md:pb-0">
+    <>
+      <Helmet>
+        <title>Ukulele Anatomy Guide | Strum & Spruce</title>
+        <meta name="description" content="Learn every part of your ukulele from headstock to bridge. A complete beginner anatomy guide." />
+      </Helmet>
+      <div className="flex-1 px-4 md:px-12 py-8 sm:py-12 max-w-7xl mx-auto w-full min-w-0 pb-4 md:pb-0">
       <LessonHeader 
         moduleLabel="Module 01: The Basics"
         moduleVariant="basics"
@@ -156,5 +162,6 @@ export const Anatomy = () => {
         nextIcon={Hand}
       />
     </div>
+    </>
   );
 };

@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import { Fragment, useCallback, useState } from 'react';
 import { ChevronDown, Library } from 'lucide-react';
 import { cn } from '../lib/utils';
@@ -53,7 +54,12 @@ export const Strumming = () => {
   }, [playingId, playStrum]);
 
   return (
-    <div className="pt-20 sm:pt-24 pb-6 md:pb-24 px-4 md:px-8 max-w-7xl mx-auto w-full min-w-0">
+    <>
+      <Helmet>
+        <title>Ukulele Strumming Patterns | Strum & Spruce</title>
+        <meta name="description" content="Master rhythmic strumming patterns that bring your ukulele music to life." />
+      </Helmet>
+      <div className="pt-20 sm:pt-24 pb-6 md:pb-24 px-4 md:px-8 max-w-7xl mx-auto w-full min-w-0">
       <LessonHeader
         moduleLabel="Module 03: Rhythm"
         moduleVariant="rhythm"
@@ -140,5 +146,6 @@ export const Strumming = () => {
         nextIcon={Library}
       />
     </div>
+    </>
   );
 };

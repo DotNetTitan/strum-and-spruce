@@ -1,10 +1,16 @@
+import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { Ruler, Hand, Music, Library } from 'lucide-react';
 import { cn } from '../lib/utils';
 import logoUrl from '/logo.png?url';
 
 export const Onboarding = () => (
-  <div className="min-h-screen flex flex-col md:flex-row items-stretch overflow-hidden bg-background">
+  <>
+    <Helmet>
+      <title>Strum & Spruce | Learn Ukulele Online</title>
+      <meta name="description" content="Learn ukulele the easy way, even if you're a complete beginner. Explore instrument anatomy, essential chords, strumming patterns, and a song library, all in one place." />
+    </Helmet>
+    <div className="min-h-screen flex flex-col md:flex-row items-stretch overflow-hidden bg-background">
     <section className="relative w-full md:w-1/2 lg:w-3/5 min-h-[400px] md:min-h-screen bg-surface-container overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent z-10" />
       <img
@@ -63,4 +69,5 @@ export const Onboarding = () => (
       </footer>
     </section>
   </div>
+  </>
 );

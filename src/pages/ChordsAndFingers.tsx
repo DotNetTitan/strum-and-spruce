@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import { useMemo, useState } from 'react';
 import { Music, Volume2, Ruler } from 'lucide-react';
 import { LessonHeader } from '../components/ui/LessonHeader';
@@ -43,7 +44,12 @@ export const ChordsAndFingers = () => {
   const nextChordDisabled = filteredChords.length === 0;
 
   return (
-    <div className="pt-20 sm:pt-24 pb-6 md:pb-24 px-4 md:px-8 max-w-7xl mx-auto w-full min-w-0">
+    <>
+      <Helmet>
+        <title>Ukulele Chord Library | Strum & Spruce</title>
+        <meta name="description" content="Visual guides for essential ukulele chords and finger placements for beginners." />
+      </Helmet>
+      <div className="pt-20 sm:pt-24 pb-6 md:pb-24 px-4 md:px-8 max-w-7xl mx-auto w-full min-w-0">
       <LessonHeader
         moduleLabel="Module 02: Chords"
         moduleVariant="technique"
@@ -143,5 +149,6 @@ export const ChordsAndFingers = () => {
         nextIcon={Music}
       />
     </div>
+    </>
   );
 };

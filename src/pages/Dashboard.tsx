@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { Ruler, Hand, Music, Library, Play } from 'lucide-react';
 import { cn } from '../lib/utils';
@@ -43,7 +44,12 @@ const GUIDES = [
 
 export const Dashboard = () => {
   return (
-    <div className="flex-1 px-4 sm:px-6 md:px-12 py-8 sm:py-12 max-w-7xl mx-auto w-full min-w-0 pb-4 md:pb-0">
+    <>
+      <Helmet>
+        <title>Reference Hub | Strum & Spruce</title>
+        <meta name="description" content="Your ukulele quick reference guide. Access lessons on instrument anatomy, chords, strumming patterns, and songs." />
+      </Helmet>
+      <div className="flex-1 px-4 sm:px-6 md:px-12 py-8 sm:py-12 max-w-7xl mx-auto w-full min-w-0 pb-4 md:pb-0">
       <header className="mb-10 sm:mb-16">
         <h2 className="text-4xl sm:text-5xl font-headline font-extrabold text-primary tracking-tight leading-tight mb-4 break-words">Reference <span className="text-tertiary italic font-body font-medium">Hub</span></h2>
         <p className="text-lg text-on-surface-variant max-w-2xl font-body leading-relaxed mb-4">Your quick reference guide for ukulele basics, organized for quick access</p>
@@ -73,6 +79,7 @@ export const Dashboard = () => {
           </Link>
         ))}
       </div>
-    </div>
+      </div>
+    </>
   );
 };
