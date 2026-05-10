@@ -6,6 +6,7 @@ import {
   stringCenterLeftPercent,
 } from '../../lib/chordDiagramLayout';
 import { cn } from '../../lib/utils';
+import { useApp } from '../../context/AppContext';
 
 /** Props for {@link UkuleleChordDiagram}. */
 export interface UkuleleChordDiagramProps {
@@ -16,17 +17,25 @@ export interface UkuleleChordDiagramProps {
 }
 
 const STRING_LABELS = ['G', 'C', 'E', 'A'] as const;
+const REVERSED_STRING_LABELS = ['A', 'E', 'C', 'G'] as const;
 
 /**
  * Full fretboard diagram: nut markers (open / mute), fret labels, finger dots.
  * Finger dots are non-interactive (no preview/audio).
  */
 export const UkuleleChordDiagram = ({ chord, className }: UkuleleChordDiagramProps) => {
+  const { isLeftHanded } = useApp();
   const startFret = computeDiagramStartFret([
     ...chord.frets.filter((f) => f > 0),
     ...chord.placements.map((p) => p.fret),
   ]);
   const fretLabels = Array.from({ length: 5 }, (_, i) => startFret + i);
+
+  const labels = isLeftHanded ? REVERSED_STRING_LABELS : STRING_LABELS;
+  const frets = isLeftHanded ? [...chord.frets].reverse() : chord.frets;
+  const placements = isLeftHanded
+    ? chord.placements.map((p) => ({ ...p, stringIndex: 3 - p.stringIndex }))
+    : chord.placements;
 
   return (
     <div
@@ -36,14 +45,14 @@ export const UkuleleChordDiagram = ({ chord, className }: UkuleleChordDiagramPro
       )}
     >
       <div className="flex px-3">
-        {STRING_LABELS.map((s) => (
+        {labels.map((s) => (
           <div key={s} className="flex min-w-0 flex-1 justify-center">
             <span className="font-label text-xs font-bold text-outline">{s}</span>
           </div>
         ))}
       </div>
       <div className="mt-1 flex min-h-[28px] items-center px-3">
-        {chord.frets.map((fret, i) => (
+        {frets.map((fret, i) => (
           <div key={i} className="flex flex-1 justify-center">
             {fret === -1 ? (
               <span
@@ -89,7 +98,7 @@ export const UkuleleChordDiagram = ({ chord, className }: UkuleleChordDiagramPro
               <div key={line} className="h-px w-full bg-outline/20" />
             ))}
           </div>
-          {chord.placements.map((p) => {
+          {placements.map((p) => {
             const rel = p.fret - startFret + 1;
             const left = stringCenterLeftPercent(p.stringIndex);
             const top = fretCenterTopPercent(rel);
