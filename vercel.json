@@ -18,6 +18,11 @@
     }
   ],
   "rewrites": [
+    { "source": "/reference-hub", "destination": "/reference-hub.html" },
+    { "source": "/lessons/anatomy", "destination": "/lessons/anatomy.html" },
+    { "source": "/lessons/chords", "destination": "/lessons/chords.html" },
+    { "source": "/lessons/strumming", "destination": "/lessons/strumming.html" },
+    { "source": "/lessons/songs", "destination": "/lessons/songs.html" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
