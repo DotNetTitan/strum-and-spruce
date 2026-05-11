@@ -9,6 +9,7 @@ export const Onboarding = () => (
     <Helmet>
       <title>Strum & Spruce | Learn Ukulele Online</title>
       <meta name="description" content="Learn ukulele the easy way, even if you're a complete beginner. Explore instrument anatomy, essential chords, strumming patterns, and a song library, all in one place." />
+      <link rel="canonical" href="https://strumandspruce.com" />
     </Helmet>
     <div className="min-h-screen flex flex-col md:flex-row items-stretch overflow-hidden bg-background">
     <section className="relative w-full md:w-1/2 lg:w-3/5 min-h-[400px] md:min-h-screen bg-surface-container overflow-hidden">

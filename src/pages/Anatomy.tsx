@@ -62,6 +62,7 @@ export const Anatomy = () => {
       <Helmet>
         <title>Ukulele Anatomy Guide | Strum & Spruce</title>
         <meta name="description" content="Learn every part of your ukulele from headstock to bridge. A complete beginner anatomy guide." />
+        <link rel="canonical" href="https://strumandspruce.com/lessons/anatomy" />
       </Helmet>
       <div className="flex-1 px-4 md:px-12 py-8 sm:py-12 max-w-7xl mx-auto w-full min-w-0 pb-4 md:pb-0">
       <LessonHeader 

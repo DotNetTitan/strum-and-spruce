@@ -48,6 +48,7 @@ export const Dashboard = () => {
       <Helmet>
         <title>Reference Hub | Strum & Spruce</title>
         <meta name="description" content="Your ukulele quick reference guide. Access lessons on instrument anatomy, chords, strumming patterns, and songs." />
+        <link rel="canonical" href="https://strumandspruce.com/reference-hub" />
       </Helmet>
       <div className="flex-1 px-4 sm:px-6 md:px-12 py-8 sm:py-12 max-w-7xl mx-auto w-full min-w-0 pb-4 md:pb-0">
       <header className="mb-10 sm:mb-16">

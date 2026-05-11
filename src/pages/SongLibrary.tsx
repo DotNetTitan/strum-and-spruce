@@ -12,6 +12,7 @@ export const SongLibrary = () => {
       <Helmet>
         <title>Ukulele Song Library | Strum & Spruce</title>
         <meta name="description" content="Play along with real songs using ukulele chord sheets and video tutorials." />
+        <link rel="canonical" href="https://strumandspruce.com/lessons/songs" />
       </Helmet>
       <div className="flex-1 px-4 sm:px-6 md:px-12 py-8 sm:py-12 max-w-7xl mx-auto w-full min-w-0 pb-4 md:pb-0">
       <LessonHeader

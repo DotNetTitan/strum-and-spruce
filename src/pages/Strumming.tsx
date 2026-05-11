@@ -58,6 +58,7 @@ export const Strumming = () => {
       <Helmet>
         <title>Ukulele Strumming Patterns | Strum & Spruce</title>
         <meta name="description" content="Master rhythmic strumming patterns that bring your ukulele music to life." />
+        <link rel="canonical" href="https://strumandspruce.com/lessons/strumming" />
       </Helmet>
       <div className="pt-20 sm:pt-24 pb-6 md:pb-24 px-4 md:px-8 max-w-7xl mx-auto w-full min-w-0">
       <LessonHeader

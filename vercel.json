@@ -10,6 +10,11 @@
       ],
       "destination": "https://strumandspruce.com/$1",
       "permanent": true
+    },
+    {
+      "source": "/(.*)/",
+      "destination": "/$1",
+      "permanent": true
     }
   ],
   "rewrites": [
