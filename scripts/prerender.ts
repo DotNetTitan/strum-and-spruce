@@ -89,7 +89,14 @@ function injectIntoHead(html: string, tags: string, canonical: string): string {
       }
     }
   }
-  
+
+  const allTitles = html.match(/<title>[^<]*<\/title>/gi);
+  if (allTitles && allTitles.length > 1) {
+    html = html.replace(/<title>[^<]*<\/title>/gi, '');
+    const insertPoint = html.indexOf('</head>');
+    html = html.slice(0, insertPoint) + allTitles[0] + '\n' + html.slice(insertPoint);
+  }
+
   return html;
 }
 
