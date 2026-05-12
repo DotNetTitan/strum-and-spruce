@@ -90,26 +90,29 @@ export const ChordsAndFingers = () => {
                   className="mx-auto max-w-[min(100%,280px)] sm:max-w-[300px] md:mx-0"
                 />
 
-                <div className="flex min-w-0 flex-1 flex-col gap-6 md:pt-1">
-                  <header className="min-w-0">
-                    <h2 className="mb-2 font-headline text-2xl font-bold text-primary sm:text-3xl md:text-4xl">
-                      {selectedChordData.label}
-                    </h2>
-                    <p className="max-w-prose font-body text-sm text-on-surface-variant opacity-90 sm:text-base">
-                      {selectedChordData.desc}
-                    </p>
-                  </header>
+                <div className="flex min-w-0 flex-1 flex-col justify-between gap-6 md:pt-1">
+                  <div className="flex flex-col gap-4">
+                    <header className="min-w-0">
+                      <h2 className="mb-2 font-headline text-2xl font-bold text-primary sm:text-3xl md:text-4xl">
+                        {selectedChordData.label}
+                      </h2>
+                      <p className="max-w-prose font-body text-sm text-on-surface-variant opacity-90 sm:text-base">
+                        {selectedChordData.desc}
+                      </p>
+                    </header>
 
-                  <div className="space-y-2">
-                    <span className="font-label text-xs uppercase tracking-widest text-outline block font-bold">
-                      Tuning
-                    </span>
-                    <div className="flex gap-2">
-                      <div className="rounded-full bg-surface-container-highest px-3 py-1 text-sm font-bold text-primary">
-                        {tuningLabel}
+                    <div className="space-y-2">
+                      <span className="font-label text-xs uppercase tracking-widest text-outline block font-bold">
+                        Tuning
+                      </span>
+                      <div className="flex gap-2">
+                        <div className="rounded-full bg-surface-container-highest px-3 py-1 text-sm font-bold text-primary">
+                          {tuningLabel}
+                        </div>
                       </div>
                     </div>
                   </div>
+
                   <div className="flex flex-col gap-3">
                     <div className="flex items-start gap-1.5 rounded-lg border border-outline-variant/30 bg-surface-container px-3 py-2 text-xs text-on-surface-variant">
                       <Info size={12} className="mt-0.5 shrink-0 text-tertiary" />
