@@ -113,7 +113,7 @@ export const ChordsAndFingers = () => {
                   <div className="flex flex-col gap-3">
                     <div className="flex items-start gap-1.5 rounded-lg border border-outline-variant/30 bg-surface-container px-3 py-2 text-xs text-on-surface-variant">
                       <Info size={12} className="mt-0.5 shrink-0 text-tertiary" />
-                      <span>Audio is a reference guide only — it will not sound exactly like a real ukulele.</span>
+                      <span>Play chord audio is a reference guide only. It will not sound exactly like a real ukulele.</span>
                     </div>
                     <button
                       type="button"
