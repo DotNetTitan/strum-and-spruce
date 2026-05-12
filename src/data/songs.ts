@@ -2,7 +2,7 @@ export interface Song {
   id: string;
   title: string;
   artist: string;
-  difficulty: 'Beginner' | 'Intermediate';
+  difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
   chords: string[];
   progression: string;
   chordSheet?: string;
@@ -138,7 +138,7 @@ This is our fate, I'm yours`
     id: 'somewhere-over-rainbow',
     title: 'Somewhere Over the Rainbow',
     artist: 'Israel Kamakawiwoʻole',
-    difficulty: 'Beginner',
+    difficulty: 'Intermediate',
     chords: ['C', 'Em', 'Am', 'F', 'G'],
     progression: 'C → Em → Am → F → G',
     youtubeId: 'O1Adut2d9Pk',
@@ -409,7 +409,7 @@ Hal-le-lu-jah, hal-le-luu-jah`
     id: 'cant-help-falling-in-love',
     title: "Can't Help Falling in Love",
     artist: 'Elvis Presley',
-    difficulty: 'Intermediate',
+    difficulty: 'Advanced',
     chords: ['C', 'Em', 'Am', 'F', 'G', 'B7', 'A7', 'Dm'],
     progression: 'C → Em → Am → F → G',
     youtubeId: 'oILIeBW7RF0',
@@ -510,7 +510,7 @@ Knock, knock, knockin' on heaven's door`
     id: 'let-her-go',
     title: 'Let Her Go',
     artist: 'Passenger',
-    difficulty: 'Intermediate',
+    difficulty: 'Advanced',
     chords: ['C', 'G', 'Am', 'F', 'Em', 'D', 'Bm'],
     progression: 'C → G → Am → F',
     youtubeId: 'iyVjRMOY2HI',
