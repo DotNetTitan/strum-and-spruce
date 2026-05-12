@@ -38,7 +38,7 @@ export const PatternCard = ({ pattern, isActive, onSelect, onPlay, isPlaying }: 
           }
         }}
         className={cn(
-          'cursor-pointer p-5 outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary/40 sm:p-8'
+          'cursor-pointer p-5 sm:p-8 outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary/40'
         )}
       >
         <div className="mb-3 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
@@ -73,8 +73,8 @@ export const PatternCard = ({ pattern, isActive, onSelect, onPlay, isPlaying }: 
       </div>
 
       {/* Play button and tempo slider — separate from the select area to avoid double-firing */}
-      <div className="pb-5 sm:px-8 sm:pb-8">
-        <div className="flex items-start gap-1.5 rounded-lg border border-outline-variant/30 bg-surface-container px-3 py-2 text-xs text-on-surface-variant">
+      <div className="px-5 pb-6 sm:px-8 sm:pb-8 md:px-5">
+        <div className="mb-5 flex items-start gap-1.5 rounded-lg border border-outline-variant/30 bg-surface-container px-3 py-2 text-xs text-on-surface-variant">
           <Info size={12} className="mt-0.5 shrink-0 text-tertiary" />
           <span>Play pattern audio is a reference guide only. It will not sound exactly like a real ukulele.</span>
         </div>
@@ -86,7 +86,7 @@ export const PatternCard = ({ pattern, isActive, onSelect, onPlay, isPlaying }: 
             onPlay(bpm);
           }}
           className={cn(
-            'mt-3 flex items-center gap-2 rounded-xl px-5 py-2.5 font-label text-xs font-bold transition-all shadow-sm active:scale-95',
+            'mb-5 flex items-center gap-2 rounded-xl px-5 py-2.5 font-label text-xs font-bold transition-all shadow-sm active:scale-95',
             isPlaying
               ? 'bg-primary/80 text-on-primary cursor-not-allowed'
               : 'bg-primary text-on-primary hover:opacity-90'
@@ -106,8 +106,8 @@ export const PatternCard = ({ pattern, isActive, onSelect, onPlay, isPlaying }: 
         </button>
 
         {/* Tempo slider */}
-        <div className="mt-3">
-          <div className="flex justify-end font-body text-sm text-on-surface-variant">{bpm} BPM</div>
+        <div className="mt-4">
+          <div className="mb-2 flex justify-end font-body text-sm text-on-surface-variant">{bpm} BPM</div>
           <input
             type="range"
             min="40"
@@ -116,9 +116,9 @@ export const PatternCard = ({ pattern, isActive, onSelect, onPlay, isPlaying }: 
             value={bpm}
             onChange={(e) => setBpm(Number(e.target.value))}
             disabled={isPlaying}
-            className="h-1 w-full cursor-pointer appearance-none rounded-full bg-outline-variant/30 accent-primary disabled:cursor-not-allowed disabled:opacity-50"
+            className="mb-2 h-1 w-full cursor-pointer appearance-none rounded-full bg-outline-variant/30 accent-primary disabled:cursor-not-allowed disabled:opacity-50"
           />
-          <div className="mt-1 pb-3 flex justify-between font-body text-xs text-on-surface-variant">
+          <div className="flex justify-between font-body text-xs text-on-surface-variant">
             <span>Slow</span>
             <span>Medium</span>
             <span>Fast</span>
