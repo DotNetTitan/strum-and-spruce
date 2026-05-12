@@ -109,8 +109,8 @@ export const SongDetail = () => {
 allowFullScreen
           />
           <div className="mt-4 px-4 py-3 bg-surface-container-low rounded-xl border border-outline-variant/20">
-            <div className="flex items-center justify-center gap-2 text-xs text-on-surface-variant font-body text-center leading-relaxed">
-              <Info size={12} className="shrink-0 text-tertiary" />
+            <div className="flex items-start justify-center gap-2 text-xs text-on-surface-variant font-body text-center leading-relaxed">
+              <Info size={12} className="mt-0.5 shrink-0 text-tertiary" />
               <span>
                 Tutorial videos are curated from <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary hover:underline">YouTube</a>. All content belongs to respective creators.
               </span>
