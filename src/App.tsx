@@ -19,6 +19,7 @@ import {
   SongDetail
 } from './pages';
 import { AppProvider } from './context/AppContext';
+import { useUkuleleAudio } from './hooks/useUkuleleAudio';
 
 const isServer = typeof window === 'undefined';
 
@@ -45,6 +46,13 @@ function ScrollToTop() {
 function AppContent({ serverLocation }: { serverLocation?: string }) {
   const location = useLocation();
   const isOnboarding = location.pathname === '/';
+  const { warmUp } = useUkuleleAudio();
+
+  React.useEffect(() => {
+    const handler = () => warmUp();
+    document.addEventListener('click', handler, { once: true });
+    return () => document.removeEventListener('click', handler);
+  }, [warmUp]);
 
   return (
     <div className="relative min-h-screen flex flex-col">

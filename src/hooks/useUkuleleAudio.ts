@@ -28,6 +28,10 @@ function getCtx(): AudioContext {
   return _ctx;
 }
 
+function warmUp(): void {
+  getCtx();
+}
+
 function midiHz(midi: number): number {
   return 440 * Math.pow(2, (midi - 69) / 12);
 }
@@ -231,6 +235,7 @@ export const useUkuleleAudio = () => {
   }, []);
 
   return {
+    warmUp,
     playChord,
     playArpeggio,
     playStrum,
