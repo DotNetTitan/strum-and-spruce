@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { useMemo, useState } from 'react';
-import { Music, Volume2, Ruler } from 'lucide-react';
+import { Music, Volume2, Ruler, Info } from 'lucide-react';
 import { LessonHeader } from '../components/ui/LessonHeader';
 import { LessonFooter } from '../components/ui/LessonFooter';
 import { useApp } from '../context/AppContext';
@@ -111,6 +111,10 @@ export const ChordsAndFingers = () => {
                     </div>
                   </div>
                   <div className="flex flex-col gap-3">
+                    <div className="flex items-start gap-1.5 rounded-lg border border-outline-variant/30 bg-surface-container px-3 py-2 text-xs text-on-surface-variant">
+                      <Info size={12} className="mt-0.5 shrink-0 text-tertiary" />
+                      <span>Audio is a reference guide only — it will not sound exactly like a real ukulele.</span>
+                    </div>
                     <button
                       type="button"
                       onClick={() => playChord(currentChord)}

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Play, Volume2 } from 'lucide-react';
+import { Play, Volume2, Info } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import type { StrummingPattern } from '../../data/strumming';
 
@@ -73,7 +73,12 @@ export const PatternCard = ({ pattern, isActive, onSelect, onPlay, isPlaying }: 
       </div>
 
       {/* Play button and tempo slider — separate from the select area to avoid double-firing */}
-      <div className="px-5 pb-5 sm:px-8 sm:pb-8">
+      <div className="pb-5 sm:px-8 sm:pb-8">
+        <div className="flex items-start gap-1.5 rounded-lg border border-outline-variant/30 bg-surface-container px-3 py-2 text-xs text-on-surface-variant">
+          <Info size={12} className="mt-0.5 shrink-0 text-tertiary" />
+          <span>Audio is a reference guide only — it will not sound exactly like a real ukulele.</span>
+        </div>
+
         <button
           type="button"
           onClick={(e) => {
@@ -81,7 +86,7 @@ export const PatternCard = ({ pattern, isActive, onSelect, onPlay, isPlaying }: 
             onPlay(bpm);
           }}
           className={cn(
-            'flex items-center gap-2 rounded-xl px-5 py-2.5 font-label text-xs font-bold transition-all shadow-sm active:scale-95',
+            'mt-3 flex items-center gap-2 rounded-xl px-5 py-2.5 font-label text-xs font-bold transition-all shadow-sm active:scale-95',
             isPlaying
               ? 'bg-primary/80 text-on-primary cursor-not-allowed'
               : 'bg-primary text-on-primary hover:opacity-90'
