@@ -7,9 +7,10 @@ import { UkuleleChordDiagram } from '../components/chords/ChordDiagram';
 import { ChordSheet } from '../components/songs/ChordSheet';
 import { cn } from '../lib/utils';
 
-const difficultyStyles = {
+const difficultyStyles: Record<'Beginner' | 'Intermediate' | 'Advanced', string> = {
   Beginner: 'bg-tertiary-fixed text-on-tertiary-fixed-variant',
-  Intermediate: 'bg-secondary-container text-on-secondary-container'
+  Intermediate: 'bg-secondary-container text-on-secondary-container',
+  Advanced: 'bg-primary text-on-primary'
 };
 
 type ViewMode = 'chordmap' | 'chordsheet' | 'watch';

@@ -7,9 +7,10 @@ interface SongCardProps {
   song: Song;
 }
 
-const difficultyStyles = {
+const difficultyStyles: Record<'Beginner' | 'Intermediate' | 'Advanced', string> = {
   Beginner: 'bg-tertiary-fixed text-on-tertiary-fixed-variant',
-  Intermediate: 'bg-secondary-container text-on-secondary-container'
+  Intermediate: 'bg-secondary-container text-on-secondary-container',
+  Advanced: 'bg-primary text-on-primary'
 };
 
 export const SongCard = ({ song }: SongCardProps) => {
