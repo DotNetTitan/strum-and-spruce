@@ -53,7 +53,7 @@ export const TopBar = ({ showBack = false }: TopBarProps) => {
             aria-label="Support on Ko-fi"
           >
             <Heart size={16} className="fill-current" />
-            <span className="hidden sm:inline">Support</span>
+            <span className="inline">Support</span>
           </a>
         </div>
       </div>

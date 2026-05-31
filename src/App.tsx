@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, StaticRouter } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { Analytics } from '@vercel/analytics/react';
-import { cn } from './lib/utils';
 import { 
   GrainOverlay, 
   TopBar, 
@@ -10,7 +9,6 @@ import {
   BottomNav
 } from './components/ui';
 import { 
-  Onboarding, 
   Dashboard, 
   Anatomy, 
   ChordsAndFingers,
@@ -45,7 +43,6 @@ function ScrollToTop() {
 
 function AppContent({ serverLocation }: { serverLocation?: string }) {
   const location = useLocation();
-  const isOnboarding = location.pathname === '/';
   const { warmUp } = useUkuleleAudio();
 
   React.useEffect(() => {
@@ -56,22 +53,12 @@ function AppContent({ serverLocation }: { serverLocation?: string }) {
 
   return (
     <div className="relative min-h-screen flex flex-col">
-      {!isOnboarding && <TopBar showBack={location.pathname.includes('/lessons/')} />}
+      <TopBar showBack={location.pathname.includes('/lessons/')} />
 
-      <div
-        className={cn(
-          isOnboarding ? "flex-1" : "flex flex-1 min-h-0 min-w-0 pt-[calc(4rem+env(safe-area-inset-top,0px))]"
-        )}
-      >
-        {!isOnboarding && <Sidebar />}
+      <div className="flex flex-1 min-h-0 min-w-0 pt-[calc(4rem+env(safe-area-inset-top,0px))]">
+        <Sidebar />
 
-        <main
-          className={cn(
-            "relative flex-1 min-w-0",
-            !isOnboarding &&
-              "overflow-x-hidden pb-[max(6.5rem,calc(5rem+env(safe-area-inset-bottom,0px)))] md:pb-0"
-          )}
-        >
+        <main className="relative flex-1 min-w-0 overflow-x-hidden pb-[max(6.5rem,calc(5rem+env(safe-area-inset-bottom,0px)))] md:pb-0">
           <ScrollToTop />
           <AnimatePresence mode="wait">
             <motion.div
@@ -83,7 +70,7 @@ function AppContent({ serverLocation }: { serverLocation?: string }) {
               className="h-full w-full"
             >
               <Routes location={location}>
-                <Route path="/" element={<Onboarding />} />
+                <Route path="/" element={<Dashboard />} />
                 <Route path="/reference-hub" element={<Dashboard />} />
                 <Route path="/lessons" element={<Dashboard />} />
                 <Route path="/lessons/anatomy" element={<Anatomy />} />
@@ -98,7 +85,7 @@ function AppContent({ serverLocation }: { serverLocation?: string }) {
         </main>
       </div>
 
-      {!isOnboarding && <BottomNav />}
+      <BottomNav />
       <GrainOverlay />
     </div>
   );

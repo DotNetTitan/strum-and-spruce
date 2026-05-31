@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Ruler, Hand, Music, Library } from 'lucide-react';
+import { LayoutDashboard, Ruler, Hand, Music, Library, Heart } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
 const NAV_ITEMS = [
@@ -15,8 +15,8 @@ export const Sidebar = () => {
 
   return (
     <aside className="hidden md:flex flex-col h-[calc(100vh-4rem-env(safe-area-inset-top,0px))] sticky top-[calc(4rem+env(safe-area-inset-top,0px))] w-64 shrink-0 bg-background border-r border-outline-variant/10 overflow-y-auto no-scrollbar">
-      <div className="p-6">
-        <nav className="space-y-1">
+      <div className="p-6 flex flex-col h-full">
+        <nav className="space-y-1 flex-1">
           {NAV_ITEMS.map((item) => {
             const isActive = location.pathname === item.path;
             return (
@@ -36,6 +36,15 @@ export const Sidebar = () => {
             );
           })}
         </nav>
+        <a
+          href="https://ko-fi.com/strumandspruce"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-3 px-4 py-3 rounded-r-full text-outline hover:bg-surface-container-low transition-all duration-300 group"
+        >
+          <Heart size={20} className="text-outline group-hover:text-[#FF5E5B] transition-colors" />
+          <span className="font-headline text-sm group-hover:text-[#FF5E5B] transition-colors">Support on Ko-fi</span>
+        </a>
       </div>
     </aside>
   );

@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
-import { Ruler, Hand, Music, Library, Play } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
+import { Ruler, Hand, Music, Library, Play, Coffee } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 const GUIDES = [
@@ -43,12 +43,25 @@ const GUIDES = [
 ];
 
 export const Dashboard = () => {
+  const location = useLocation();
+  const isRoot = location.pathname === '/';
+
   return (
     <>
       <Helmet>
-        <title>Reference Hub | Strum & Spruce</title>
-        <meta name="description" content="Your ukulele quick reference guide. Access lessons on instrument anatomy, chords, strumming patterns, and songs." />
-        <link rel="canonical" href="https://strumandspruce.com/reference-hub" />
+        {isRoot ? (
+          <>
+            <title>Strum & Spruce | Learn Ukulele Online</title>
+            <meta name="description" content="Learn ukulele the easy way, even if you're a complete beginner. Explore instrument anatomy, essential chords, strumming patterns, and a song library, all in one place." />
+            <link rel="canonical" href="https://strumandspruce.com" />
+          </>
+        ) : (
+          <>
+            <title>Reference Hub | Strum & Spruce</title>
+            <meta name="description" content="Your ukulele quick reference guide. Access lessons on instrument anatomy, chords, strumming patterns, and songs." />
+            <link rel="canonical" href="https://strumandspruce.com/reference-hub" />
+          </>
+        )}
       </Helmet>
       <div className="flex-1 px-4 sm:px-6 md:px-12 py-8 sm:py-12 max-w-7xl mx-auto w-full min-w-0 pb-4 md:pb-0">
       <header className="mb-10 sm:mb-16">
@@ -80,6 +93,29 @@ export const Dashboard = () => {
           </Link>
         ))}
       </div>
+
+      <section className="bg-surface-container-low rounded-[40px] border border-outline-variant/30 p-8 sm:p-12 mb-24">
+        <div className="flex flex-col sm:flex-row items-center gap-8">
+          <div className="w-20 h-20 rounded-full bg-[#FF5E5B]/10 flex items-center justify-center shrink-0">
+            <Coffee size={36} className="text-[#FF5E5B]" />
+          </div>
+          <div className="text-center sm:text-left">
+            <h3 className="text-2xl font-headline font-extrabold text-primary mb-2">Enjoying the lessons?</h3>
+            <p className="text-on-surface-variant font-body leading-relaxed mb-4 max-w-lg">
+              If Strum & Spruce is helping you learn ukulele, consider buying me a coffee! Your support keeps this project growing and improving.
+            </p>
+            <a
+              href="https://ko-fi.com/strumandspruce"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#FF5E5B] text-white font-headline font-bold text-sm hover:bg-[#FF5E5B]/90 transition-colors"
+            >
+              <Coffee size={18} />
+              Buy me a coffee
+            </a>
+          </div>
+        </div>
+      </section>
       </div>
     </>
   );
