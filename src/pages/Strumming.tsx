@@ -22,7 +22,7 @@ const PLAY_CHORD = 'C';
 export const Strumming = () => {
   const [activePattern, setActivePattern] = useState(STRUMMING_PATTERNS[0]?.id ?? '');
   const [playingId, setPlayingId] = useState<string | null>(null);
-  const [expandedCategories, setExpandedCategories] = useState<Set<StrummingCategoryId>>(new Set());
+  const [expandedCategories, setExpandedCategories] = useState<Set<StrummingCategoryId>>(new Set(['beginner']));
   const { playStrum } = useUkuleleAudio();
 
   const patternsByCategory = STRUMMING_CATEGORY_ORDER.reduce<Record<StrummingCategoryId, StrummingPattern[]>>(
