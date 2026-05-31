@@ -4,6 +4,7 @@ import { cn } from '../../lib/utils';
 import type { Song } from '../../data/songs';
 
 interface SongCardProps {
+  key?: string;
   song: Song;
 }
 
