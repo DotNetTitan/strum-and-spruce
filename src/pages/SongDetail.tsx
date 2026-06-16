@@ -1,3 +1,4 @@
+import { useTranslation, Trans } from 'react-i18next';
 import { useState } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { ArrowLeft, Info, Play } from 'lucide-react';
@@ -18,6 +19,7 @@ type ViewMode = 'chordmap' | 'chordsheet' | 'watch';
 const TAB_BUTTON_STYLE = 'px-4 py-2 rounded-xl font-label text-xs font-bold uppercase tracking-wider transition-all border-2';
 
 export const SongDetail = () => {
+  const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
   const song = id ? getSongById(id) : undefined;
   const [viewMode, setViewMode] = useState<ViewMode>('chordmap');
@@ -42,7 +44,7 @@ export const SongDetail = () => {
         className="inline-flex items-center gap-2 px-4 py-2 bg-surface-container-low rounded-full text-primary font-medium font-headline text-sm mb-8 group hover:bg-surface-container transition-colors"
       >
         <ArrowLeft size={18} className="text-primary group-hover:-translate-x-1 transition-transform" />
-        Back to Song Library
+        {t('Back to Song Library')}
       </Link>
 
       <header className="mb-10 sm:mb-14 max-w-2xl w-full min-w-0">
@@ -50,7 +52,7 @@ export const SongDetail = () => {
           "inline-block px-3 py-1 rounded-full font-label text-[10px] font-bold tracking-widest uppercase mb-4",
           difficultyStyles[song.difficulty]
         )}>
-          {song.difficulty}
+          {t(song.difficulty)}
         </span>
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-headline font-extrabold text-primary tracking-tight leading-[1.1] mb-4 sm:mb-6 break-words">
           {song.title}
@@ -61,7 +63,7 @@ export const SongDetail = () => {
       </header>
 
       {showTabs && (
-        <div className="flex flex-wrap gap-2 mb-8" role="group" aria-label="View mode">
+        <div className="flex flex-wrap gap-2 mb-8" role="group" aria-label={t('View mode')}>
           <button
             type="button"
             onClick={() => setViewMode('chordmap')}
@@ -70,7 +72,7 @@ export const SongDetail = () => {
               : 'border-transparent bg-surface-container-highest text-outline hover:border-outline-variant'
             )}
           >
-            Chord Map
+            {t('Chord Map')}
           </button>
           <button
             type="button"
@@ -80,7 +82,7 @@ export const SongDetail = () => {
               : 'border-transparent bg-surface-container-highest text-outline hover:border-outline-variant'
             )}
           >
-            Chord Sheet
+            {t('Chord Sheet')}
           </button>
           {hasYoutube && (
             <button
@@ -91,7 +93,7 @@ export const SongDetail = () => {
                 : 'border-transparent bg-surface-container-highest text-outline hover:border-outline-variant'
               )}
             >
-              Watch
+              {t('Watch')}
             </button>
           )}
         </div>
@@ -103,7 +105,7 @@ export const SongDetail = () => {
             width="100%"
             style={{ aspectRatio: '16/9', borderRadius: '12px' }}
             src={`https://www.youtube-nocookie.com/embed/${song.youtubeId}`}
-            title="Ukulele tutorial"
+            title={t('Ukulele tutorial')}
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 allowFullScreen
@@ -112,7 +114,9 @@ allowFullScreen
             <div className="flex items-start justify-center gap-2 text-xs text-on-surface-variant font-body text-center leading-relaxed">
               <Info size={12} className="mt-0.5 shrink-0 text-tertiary" />
               <span>
-                Tutorial videos are curated from <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary hover:underline">YouTube</a>. All content belongs to respective creators.
+                <Trans i18nKey="Tutorial videos are curated from <1>YouTube</1>. All content belongs to respective creators.">
+                  Tutorial videos are curated from <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary hover:underline">YouTube</a>. All content belongs to respective creators.
+                </Trans>
               </span>
             </div>
           </div>
@@ -125,7 +129,7 @@ allowFullScreen
         <>
           <section className="mb-10 sm:mb-12">
             <h2 className="text-xl sm:text-2xl font-headline font-extrabold text-primary mb-4">
-              Chord Progression
+              {t('Chord Progression')}
             </h2>
             <div className="inline-flex items-center gap-3 sm:gap-4 px-6 sm:px-8 py-4 bg-surface-container-low rounded-2xl border border-outline-variant/20">
               {song.progression.split(' → ').map((chord, index) => (
@@ -143,7 +147,7 @@ allowFullScreen
 
           <section className="mb-10 sm:mb-12">
             <h2 className="text-xl sm:text-2xl font-headline font-extrabold text-primary mb-6">
-              Chord Diagrams
+              {t('Chord Diagrams')}
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {chordDefinitions.map((chord) => (
@@ -167,10 +171,10 @@ allowFullScreen
           </div>
           <div>
             <p className="font-label text-[10px] text-outline uppercase tracking-widest font-bold group-hover:text-primary/70 transition-colors">
-              Back
+              {t('Back')}
             </p>
             <p className="font-headline font-bold text-primary text-sm">
-              Song Library
+              {t('Song Library')}
             </p>
           </div>
         </Link>

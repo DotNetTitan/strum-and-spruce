@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Hash, UserCircle, CircleDot } from 'lucide-react';
 import { STRING_NAMES, FINGER_NUMBERS } from '../../data/chords';
 import { cn } from '../../lib/utils';
@@ -10,7 +11,9 @@ export interface StringNamesProps {
   variant?: ReferenceCardVariant;
 }
 
-export const StringNames = ({ variant = 'default' }: StringNamesProps) => (
+export const StringNames = ({ variant = 'default' }: StringNamesProps) => {
+  const { t } = useTranslation();
+  return (
   <section
     className={cn(
       'w-full text-left border border-outline-variant/30 editorial-shadow shrink-0 bg-surface-container-low',
@@ -26,7 +29,7 @@ export const StringNames = ({ variant = 'default' }: StringNamesProps) => (
       )}
     >
       <Hash size={variant === 'compact' ? 18 : 22} className={cn('shrink-0', variant !== 'compact' && 'sm:h-6 sm:w-6')} />
-      String Names
+      {t('String Names')}
     </h3>
     <div className={variant === 'compact' ? 'space-y-2' : 'space-y-4'}>
       {STRING_NAMES.map((s) => (
@@ -52,19 +55,22 @@ export const StringNames = ({ variant = 'default' }: StringNamesProps) => (
               variant === 'compact' && 'text-xs leading-snug'
             )}
           >
-            {s.desc}
+            {t(s.desc)}
           </span>
         </div>
       ))}
     </div>
   </section>
 );
+};
 
 export interface FingerNumbersProps {
   variant?: ReferenceCardVariant;
 }
 
-export const FingerNumbers = ({ variant = 'default' }: FingerNumbersProps) => (
+export const FingerNumbers = ({ variant = 'default' }: FingerNumbersProps) => {
+  const { t } = useTranslation();
+  return (
   <section
     className={cn(
       'flex w-full flex-col border border-outline-variant/30 editorial-shadow bg-surface-container-low text-left min-h-0',
@@ -82,7 +88,7 @@ export const FingerNumbers = ({ variant = 'default' }: FingerNumbersProps) => (
       )}
     >
       <UserCircle size={variant === 'compact' ? 18 : 22} className={cn('shrink-0', variant !== 'compact' && 'sm:h-6 sm:w-6')} />
-      Finger numbers
+      {t('Finger numbers')}
     </h3>
     <div
       className={cn(
@@ -114,13 +120,14 @@ export const FingerNumbers = ({ variant = 'default' }: FingerNumbersProps) => (
               variant === 'compact' && 'text-left'
             )}
           >
-            {f.name}
+            {t(f.name)}
           </span>
         </div>
       ))}
     </div>
   </section>
-);
+  );
+};
 
 /** Visual treatment for {@link ChordInfo}: standalone card vs denser sidebar card. */
 export type ChordInfoVariant = 'default' | 'compact';
@@ -133,6 +140,7 @@ export interface ChordInfoProps {
 }
 
 export const ChordInfo = ({ variant = 'default', className }: ChordInfoProps) => {
+  const { t } = useTranslation();
   const { isLeftHanded } = useApp();
   const stringOrder = isLeftHanded ? 'A–E–C–G' : 'G–C–E–A';
 
@@ -159,7 +167,7 @@ export const ChordInfo = ({ variant = 'default', className }: ChordInfoProps) =>
         size={variant === 'default' ? 22 : 18}
         className={cn('shrink-0', variant === 'default' && 'sm:h-6 sm:w-6')}
       />
-      Reading chord diagrams
+      {t('Reading chord diagrams')}
     </h3>
     <div
       className={cn(
@@ -171,37 +179,37 @@ export const ChordInfo = ({ variant = 'default', className }: ChordInfoProps) =>
     >
       <div className="break-inside-avoid space-y-3">
         <p>
-          The numbers on the chord diagrams represent which finger to use when pressing the strings:
+          {t('The numbers on the chord diagrams represent which finger to use when pressing the strings:')}
         </p>
         <ul className="list-disc space-y-1 pl-5 text-on-surface-variant">
-          <li><span className="font-semibold text-on-surface">1</span> = Index finger</li>
-          <li><span className="font-semibold text-on-surface">2</span> = Middle finger</li>
-          <li><span className="font-semibold text-on-surface">3</span> = Ring finger</li>
-          <li><span className="font-semibold text-on-surface">4</span> = Pinky finger</li>
+          <li><span className="font-semibold text-on-surface">1</span> = {t('Index finger')}</li>
+          <li><span className="font-semibold text-on-surface">2</span> = {t('Middle finger')}</li>
+          <li><span className="font-semibold text-on-surface">3</span> = {t('Ring finger')}</li>
+          <li><span className="font-semibold text-on-surface">4</span> = {t('Pinky finger')}</li>
         </ul>
       </div>
       <div className="break-inside-avoid space-y-3">
         <p>
-          So for example, in the <span className="font-semibold text-primary">G</span> chord, you&apos;d place your index finger (1) and middle finger (2) on the second fret, then your ring finger (3) on the third fret.
+          {t("So for example, in the G chord, you'd place your index finger (1) and middle finger (2) on the second fret, then your ring finger (3) on the third fret.")}
         </p>
         <p>
-          The circles at the top (without numbers) mean that string is played open, no finger needed, just strum it freely.
-        </p>
-      </div>
-      <div className="break-inside-avoid space-y-3">
-        <p>
-          The <span className="font-semibold text-on-surface">thick horizontal line</span> at the very top of the diagram represents the nut, the small ridge where the fretboard meets the headstock. Fret 1 is the first space below it, fret 2 is the next, and so on.
-        </p>
-        <p>
-          The <span className="font-semibold text-on-surface">numbers along the left rail</span> (1, 2, 3 …) label each fret row so you always know how far up the neck to place your hand.
+          {t('The circles at the top (without numbers) mean that string is played open, no finger needed, just strum it freely.')}
         </p>
       </div>
       <div className="break-inside-avoid space-y-3">
         <p>
-          Each diagram maps directly onto your ukulele's fretboard. Strings run left to right ({stringOrder}), frets top to bottom. The thick line at the top is the <span className="font-semibold text-on-surface">nut</span>; <span className="font-semibold text-on-surface">numbers on the left</span> tell you which fret row you're on.
+          {t('The thick horizontal line at the very top of the diagram represents the nut, the small ridge where the fretboard meets the headstock. Fret 1 is the first space below it, fret 2 is the next, and so on.')}
         </p>
         <p>
-          When dots appear higher on the neck, the <span className="font-semibold text-on-surface">left rail number</span> anchors your position. That's your starting fret, not fret 1.
+          {t('The numbers along the left rail (1, 2, 3 …) label each fret row so you always know how far up the neck to place your hand.')}
+        </p>
+      </div>
+      <div className="break-inside-avoid space-y-3">
+        <p>
+          {t("Each diagram maps directly onto your ukulele's fretboard. Strings run left to right ({{stringOrder}}), frets top to bottom. The thick line at the top is the nut; numbers on the left tell you which fret row you're on.", { stringOrder })}
+        </p>
+        <p>
+          {t("When dots appear higher on the neck, the left rail number anchors your position. That's your starting fret, not fret 1.")}
         </p>
       </div>
     </div>

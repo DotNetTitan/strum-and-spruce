@@ -1,4 +1,5 @@
-﻿import { Fragment } from 'react';
+﻿import { useTranslation } from 'react-i18next';
+import { Fragment } from 'react';
 import type { ChordDefinition } from '../../data/chords';
 import {
   computeDiagramStartFret,
@@ -24,6 +25,7 @@ const REVERSED_STRING_LABELS = ['A', 'E', 'C', 'G'] as const;
  * Finger dots are non-interactive (no preview/audio).
  */
 export const UkuleleChordDiagram = ({ chord, className }: UkuleleChordDiagramProps) => {
+  const { t } = useTranslation();
   const { isLeftHanded } = useApp();
   const startFret = computeDiagramStartFret([
     ...chord.frets.filter((f) => f > 0),
@@ -57,16 +59,16 @@ export const UkuleleChordDiagram = ({ chord, className }: UkuleleChordDiagramPro
             {fret === -1 ? (
               <span
                 className="flex h-7 w-7 shrink-0 items-center justify-center font-headline text-lg font-bold leading-none text-outline"
-                title="Muted string"
-                aria-label="Muted: do not play this string"
+                title={t('Muted string')}
+                aria-label={t('Muted: do not play this string')}
               >
                 ×
               </span>
             ) : fret === 0 ? (
               <span
                 className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 border-primary/70 bg-transparent shadow-sm"
-                title="Open string"
-                aria-label="Open string: strum without fretting"
+                title={t('Open string')}
+                aria-label={t('Open string: strum without fretting')}
               />
             ) : (
               <span className="block h-7 w-7 shrink-0" aria-hidden />

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Play, Volume2, Info } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import type { StrummingPattern } from '../../data/strumming';
@@ -17,6 +18,7 @@ export interface PatternCardProps {
 }
 
 export const PatternCard = ({ pattern, isActive, onSelect, onPlay, isPlaying }: PatternCardProps) => {
+  const { t } = useTranslation();
   const [bpm, setBpm] = useState(80);
 
   return (
@@ -44,12 +46,12 @@ export const PatternCard = ({ pattern, isActive, onSelect, onPlay, isPlaying }: 
         <div className="mb-3 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div className="min-w-0 flex-1">
             <div className="mb-2 flex flex-wrap items-center gap-2">
-              <h3 className="font-headline text-xl font-bold sm:text-2xl">{pattern.name}</h3>
+              <h3 className="font-headline text-xl font-bold sm:text-2xl">{t(pattern.name)}</h3>
               <span className="rounded-full border border-outline-variant/15 bg-surface-container-highest px-3 py-1 font-label text-[10px] font-bold uppercase tracking-wider text-outline">
-                {pattern.difficulty}
+                {t(pattern.difficulty)}
               </span>
             </div>
-            <p className="font-body text-sm text-on-surface-variant sm:text-base">{pattern.desc}</p>
+            <p className="font-body text-sm text-on-surface-variant sm:text-base">{t(pattern.desc)}</p>
           </div>
         </div>
 
@@ -66,7 +68,7 @@ export const PatternCard = ({ pattern, isActive, onSelect, onPlay, isPlaying }: 
         {pattern.tips.length > 0 ? (
           <ul className="list-disc space-y-2 pl-5 font-body text-sm leading-relaxed text-on-surface-variant">
             {pattern.tips.map((tip) => (
-              <li key={tip}>{tip}</li>
+              <li key={tip}>{t(tip)}</li>
             ))}
           </ul>
         ) : null}
@@ -76,7 +78,7 @@ export const PatternCard = ({ pattern, isActive, onSelect, onPlay, isPlaying }: 
       <div className="px-5 pb-6 sm:px-8 sm:pb-8 md:px-5">
         <div className="mb-5 flex items-start gap-1.5 rounded-lg border border-outline-variant/30 bg-surface-container px-3 py-2 text-xs text-on-surface-variant">
           <Info size={12} className="mt-0.5 shrink-0 text-tertiary" />
-          <span>Play pattern audio is a reference guide only. It will not sound exactly like a real ukulele.</span>
+          <span>{t('Play pattern audio is a reference guide only. It will not sound exactly like a real ukulele.')}</span>
         </div>
 
         <button
@@ -95,12 +97,12 @@ export const PatternCard = ({ pattern, isActive, onSelect, onPlay, isPlaying }: 
           {isPlaying ? (
             <>
               <Volume2 size={14} className="shrink-0 animate-pulse" />
-              Playing...
+              {t('Playing...')}
             </>
           ) : (
             <>
               <Play size={14} className="shrink-0" />
-              Play pattern
+              {t('Play pattern')}
             </>
           )}
         </button>
@@ -119,9 +121,9 @@ export const PatternCard = ({ pattern, isActive, onSelect, onPlay, isPlaying }: 
             className="mb-2 h-1 w-full cursor-pointer appearance-none rounded-full bg-outline-variant/30 accent-primary disabled:cursor-not-allowed disabled:opacity-50"
           />
           <div className="flex justify-between font-body text-xs text-on-surface-variant">
-            <span>Slow</span>
-            <span>Medium</span>
-            <span>Fast</span>
+            <span>{t('Slow')}</span>
+            <span>{t('Medium')}</span>
+            <span>{t('Fast')}</span>
           </div>
         </div>
       </div>

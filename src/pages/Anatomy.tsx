@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet-async';
 import { useCallback, useState } from 'react';
 import { Hand } from 'lucide-react';
@@ -7,15 +8,6 @@ import { UkuleleSVG } from '../components/anatomy/UkuleleSVG';
 import { useUkuleleAudio } from '../hooks/useUkuleleAudio';
 import { ProTips } from '../components/strumming/ProTips';
 import { cn } from '../lib/utils';
-
-const ANATOMY_TIPS = [
-  { text: "Always tune before playing - even a slightly out-of-tune ukulele will make you think you're playing wrong when you're not" },
-  { text: "Use a clip-on tuner or a free tuner app; tuning by ear as a beginner is unreliable" },
-  { text: "New strings go out of tune constantly for the first week - that's normal, keep retuning" },
-  { text: "Nylon strings (standard on ukulele) feel very different from guitar strings - don't press too hard" },
-  { text: "Hold the body against your chest with your strumming arm, not just your fretting hand - beginners often let it droop" },
-  { text: "The ukulele should feel comfortable, not tense - if your hand hurts, stop and readjust" },
-];
 
 /** Open-string frequencies (G4, C4, E4, A4) mapped to SVG string index 0–3. */
 const OPEN_STRINGS = [
@@ -27,27 +19,38 @@ const OPEN_STRINGS = [
 
 interface Part {
   id: string;
-  title: string;
-  desc: string;
+  titleKey: string;
+  descKey: string;
   side: 'left' | 'right';
 }
 
 const PARTS: Part[] = [
-  { id: 'headstock', title: 'Headstock', desc: 'The top piece where strings are anchored and tuned.', side: 'left' },
-  { id: 'nut', title: 'Nut', desc: 'The grooved strip that supports the strings at the headstock.', side: 'left' },
-  { id: 'frets', title: 'Frets', desc: 'Metal strips along the neck that define different notes.', side: 'left' },
-  { id: 'strings', title: 'Strings', desc: 'Typically nylon, tuned to G-C-E-A for a standard ukulele.', side: 'left' },
-  { id: 'pegs', title: 'Tuning Pegs', desc: 'Geared mechanisms used to adjust string tension and pitch.', side: 'right' },
-  { id: 'neck', title: 'Neck & Fretboard', desc: 'The long part of the instrument where you press your fingers.', side: 'right' },
-  { id: 'body', title: 'Body', desc: 'The hollow chamber that amplifies the vibrating strings.', side: 'right' },
-  { id: 'bridge', title: 'Bridge', desc: 'Transfers string vibration to the top of the body\'s wood.', side: 'right' },
+  { id: 'headstock', titleKey: 'Headstock', descKey: 'The top piece where strings are anchored and tuned.', side: 'left' },
+  { id: 'nut', titleKey: 'Nut', descKey: 'The grooved strip that supports the strings at the headstock.', side: 'left' },
+  { id: 'frets', titleKey: 'Frets', descKey: 'Metal strips along the neck that define different notes.', side: 'left' },
+  { id: 'strings', titleKey: 'Strings', descKey: 'Typically nylon, tuned to G-C-E-A for a standard ukulele.', side: 'left' },
+  { id: 'pegs', titleKey: 'Tuning Pegs', descKey: 'Geared mechanisms used to adjust string tension and pitch.', side: 'right' },
+  { id: 'neck', titleKey: 'Neck & Fretboard', descKey: 'The long part of the instrument where you press your fingers.', side: 'right' },
+  { id: 'body', titleKey: 'Body', descKey: 'The hollow chamber that amplifies the vibrating strings.', side: 'right' },
+  { id: 'bridge', titleKey: 'Bridge', descKey: "Transfers string vibration to the top of the body's wood.", side: 'right' },
+];
+
+const getAnatomyTips = (t: (key: string) => string) => [
+  { text: t("Always tune before playing - even a slightly out-of-tune ukulele will make you think you're playing wrong when you're not.") },
+  { text: t("Use a clip-on tuner or a free tuner app; tuning by ear as a beginner is unreliable.") },
+  { text: t("New strings go out of tune constantly for the first week - that's normal, keep retuning.") },
+  { text: t("Nylon strings (standard on ukulele) feel very different from guitar strings - don't press too hard.") },
+  { text: t("Hold the body against your chest with your strumming arm, not just your fretting hand - beginners often let it droop.") },
+  { text: t("The ukulele should feel comfortable, not tense - if your hand hurts, stop and readjust.") },
 ];
 
 export const Anatomy = () => {
+  const { t } = useTranslation();
   const [selectedPart, setSelectedPart] = useState<string | null>(null);
   const [vibratingString, setVibratingString] = useState<number | null>(null);
   const { playNote } = useUkuleleAudio();
 
+  const anatomyTips = getAnatomyTips(t);
   const partsLeft = PARTS.filter((p) => p.side === 'left');
   const partsRight = PARTS.filter((p) => p.side === 'right');
 
@@ -60,17 +63,17 @@ export const Anatomy = () => {
   return (
     <>
       <Helmet>
-        <title>Ukulele Anatomy Guide | Strum & Spruce</title>
-        <meta name="description" content="Learn every part of your ukulele from headstock to bridge. A complete beginner anatomy guide." />
+        <title>{t('Ukulele Anatomy Guide | Strum & Spruce')}</title>
+        <meta name="description" content={t('Learn every part of your ukulele from headstock to bridge. A complete beginner anatomy guide.')} />
         <link rel="canonical" href="https://strumandspruce.com/lessons/anatomy" />
       </Helmet>
       <div className="flex-1 px-4 md:px-12 py-8 sm:py-12 max-w-7xl mx-auto w-full min-w-0 pb-4 md:pb-0">
       <LessonHeader 
-        moduleLabel="Module 01: The Basics"
+        moduleLabel={t('Module 01: The Basics')}
         moduleVariant="basics"
-        title="Instrument"
-        subtitle="Anatomy"
-        description="Before we strum our first chord, let's understand the resonance of each part. Click the labels below to explore how wood and string create the ukulele's signature warmth."
+        title={t('Instrument')}
+        subtitle={t('Anatomy')}
+        description={t("Before we strum our first chord, let's understand the resonance of each part. Click the labels below to explore how wood and string create the ukulele's signature warmth.")}
         accentColor="text-tertiary"
       />
 
@@ -88,8 +91,8 @@ export const Anatomy = () => {
               <h4 className={cn(
                 "font-headline font-bold text-lg transition-colors",
                 selectedPart === item.id ? "text-tertiary" : "text-primary group-hover:text-tertiary"
-              )}>{item.title}</h4>
-              <p className="text-sm font-body text-outline mt-1 opacity-80 leading-snug">{item.desc}</p>
+              )}>{t(item.titleKey)}</h4>
+              <p className="text-sm font-body text-outline mt-1 opacity-80 leading-snug">{t(item.descKey)}</p>
 
               {item.id === 'strings' && selectedPart === 'strings' && (
                 <div
@@ -106,7 +109,7 @@ export const Anatomy = () => {
                           ? "bg-amber-300 border-amber-400 text-amber-900 scale-110 shadow-md"
                           : "bg-surface-container border-tertiary/40 text-tertiary hover:bg-tertiary/10 hover:scale-105"
                       )}
-                      aria-label={`Play ${label} string`}
+                      aria-label={t('Play {{label}} string', { label })}
                     >
                       {label}
                     </button>
@@ -140,8 +143,8 @@ export const Anatomy = () => {
               <h4 className={cn(
                 "font-headline font-bold text-lg transition-colors",
                 selectedPart === item.id ? "text-tertiary" : "text-primary group-hover:text-tertiary"
-              )}>{item.title}</h4>
-              <p className="text-sm font-body text-outline mt-1 opacity-80 leading-snug">{item.desc}</p>
+              )}>{t(item.titleKey)}</h4>
+              <p className="text-sm font-body text-outline mt-1 opacity-80 leading-snug">{t(item.descKey)}</p>
               <div className={cn(
                 "h-0.5 mr-auto mt-3 transition-all duration-500",
                 selectedPart === item.id ? "w-full bg-tertiary" : "w-8 bg-surface-container-highest group-hover:w-full group-hover:bg-tertiary"
@@ -152,14 +155,14 @@ export const Anatomy = () => {
       </section>
 
       <section className="mt-16 max-w-sm mx-auto lg:max-w-none lg:mt-24">
-        <ProTips tips={ANATOMY_TIPS} />
+        <ProTips tips={anatomyTips} />
       </section>
 
       <LessonFooter
         backPath="/reference-hub"
-        backLabel="Reference Hub"
+        backLabel={t('Reference Hub')}
         nextPath="/lessons/chords"
-        nextLabel="Chords & Fingers"
+        nextLabel={t('Chords & Fingers')}
         nextIcon={Hand}
       />
     </div>

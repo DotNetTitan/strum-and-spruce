@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Play } from 'lucide-react';
 import { cn } from '../../lib/utils';
@@ -15,6 +16,7 @@ const difficultyStyles: Record<'Beginner' | 'Intermediate' | 'Advanced', string>
 };
 
 export const SongCard = ({ song }: SongCardProps) => {
+  const { t } = useTranslation();
   return (
     <Link
       to={`/lessons/songs/${song.id}`}
@@ -24,7 +26,7 @@ export const SongCard = ({ song }: SongCardProps) => {
         "inline-block w-fit px-3 py-1 rounded-full font-label text-[10px] font-bold tracking-widest uppercase mb-4",
         difficultyStyles[song.difficulty]
       )}>
-        {song.difficulty}
+        {t(song.difficulty)}
       </span>
 
       <h3 className="text-xl sm:text-2xl font-headline font-extrabold text-primary mb-1 group-hover:text-tertiary transition-colors">
@@ -47,7 +49,7 @@ export const SongCard = ({ song }: SongCardProps) => {
       </div>
 
       <div className="flex items-center gap-2 text-tertiary font-headline font-bold text-sm">
-        Explore Song
+        {t('Explore Song')}
         <Play size={14} className="group-hover:translate-x-1 transition-transform" />
       </div>
     </Link>

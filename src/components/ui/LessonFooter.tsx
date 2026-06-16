@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { LucideIcon } from 'lucide-react';
@@ -16,7 +17,9 @@ export const LessonFooter = ({
   nextPath,
   nextLabel,
   nextIcon: NextIcon = ArrowLeft
-}: LessonFooterProps) => (
+}: LessonFooterProps) => {
+  const { t } = useTranslation();
+  return (
   <footer className="mt-12 sm:mt-20 flex flex-col md:flex-row justify-between items-stretch md:items-center gap-6 md:gap-8 py-8 sm:py-12 border-t-2 border-surface-container-highest w-full min-w-0">
     <Link
       to={backPath}
@@ -27,7 +30,7 @@ export const LessonFooter = ({
       </div>
       <div>
         <p className="font-label text-[10px] text-outline uppercase tracking-widest font-bold group-hover:text-primary/70 transition-colors">
-          Previous
+          {t('Previous')}
         </p>
         <p className="font-headline font-bold text-primary text-sm">
           {backLabel}
@@ -46,3 +49,4 @@ export const LessonFooter = ({
     )}
   </footer>
 );
+};

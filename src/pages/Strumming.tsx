@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet-async';
 import { Fragment, useCallback, useState } from 'react';
 import { ChevronDown, Library } from 'lucide-react';
@@ -20,6 +21,7 @@ import { estimateStrumDurationMs } from '../lib/strummingNotation';
 const PLAY_CHORD = 'C';
 
 export const Strumming = () => {
+  const { t } = useTranslation();
   const [activePattern, setActivePattern] = useState(STRUMMING_PATTERNS[0]?.id ?? '');
   const [playingId, setPlayingId] = useState<string | null>(null);
   const [expandedCategories, setExpandedCategories] = useState<Set<StrummingCategoryId>>(new Set(['beginner']));
@@ -53,20 +55,22 @@ export const Strumming = () => {
     setTimeout(() => setPlayingId(null), duration);
   }, [playingId, playStrum]);
 
+  const translatedProTips = PRO_TIPS.map(tip => ({ text: t(tip.text) }));
+
   return (
     <>
       <Helmet>
-        <title>Ukulele Strumming Patterns | Strum & Spruce</title>
-        <meta name="description" content="Master rhythmic strumming patterns that bring your ukulele music to life." />
+        <title>{t('Ukulele Strumming Patterns | Strum & Spruce')}</title>
+        <meta name="description" content={t('Master rhythmic strumming patterns that bring your ukulele music to life.')} />
         <link rel="canonical" href="https://strumandspruce.com/lessons/strumming" />
       </Helmet>
       <div className="pt-20 sm:pt-24 pb-6 md:pb-24 px-4 md:px-8 max-w-7xl mx-auto w-full min-w-0">
       <LessonHeader
-        moduleLabel="Module 03: Rhythm"
+        moduleLabel={t('Module 03: Rhythm')}
         moduleVariant="rhythm"
-        title="Strumming"
-        subtitle="Patterns"
-        description="Rhythm is the heartbeat of the ukulele. Master these patterns to bring your chords to life."
+        title={t('Strumming')}
+        subtitle={t('Patterns')}
+        description={t('Rhythm is the heartbeat of the ukulele. Master these patterns to bring your chords to life.')}
         accentColor="text-tertiary"
         stacked={true}
       />
@@ -74,16 +78,16 @@ export const Strumming = () => {
       {/* Notation legend, explains D / U / X before users see any pattern */}
       <div className="mb-10 flex flex-wrap gap-3 rounded-2xl border border-outline-variant/20 bg-surface-container-low px-5 py-4">
         {[
-          { symbol: 'D', label: 'Downstroke', desc: 'brush strings toward the floor' },
-          { symbol: 'U', label: 'Upstroke', desc: 'brush strings toward the ceiling' },
-          { symbol: 'X', label: 'Muted chuck', desc: 'damp strings, strum for a percussive click' },
-        ].map(({ symbol, label, desc }) => (
+          { symbol: 'D', labelKey: 'Downstroke', descKey: 'brush strings toward the floor' },
+          { symbol: 'U', labelKey: 'Upstroke', descKey: 'brush strings toward the ceiling' },
+          { symbol: 'X', labelKey: 'Muted chuck', descKey: 'damp strings, strum for a percussive click' },
+        ].map(({ symbol, labelKey, descKey }) => (
           <div key={symbol} className="flex items-center gap-3 min-w-0">
             <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 font-mono text-sm font-bold text-primary">
               {symbol}
             </span>
             <span className="font-body text-sm text-on-surface-variant">
-              <span className="font-semibold text-on-surface">{label}</span>, {desc}
+              <span className="font-semibold text-on-surface">{t(labelKey)}</span>, {t(descKey)}
             </span>
           </div>
         ))}
@@ -101,10 +105,10 @@ export const Strumming = () => {
                 >
                   <div className="text-left">
                     <h2 className="font-headline text-2xl sm:text-3xl font-bold text-primary">
-                      {STRUMMING_CATEGORY_LABELS[category]}
+                      {t(STRUMMING_CATEGORY_LABELS[category])}
                     </h2>
                     <p className="mt-1 font-body text-sm text-on-surface-variant">
-                      {STRUMMING_CATEGORY_SUBTITLES[category]}
+                      {t(STRUMMING_CATEGORY_SUBTITLES[category])}
                     </p>
                   </div>
                   <ChevronDown
@@ -136,14 +140,14 @@ export const Strumming = () => {
         </div>
 
         <div className="lg:col-span-4">
-          <ProTips tips={PRO_TIPS} />
+          <ProTips tips={translatedProTips} />
         </div>
       </div>
       <LessonFooter
         backPath="/lessons/chords"
-        backLabel="Chords & Fingers"
+        backLabel={t('Chords & Fingers')}
         nextPath="/lessons/songs"
-        nextLabel="Song Library"
+        nextLabel={t('Song Library')}
         nextIcon={Library}
       />
     </div>

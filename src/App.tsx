@@ -1,4 +1,6 @@
 import React from 'react';
+import { I18nextProvider } from 'react-i18next';
+import i18n from './i18n/config.ts';
 import { BrowserRouter as Router, Routes, Route, useLocation, StaticRouter } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { Analytics } from '@vercel/analytics/react';
@@ -93,11 +95,13 @@ function AppContent({ serverLocation }: { serverLocation?: string }) {
 
 export default function App({ serverLocation }: { serverLocation?: string }) {
   return (
+    <I18nextProvider i18n={i18n}>
     <AppProvider>
       <AppRouter location={serverLocation}>
         <AppContent serverLocation={serverLocation} />
       </AppRouter>
       <Analytics />
     </AppProvider>
+    </I18nextProvider>
   );
 }

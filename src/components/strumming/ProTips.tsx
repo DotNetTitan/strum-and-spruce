@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Info } from 'lucide-react';
 
 interface ProTip {
@@ -8,9 +9,11 @@ interface ProTipsProps {
   tips: ProTip[];
 }
 
-export const ProTips = ({ tips }: ProTipsProps) => (
+export const ProTips = ({ tips }: ProTipsProps) => {
+  const { t } = useTranslation();
+  return (
   <div className="bg-surface-container p-6 sm:p-8 rounded-3xl lg:sticky lg:top-24">
-    <h4 className="font-headline text-xl font-bold mb-6">Pro Tips</h4>
+    <h4 className="font-headline text-xl font-bold mb-6">{t('Pro Tips')}</h4>
     <div className="space-y-6">
       {tips.map((tip, i) => (
         <div key={i} className="flex gap-4">
@@ -23,3 +26,4 @@ export const ProTips = ({ tips }: ProTipsProps) => (
     </div>
   </div>
 );
+};

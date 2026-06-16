@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet-async';
 import { useMemo, useState } from 'react';
 import { Music, Volume2, Ruler, Info } from 'lucide-react';
@@ -20,6 +21,7 @@ import {
 import { useUkuleleAudio } from '../hooks/useUkuleleAudio';
 
 export const ChordsAndFingers = () => {
+  const { t } = useTranslation();
   const [currentChord, setCurrentChord] = useState('C');
   const [filterQuery, setFilterQuery] = useState('');
   const [filterCategory, setFilterCategory] = useState<ChordLibraryFilterCategory>('beginner');
@@ -46,17 +48,17 @@ export const ChordsAndFingers = () => {
   return (
     <>
       <Helmet>
-        <title>Ukulele Chord Library | Strum & Spruce</title>
-        <meta name="description" content="Visual guides for essential ukulele chords and finger placements for beginners." />
+        <title>{t('Ukulele Chord Library | Strum & Spruce')}</title>
+        <meta name="description" content={t('Visual guides for essential ukulele chords and finger placements for beginners.')} />
         <link rel="canonical" href="https://strumandspruce.com/lessons/chords" />
       </Helmet>
       <div className="pt-20 sm:pt-24 pb-6 md:pb-24 px-4 md:px-8 max-w-7xl mx-auto w-full min-w-0">
       <LessonHeader
-        moduleLabel="Module 02: Chords"
+        moduleLabel={t('Module 02: Chords')}
         moduleVariant="technique"
-        title="Chords"
-        subtitle="and fingers"
-        description="Master the fundamental finger placements and transitions that form the backbone of every great ukulele performance."
+        title={t('Chords')}
+        subtitle={t('and fingers')}
+        description={t('Master the fundamental finger placements and transitions that form the backbone of every great ukulele performance.')}
         accentColor="text-tertiary"
         stacked={true}
       />
@@ -97,13 +99,13 @@ export const ChordsAndFingers = () => {
                         {selectedChordData.label}
                       </h2>
                       <p className="max-w-prose font-body text-sm text-on-surface-variant opacity-90 sm:text-base">
-                        {selectedChordData.desc}
+                        {t(selectedChordData.desc)}
                       </p>
                     </header>
 
                     <div className="space-y-2">
                       <span className="font-label text-xs uppercase tracking-widest text-outline block font-bold">
-                        Tuning
+                        {t('Tuning')}
                       </span>
                       <div className="flex gap-2">
                         <div className="rounded-full bg-surface-container-highest px-3 py-1 text-sm font-bold text-primary">
@@ -116,7 +118,7 @@ export const ChordsAndFingers = () => {
                   <div className="flex flex-col gap-3">
                     <div className="flex items-start gap-1.5 rounded-lg border border-outline-variant/30 bg-surface-container px-3 py-2 text-xs text-on-surface-variant">
                       <Info size={12} className="mt-0.5 shrink-0 text-tertiary" />
-                      <span>Play chord audio is a reference guide only. It will not sound exactly like a real ukulele.</span>
+                      <span>{t('Play chord audio is a reference guide only. It will not sound exactly like a real ukulele.')}</span>
                     </div>
                     <button
                       type="button"
@@ -124,7 +126,7 @@ export const ChordsAndFingers = () => {
                       className="flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3 font-label text-xs font-bold text-on-primary transition-all hover:opacity-90 active:scale-95 whitespace-nowrap shadow-sm"
                     >
                       <Volume2 size={14} className="shrink-0" />
-                      Play chord
+                      {t('Play chord')}
                     </button>
                     <button
                       type="button"
@@ -133,7 +135,7 @@ export const ChordsAndFingers = () => {
                       className="flex items-center justify-center gap-2 rounded-xl border border-outline-variant/30 px-6 py-3 text-center font-label text-xs font-bold text-outline transition-all hover:border-primary hover:bg-surface-container hover:text-primary whitespace-nowrap disabled:pointer-events-none disabled:opacity-40"
                     >
                       <Music size={14} className="shrink-0" />
-                      Switch to next chord
+                      {t('Switch to next chord')}
                     </button>
                   </div>
                 </div>
@@ -151,9 +153,9 @@ export const ChordsAndFingers = () => {
 
       <LessonFooter
         backPath="/lessons/anatomy"
-        backLabel="Anatomy Guide"
+        backLabel={t('Anatomy Guide')}
         nextPath="/lessons/strumming"
-        nextLabel="Master Strumming Patterns"
+        nextLabel={t('Master Strumming Patterns')}
         nextIcon={Music}
       />
     </div>

@@ -1,17 +1,19 @@
+import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 import { Home, Ruler, Hand, Music, Library } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
-const NAV_ITEMS = [
-  { icon: Home, label: 'Home', path: '/reference-hub' },
-  { icon: Ruler, label: 'Anatomy', path: '/lessons/anatomy' },
-  { icon: Hand, label: 'Chords', path: '/lessons/chords' },
-  { icon: Music, label: 'Strum', path: '/lessons/strumming' },
-  { icon: Library, label: 'Songs', path: '/lessons/songs' },
-];
-
 export const BottomNav = () => {
+  const { t } = useTranslation();
   const location = useLocation();
+
+  const NAV_ITEMS = [
+    { icon: Home, label: t('Home'), path: '/reference-hub' },
+    { icon: Ruler, label: t('Anatomy'), path: '/lessons/anatomy' },
+    { icon: Hand, label: t('Chords'), path: '/lessons/chords' },
+    { icon: Music, label: t('Strum'), path: '/lessons/strumming' },
+    { icon: Library, label: t('Songs'), path: '/lessons/songs' },
+  ];
 
   return (
     <nav className="md:hidden fixed bottom-0 left-0 w-full h-20 bg-background/80 backdrop-blur-2xl flex justify-around items-center px-4 pb-safe z-50 border-t border-outline-variant/10">
@@ -19,7 +21,7 @@ export const BottomNav = () => {
         const isActive = location.pathname === item.path;
         return (
           <Link
-            key={item.label}
+            key={item.path}
             to={item.path}
             className={cn(
               "flex flex-1 flex-col items-center justify-center h-14 transition-transform active:scale-90",
