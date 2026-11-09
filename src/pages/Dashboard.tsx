@@ -107,7 +107,7 @@ export const Dashboard = () => {
               {t('If Strum & Spruce is helping you learn ukulele, consider buying me a coffee! Your support keeps this project growing and improving.')}
             </p>
             <a
-              href="https://ko-fi.com/strumandspruce"
+              href="https://buymeacoffee.com/dotnettitan"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#FF5E5B] text-white font-headline font-bold text-sm hover:bg-[#FF5E5B]/90 transition-colors"

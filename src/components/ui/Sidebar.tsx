@@ -39,13 +39,13 @@ export const Sidebar = () => {
           })}
         </nav>
         <a
-          href="https://ko-fi.com/strumandspruce"
+          href="https://buymeacoffee.com/dotnettitan"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-3 px-4 py-3 rounded-r-full text-outline hover:bg-surface-container-low transition-all duration-300 group"
         >
           <Heart size={20} className="text-outline group-hover:text-[#FF5E5B] transition-colors" />
-          <span className="font-headline text-sm group-hover:text-[#FF5E5B] transition-colors">{t('Support on Ko-fi')}</span>
+          <span className="font-headline text-sm group-hover:text-[#FF5E5B] transition-colors">{t('Buy me a coffee')}</span>
         </a>
       </div>
     </aside>
